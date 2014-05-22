@@ -9,7 +9,7 @@
 // No direct access
 defined('_JEXEC') or die;
 
-include_once JPATH_LIBRARIES . '/windwalker/src.init.php';
+include_once __DIR__ . '/src/init.php';
 
 /**
  * Ezset System Plugin
@@ -28,6 +28,13 @@ class PlgSystemEzset extends JPlugin
 	public static $self = null;
 
 	/**
+	 * Property data.
+	 *
+	 * @var \Windwalker\Data\Data
+	 */
+	public $data = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @param  object  $subject The object to observe
@@ -39,6 +46,8 @@ class PlgSystemEzset extends JPlugin
 
 		$this->loadLanguage();
 		$this->app = JFactory::getApplication();
+
+		$this->data = new \Windwalker\Data\Data;
 
 		self::$self = $this;
 	}
@@ -63,16 +72,16 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterInitialise()
 	{
-		$this->call('doCmd');
+		$this->call(array('System\\Command', 'execute'));
 
 		if ($this->params->get('tranAlias', 1))
 		{
-			$this->call('article.tranAlias', $this);
+			$this->call(array('Article\\Translate', 'translateAlias'), $this);
 		}
 
 		if ($this->params->get('languageOrphan', 0))
 		{
-			$this->call('system.languageOrphan');
+			// $this->call('system.languageOrphan');
 		}
 
 		@include $this->includeEvent(__FUNCTION__);
@@ -94,11 +103,11 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterDispatch()
 	{
-		$this->call('system.secure');
+		// $this->call('system.secure');
 
-		$this->call('seo.setDocument', $this);
+		$this->call(array('Seo\\Document', 'register'), $this);
 
-		$this->call('includes.setScript');
+		// $this->call('includes.setScript');
 
 		@include $this->includeEvent(__FUNCTION__);
 	}
@@ -110,12 +119,12 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterRender()
 	{
-		$this->call('includes.insertHeader');
-		$this->call('includes.setStyle');
+		// $this->call('includes.insertHeader');
+		// $this->call('includes.setStyle');
 
 		if ($this->params->get('cacheManagerEnabled', 0) && $this->app->isSite())
 		{
-			$this->call('system.cacheManager');
+			// $this->call('system.cacheManager');
 		}
 
 		@include $this->includeEvent(__FUNCTION__);
@@ -137,28 +146,27 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onContentPrepare($context, $article, $params, $page = 0)
 	{
-		// getMeta
-		//if( $this->params->get( 'getMeta' , 1 ) )
-		$this->call('seo.setContentMeta', $article, $this);
+		// Get Meta
+		$this->call(array('Seo\\ContentSeo', 'setMeta'), $article, $this);
 
 		// OpenGraph
 		if ($this->params->get('openGraph', 1))
 		{
-			$this->call('seo.setOpenGraph', $context, $article, $this);
+			$this->call(array('Seo\\OpenGraph', 'setOpenGraph'), $context, $article, $this);
 		}
 
 		// Auto Thumb
 		if ($this->params->get('autoThumbnail', 1))
 		{
-			$this->call('article.autoThumbnail', $context, $article, $params);
+			// $this->call('article.autoThumbnail', $context, $article, $params);
 		}
 
 		// Input Code
-		$this->call('article.inputCode', $article, $this);
+		$this->call(array('Article\\CodeIncluding', 'include'), $article, $this);
 
 		// Custom Code
-		$this->call('article.customCode', 'insertArticleTop', true, $article);
-		$this->call('article.customCode', 'insertContentTop', true, $article);
+		// $this->call('article.customCode', 'insertArticleTop', true, $article);
+		// $this->call('article.customCode', 'insertContentTop', true, $article);
 
 		@include $this->includeEvent(__FUNCTION__);
 	}
@@ -176,7 +184,10 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onContentAfterTitle($context, $article, $params, $page = 0)
 	{
-		$result = $this->call('article.customCode', 'insertTitleBottom');
+		$result = null;
+
+		// $result = $this->call('article.customCode', 'insertTitleBottom');
+
 		@include $this->includeEvent(__FUNCTION__);
 
 		return $result;
@@ -200,7 +211,7 @@ class PlgSystemEzset extends JPlugin
 		// Blog View Clearly
 		if ($this->params->get('blogViewClearly', 1))
 		{
-			$this->call('article.blogViewClearly', $context, $article, $params);
+			// $this->call('article.blogViewClearly', $context, $article, $params);
 		}
 
 		@include $this->includeEvent(__FUNCTION__);
@@ -226,13 +237,13 @@ class PlgSystemEzset extends JPlugin
 		// Custom Code
 		if (JRequest::getVar('view') == 'article')
 		{
-			$result = $this->call('article.customCode', 'insertContentBottom');
+			// $result = $this->call('article.customCode', 'insertContentBottom');
 		}
 
 		// FB Like
 		if ($this->params->get('fbLike'))
 		{
-			$this->call('article.addFbLikeButton', $context, $article);
+			// $this->call('article.addFbLikeButton', $context, $article);
 		}
 
 		@include $this->includeEvent(__FUNCTION__);
@@ -261,7 +272,7 @@ class PlgSystemEzset extends JPlugin
 		{
 			if ($this->params->get('tidyRepair', 1))
 			{
-				$this->call('article.tidyRepair', $article, $this);
+				// $this->call('article.tidyRepair', $article, $this);
 			}
 		}
 
@@ -284,11 +295,6 @@ class PlgSystemEzset extends JPlugin
 	public function onContentAfterSave($context, $article, $isNew)
 	{
 		$result = array();
-
-		if ($this->params->get('getImages', 1))
-		{
-			$this->call('article.saveImages', $context, $article);
-		}
 
 		@include $this->includeEvent(__FUNCTION__);
 
@@ -534,34 +540,44 @@ class PlgSystemEzset extends JPlugin
 	}
 
 	/**
-	 * Call a method or function.
+	 * call
 	 *
-	 * @param string $uri The method path.
+	 * @param   callable $callable
 	 *
-	 * @return  mixed
+	 * @return  mixed|null
+	 *
+	 * @throws  InvalidArgumentException
 	 */
-	public function call($uri)
+	public function call($callable)
 	{
-		$mainLib = __DIR__ . '/src';
+		if (! is_array($callable))
+		{
+			$callable = explode('::', $callable);
+		}
 
-		$customLib = JPATH_ROOT . '/ezset/src';
-	}
-}
+		if (count($callable) < 2)
+		{
+			throw new \InvalidArgumentException(implode('::', $callable) . ' is not callable.');
+		}
 
-/**
- * Class Ezset
- *
- * @since 1.0
- */
-class Ezset
-{
-	/**
-	 * Get Easyset Instance.
-	 *
-	 * @return PlgSystemEzset
-	 */
-	public static function getInstance()
-	{
-		return PlgSystemEzset::getInstance();
+		$class = \Windwalker\String\StringNormalise::toClassNamespace($callable[0]);
+
+		$classname = '\\MyEzset\\' . trim($class, '\\');
+
+		if (!is_callable(array($classname, $callable[1])))
+		{
+			$classname = '\\Ezset\\' . trim($class, '\\');
+		}
+
+		if (!is_callable(array($classname, $callable[1])))
+		{
+			return null;
+		}
+
+		$args = func_get_args();
+
+		array_shift($args);
+
+		return call_user_func_array(array($classname, $callable[1]), $args);
 	}
 }
