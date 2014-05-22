@@ -81,7 +81,7 @@ class PlgSystemEzset extends JPlugin
 
 		if ($this->params->get('languageOrphan', 0))
 		{
-			// $this->call('system.languageOrphan');
+			$this->call(array('System\\Language', 'orphan'));
 		}
 
 		@include $this->includeEvent(__FUNCTION__);
@@ -103,11 +103,11 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterDispatch()
 	{
-		// $this->call('system.secure');
+		$this->call(array('System\\Secure', 'adminBlock'));
 
 		$this->call(array('Seo\\Document', 'register'), $this);
 
-		// $this->call('includes.setScript');
+		$this->call(array('Asset\\Script', 'register'));
 
 		@include $this->includeEvent(__FUNCTION__);
 	}
@@ -120,7 +120,7 @@ class PlgSystemEzset extends JPlugin
 	public function onAfterRender()
 	{
 		// $this->call('includes.insertHeader');
-		// $this->call('includes.setStyle');
+		$this->call(array('Asset\\Style', 'register'));
 
 		if ($this->params->get('cacheManagerEnabled', 0) && $this->app->isSite())
 		{
