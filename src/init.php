@@ -15,3 +15,8 @@ define('EZSET_ROOT', realpath(__DIR__ . '/..'));
 \JLoader::registerNamespace('Ezset', EZSET_ROOT . '/src');
 
 include_once __DIR__ . '/bc.php';
+
+// if (JDEBUG)
+{
+	\Windwalker\Debugger\Debugger::registerWhoops();
+}

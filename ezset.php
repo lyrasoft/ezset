@@ -119,12 +119,12 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterRender()
 	{
-		// $this->call('includes.insertHeader');
+		$this->call(array('Article\\CodeInsert', 'insertHeader'));
 		$this->call(array('Asset\\Style', 'register'));
 
 		if ($this->params->get('cacheManagerEnabled', 0) && $this->app->isSite())
 		{
-			// $this->call('system.cacheManager');
+			$this->call(array('System\\Cache', 'manage'));
 		}
 
 		@include $this->includeEvent(__FUNCTION__);
@@ -158,15 +158,15 @@ class PlgSystemEzset extends JPlugin
 		// Auto Thumb
 		if ($this->params->get('autoThumbnail', 1))
 		{
-			// $this->call('article.autoThumbnail', $context, $article, $params);
+			$this->call(array('Article\\Thumb', 'autoThumb'), $context, $article, $params);
 		}
 
 		// Input Code
-		$this->call(array('Article\\CodeIncluding', 'include'), $article, $this);
+		$this->call(array('Article\\CodeInsert', 'insertContent'), $article, $this);
 
 		// Custom Code
-		// $this->call('article.customCode', 'insertArticleTop', true, $article);
-		// $this->call('article.customCode', 'insertContentTop', true, $article);
+		$this->call(array('Article\\CodeInsert', 'customCode'), 'insertArticleTop', true, $article);
+		$this->call(array('Article\\CodeInsert', 'customCode'), 'insertContentTop', true, $article);
 
 		@include $this->includeEvent(__FUNCTION__);
 	}
@@ -186,7 +186,7 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = null;
 
-		// $result = $this->call('article.customCode', 'insertTitleBottom');
+		$result = $this->call(array('Article\\CodeInsert', 'customCode'), 'insertTitleBottom');
 
 		@include $this->includeEvent(__FUNCTION__);
 
@@ -211,7 +211,7 @@ class PlgSystemEzset extends JPlugin
 		// Blog View Clearly
 		if ($this->params->get('blogViewClearly', 1))
 		{
-			// $this->call('article.blogViewClearly', $context, $article, $params);
+			$this->call(array('Article\\Blog', 'clearView'), $context, $article, $params);
 		}
 
 		@include $this->includeEvent(__FUNCTION__);
@@ -234,16 +234,18 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = null;
 
+		$input = \JFactory::getApplication();
+
 		// Custom Code
-		if (JRequest::getVar('view') == 'article')
+		if ($input->get('view') == 'article')
 		{
-			// $result = $this->call('article.customCode', 'insertContentBottom');
+			$result = $this->call(array('Article\\CodeInsert', 'customCode'), 'insertContentBottom');
 		}
 
 		// FB Like
 		if ($this->params->get('fbLike'))
 		{
-			// $this->call('article.addFbLikeButton', $context, $article);
+			$this->call(array('Article\\Facebook', 'likeButton'), $context, $article);
 		}
 
 		@include $this->includeEvent(__FUNCTION__);
@@ -272,7 +274,7 @@ class PlgSystemEzset extends JPlugin
 		{
 			if ($this->params->get('tidyRepair', 1))
 			{
-				// $this->call('article.tidyRepair', $article, $this);
+				$this->call(array('Article\\Content', 'tidyRepair'), $article, $this);
 			}
 		}
 
@@ -508,7 +510,7 @@ class PlgSystemEzset extends JPlugin
 	/**
 	 * includeEvent
 	 *
-	 * @param $func
+	 * @param string $func
 	 *
 	 * @return  string
 	 */
