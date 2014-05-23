@@ -1,7 +1,7 @@
 <?php
 
 $db = JFactory::getDbo();
-jimport( 'joomla.filesystem.path' );
+jimport('joomla.filesystem.path');
 
 $sql = <<<SQL
 DROP TABLE IF EXISTS `#__wf_profiles`;
@@ -32,20 +32,27 @@ INSERT INTO `#__wf_profiles` (`id`, `name`, `description`, `users`, `types`, `co
 SQL;
 
 $queries = $db->splitSql($sql);
-foreach($queries as $query){
-    $db->setQuery($query);
-    $db->execute();
+
+foreach ($queries as $query)
+{
+	$db->setQuery($query);
+	$db->execute();
 }
 
 $config = JFactory::getConfig();
-$config->set('editor' , 'jce' ) ;
-$configFile = JPATH_ROOT.DS.'configuration.php' ;
+$config->set('editor', 'jce');
+$configFile = JPATH_ROOT . '/configuration.php';
 
-JPath::setPermissions( $configFile , 644 );
+JPath::setPermissions($configFile, 644);
 
-$file = $config->toString('php' , array( 'class'=>'JConfig' ));
-if(JFile::write( $configFile , $file ))
+$file = $config->toString('php', array('class' => 'JConfig'));
+
+if (JFile::write($configFile, $file))
+{
 	echo '覆蓋完成';
+}
 else
-	echo '覆蓋失敗，請檢查 SQL' ;
+{
+	echo '覆蓋失敗，請檢查 SQL';
+}
 
