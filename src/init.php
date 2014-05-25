@@ -11,7 +11,11 @@ include_once JPATH_LIBRARIES . '/windwalker/src/init.php';
 define('EZSET_FRONT', JPATH_ROOT . '/ezset');
 define('EZSET_ROOT', realpath(__DIR__ . '/..'));
 
-\JLoader::registerNamespace('MyEzset', EZSET_FRONT . '/src');
+if (is_dir(EZSET_FRONT . '/src'))
+{
+	\JLoader::registerNamespace('MyEzset', EZSET_FRONT . '/src');
+}
+
 \JLoader::registerNamespace('Ezset', EZSET_ROOT . '/src');
 
 include_once __DIR__ . '/bc.php';
