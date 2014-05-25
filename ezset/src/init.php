@@ -6,7 +6,21 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-include_once JPATH_LIBRARIES . '/windwalker/src/init.php';
+$wwInit = JPATH_LIBRARIES . '/windwalker/src/init.php';
+
+if (is_file($wwInit))
+{
+	include_once $wwInit;
+}
+else
+{
+	$app = \JFactory::getApplication();
+
+	$app->enqueueMessage('Please install Windwalker framework 2.x first to enable Ezset', 'warning');
+
+	return false;
+}
+
 
 define('EZSET_FRONT', JPATH_ROOT . '/ezset');
 define('EZSET_ROOT', realpath(__DIR__ . '/..'));
@@ -20,7 +34,4 @@ if (is_dir(EZSET_FRONT . '/src'))
 
 include_once __DIR__ . '/bc.php';
 
-// if (JDEBUG)
-{
-	\Windwalker\Debugger\Debugger::registerWhoops();
-}
+return true;

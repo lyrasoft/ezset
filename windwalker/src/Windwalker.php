@@ -49,6 +49,11 @@ class Windwalker
 		$container->registerServiceProvider(new \Windwalker\Provider\SystemProvider);
 
 		// Register bundles
+		if (! is_dir(WINDWALKER_BUNDLE))
+		{
+			mkdir(WINDWALKER_BUNDLE);
+		}
+
 		$paths = new \Windwalker\Filesystem\Path\PathCollection(
 			array(
 				WINDWALKER . '/bundles',

@@ -27,23 +27,24 @@ class ComposerInstaller
 	public static function install(CommandEvent $event)
 	{
 		$windPath = getcwd();
+		$root = realpath($windPath . '/../..');
 
 		$io = $event->getIO();
 
 		// Create console file.
 		$io->write('Writing console file to bin.');
 
-		WindwalkerInstaller::createBinFile();
+		WindwalkerInstaller::createBinFile($root);
 
 		// Config file
 		$io->write('Prepare config file.');
 
-		WindwalkerInstaller::copyConfigFile();
+		WindwalkerInstaller::copyConfigFile($root);
 
 		// Bundles dir
 		$bundlesDir = dirname($windPath) . '/windwalker-bundles';
 
-		if (WindwalkerInstaller::createBundleDir())
+		if (WindwalkerInstaller::createBundleDir($root))
 		{
 			$io->write('Create bundle folder: ' . $bundlesDir);
 		}

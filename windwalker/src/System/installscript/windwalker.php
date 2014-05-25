@@ -57,7 +57,7 @@ if ($install_windwalker)
 
 	include_once __DIR__ . '/../Installer/WindwalkerInstaller.php';
 
-	\Windwalker\System\Installer\WindwalkerInstaller::install();
+	\Windwalker\System\Installer\WindwalkerInstaller::install(JPATH_ROOT);
 
 	// Set success table
 	$grid->addRow(array('class' => 'row' . ($i % 2)));

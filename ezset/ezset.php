@@ -9,7 +9,10 @@
 // No direct access
 defined('_JEXEC') or die;
 
-include_once __DIR__ . '/src/init.php';
+if (! include_once __DIR__ . '/src/init.php')
+{
+	return;
+}
 
 /**
  * Ezset System Plugin

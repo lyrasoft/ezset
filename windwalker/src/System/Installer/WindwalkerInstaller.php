@@ -31,40 +31,42 @@ BIN;
 	/**
 	 * createBinFile
 	 *
+	 * @param string $root
+	 *
 	 * @return  void
 	 */
-	public static function createBinFile()
+	public static function createBinFile($root)
 	{
-		$windPath = getcwd();
-
-		file_put_contents($windPath . '/../../bin/windwalker', static::$binFile);
+		file_put_contents($root . '/bin/windwalker', static::$binFile);
 	}
 
 	/**
 	 * copyConfigFile
 	 *
+	 * @param string $root
+	 *
 	 * @return  void
 	 */
-	public static function copyConfigFile()
+	public static function copyConfigFile($root)
 	{
-		$windPath = getcwd();
+		$configPath = $root . '/libraries/windwalker/config.dist.json';
 
-		if (! is_file($windPath . '/config.dist.json'))
+		if (! is_file($configPath))
 		{
-			copy($windPath . '/config.dist.json', $windPath . '/config.json');
+			copy($configPath, $root . '/libraries/windwalker/config.json');
 		}
 	}
 
 	/**
 	 * createBundleDir
 	 *
+	 * @param string $root
+	 *
 	 * @return  bool
 	 */
-	public static function createBundleDir()
+	public static function createBundleDir($root)
 	{
-		$windPath = getcwd();
-
-		$bundlesDir = dirname($windPath) . '/windwalker-bundles';
+		$bundlesDir = $root . '/libraries/windwalker-bundles';
 
 		if (! is_dir($bundlesDir))
 		{
@@ -81,15 +83,17 @@ BIN;
 	/**
 	 * install
 	 *
+	 * @param string $root
+	 *
 	 * @return  void
 	 */
-	public static function install()
+	public static function install($root)
 	{
-		static::createBinFile();
+		static::createBinFile($root);
 
-		static::copyConfigFile();
+		static::copyConfigFile($root);
 
-		static::createBundleDir();
+		static::createBundleDir($root);
 	}
 }
  
