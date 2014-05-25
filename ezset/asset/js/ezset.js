@@ -1,4 +1,6 @@
-
+/**
+ * Ezset object.
+ */
 var Ezset = {
 
 	/**
@@ -12,12 +14,15 @@ var Ezset = {
 
 	},
 
-	// Smooth Scroll
+	/**
+	 * Smooth Scroll
+	 */
 	smoothScroll: function()
 	{
-		window.addEvent( 'domready' , function(){
-			new Fx.SmoothScroll({ duration: 300},window);
-		} );
+		window.addEvent('domready', function()
+		{
+			new Fx.SmoothScroll({duration: 300}, window);
+		});
 	}
 }
 

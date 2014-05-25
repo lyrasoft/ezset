@@ -31,6 +31,35 @@ class Script
 			return;
 		}
 
+		$uri = \JUri::getInstance();
+
+		$root = $uri::root();
+		$host = $uri->toString(array('scheme', 'host')) . '/';
+
+		if ($smoothScroll = $es->params->get('smoothScroll', 0))
+		{
+			\JHtmlBehavior::framework(true);
+		}
+
+		$smoothScroll = $smoothScroll ? 'true' : 'false';
+
+		$script =<<<SCRIPT
+<script type="text/javascript">
+	var ezsetOption = {
+		"smoothScroll" : {$smoothScroll}
+	};
+
+	var ezsetConfig = {
+		root : '{$root}',
+		host : '{$host}'
+	};
+
+	Ezset.init(ezsetOption, ezsetConfig);
+</script>
+SCRIPT;
+
+		$doc->addCustomTag($script);
+
 		$doc->addScript(\JUri::root(true) . '/plugins/system/ezset/asset/js/ezset.js');
 		$doc->addScript(\JUri::root(true) . '/ezset/js/ezset-custom.js');
 	}
