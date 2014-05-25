@@ -34,8 +34,13 @@
 		<filename plugin="ezset">ezset.php</filename>
 		<filename>index.html</filename>
 		<filename>install.php</filename>
+		<folder>asset</folder>
+		<folder>cmd</folder>
 		<folder>language</folder>
+		<folder>layouts</folder>
 		<folder>lib</folder>
+		<folder>resources</folder>
+		<folder>src</folder>
 	</files>
 
 	<config>
