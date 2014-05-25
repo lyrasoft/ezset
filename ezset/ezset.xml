@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3.2"
+<extension version="3.3"
 	type="plugin"
 	group="system"
 	method="upgrade">
 	<name>plg_system_ezset</name>
 	<author>Asika</author>
-	<creationDate>2014-02-06</creationDate>
+	<creationDate>2014-05-25</creationDate>
 	<copyright>Copyright (C) 2014 Asikart.com</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>asika@asikart.com</authorEmail>
 	<authorUrl>http://asikart.com</authorUrl>
-	<version>1.0</version>
+	<version>1.0.0</version>
 	<description>PLG_SYSTEM_EZSET_XML_DESCRIPTION</description>
 
 	<scriptfile>install.php</scriptfile>
@@ -46,54 +46,6 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="includejQuery"
-					default="0"
-					type="radio"
-					class="btn-group"
-					label="INCLUDE_JQUERY"
-					description="INCLUDE_JQUERY_DESC">
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-				<field name="includeBootstrap"
-					default="0"
-					type="radio"
-					class="btn-group"
-					label="INCLUDE_BOOTSTRAP"
-					description="INCLUDE_BOOTSTRAP_DESC">
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-				<field type="spacer"
-					hr="true"
-					description="" />
-				<!--<field name="insertjQueryFromGoogle" default="0" type="radio" class="btn-group" label="INCLUDE_FROM_GOOGLE" description="INCLUDE_FROM_GOOGLE_DESC" >
-					 <option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-				<field name="insertjQueryPath" 		default="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text" label="INCLUDE_JQUERY_PATH" description="INCLUDE_JQUERY_PATH_DESC" />
-				<field name="removeMootools" default="0" type="radio" class="btn-group" label="REMOVE_MOOTOOLS" description="REMOVE_MOOTOOLS_DESC" >
-					 <option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-				<field name="removeCaptions" default="0" type="radio" class="btn-group" label="REMOVE_CAPTIONS" description="REMOVE_CAPTIONS_DESC" >
-					 <option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-				 <field name="spacer" 				type="spacer" hr="true" label="" description="" />-->
-				<field name="colorTable"
-					default="0"
-					type="radio"
-					class="btn-group"
-					label="COLOR_TABLE"
-					description="COLOR_TABLE_DESC">
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-				<!--<field name="accessibility" 		default="0" type="radio" class="btn-group" label="ACCESSIBILITY" description="ACCESSIBILITY_DESC" >
-					 <option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>-->
 				<field name="tidyRepair"
 					default="0"
 					type="radio"
@@ -112,28 +64,10 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<!--<field name="spacer2" 				type="spacer" hr="true" label="" description="" />
-				 <field name="frontend-tools" 		default="0" type="radio" class="btn-group" label="FRONTEND_TOOLS" description="FRONTEND_TOOLS_DESC" >
-					 <option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-				<field name="blogConverter" 		default="0" type="radio" class="btn-group" label="BLOG_CONVERTER" description="BLOG_CONVERTER_DESC" >
-					 <option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>-->
 				<field name="spacer4"
 					type="spacer"
 					hr="true"
 					description="" />
-				<field name="getImages"
-					default="0"
-					type="radio"
-					class="btn-group"
-					label="GET_IMAGES"
-					description="GET_IMAGES_DESC">
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
 				<field name="blogViewClearly"
 					default="0"
 					type="radio"
@@ -351,7 +285,7 @@
 				addfieldpath="/plugins/system/ezset/resources/fields">
 				<field name="inputCodeBase"
 					type="text"
-					default=""
+					default="ezset/code"
 					label="INPUT_CODE_BASE"
 					description="INPUT_CODE_BASE_DESC" />
 				<field type="spacer"

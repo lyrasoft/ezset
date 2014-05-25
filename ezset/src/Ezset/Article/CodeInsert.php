@@ -82,7 +82,7 @@ class CodeInsert
 
 			if ($file)
 			{
-				$base = $easyset->params->get('inputCodeBase', '');
+				$base = $easyset->params->get('inputCodeBase', 'ezset/code');
 				$base = str_replace('/', '.', $base);
 				$base = trim($base, '.');
 				$file = "{$base}.{$file}";

@@ -25,15 +25,9 @@ class Document
 	public static function register()
 	{
 		$easyset = \Ezset::getInstance();
-
-		if ($easyset->app->isAdmin())
-		{
-			return;
-		}
-
 		$doc = \JFactory::getDocument();
 
-		if ($doc->getType() != 'html')
+		if ($easyset->app->isAdmin() || $doc->getType() != 'html')
 		{
 			return;
 		}
@@ -47,6 +41,8 @@ class Document
 		if ($params->get('getMeta'))
 		{
 			$metaDesc = \Ezset::isHome() ? $config->get('MetaDesc') : $easyset->data->metaDesc;
+
+			$metaDesc = $metaDesc ? : $easyset->data->metaDesc;
 
 			$doc->setDescription($metaDesc);
 		}
@@ -80,7 +76,7 @@ class Document
 			}
 			elseif ($easyset->data->ogImage)
 			{
-				$meta[] = '<meta property="og:image" content="' . $easyset->data->ogImage . '"/>';
+				$meta[] = '<meta property="og:image" content="' . UriHelper::pathAddHost($easyset->data->ogImage) . '"/>';
 			}
 
 			// Others
@@ -92,7 +88,7 @@ class Document
 			$meta[] = '<meta property="og:title" content="' . $doc->getTitle() . '"/>';
 			$meta[] = '<meta property="og:site_name" content="' . $siteName . '"/>';
 
-			if (! $metaDesc)
+			if ($metaDesc)
 			{
 				$meta[] = '<meta property="og:description" content="' . $metaDesc . '"/>';
 			}
