@@ -43,7 +43,7 @@ class Translate
 		$ResultLan = $easyset->params->get('tranLlan', 'en');
 
 		// Get query
-		$jform = $input->post->getVar('jform');
+		$jform = $input->post->getRaw('jform', array());
 
 		if (!isset($jform) || !isset($jform['alias']))
 		{
