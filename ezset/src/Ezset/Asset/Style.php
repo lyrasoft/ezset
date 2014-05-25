@@ -38,7 +38,7 @@ class Style
 		if ($app->isSite())
 		{
 			$style .= '<link rel="stylesheet" href="ezset/css/custom-typo.css" type="text/css" />' . "\n";
-			$style .= '<link rel="stylesheet" href="ezset/custom.css" type="text/css" />' . "\n";
+			$style .= '<link rel="stylesheet" href="ezset/css/custom.css" type="text/css" />' . "\n";
 		}
 		else
 		{
