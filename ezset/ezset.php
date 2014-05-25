@@ -2,17 +2,14 @@
 /**
  * @package        Asikart.Plugin
  * @subpackage     system.plg_ezset
- * @copyright      Copyright (C) 2012 Asikart.com, Inc. All rights reserved.
+ * @copyright      Copyright (C) 2014 Asikart.com, Inc. All rights reserved.
  * @license        GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 // No direct access
 defined('_JEXEC') or die;
 
-if (! include_once __DIR__ . '/src/init.php')
-{
-	return;
-}
+include_once __DIR__ . '/src/init.php';
 
 /**
  * Ezset System Plugin

@@ -14,13 +14,8 @@ if (is_file($wwInit))
 }
 else
 {
-	$app = \JFactory::getApplication();
-
-	$app->enqueueMessage('Please install Windwalker framework 2.x first to enable Ezset', 'warning');
-
-	return false;
+	throw new \RuntimeException('Please install Windwalker framework 2.x first to enable Ezset');
 }
-
 
 define('EZSET_FRONT', JPATH_ROOT . '/ezset');
 define('EZSET_ROOT', realpath(__DIR__ . '/..'));
@@ -33,5 +28,3 @@ if (is_dir(EZSET_FRONT . '/src'))
 \JLoader::registerNamespace('Ezset', EZSET_ROOT . '/src');
 
 include_once __DIR__ . '/bc.php';
-
-return true;
