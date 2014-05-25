@@ -42,17 +42,13 @@ class Document
 		$params   = $easyset->params;
 		$config   = \JFactory::getConfig();
 		$siteName = $config->get('sitename');
+		$metaDesc = '';
 
 		if ($params->get('getMeta'))
 		{
-			if (\Ezset::isHome())
-			{
-				$doc->setDescription($config->get('MetaDesc'));
-			}
-			else
-			{
-				$doc->setDescription($easyset->data->metaDesc);
-			}
+			$metaDesc = \Ezset::isHome() ? $config->get('MetaDesc') : $easyset->data->metaDesc;
+
+			$doc->setDescription($metaDesc);
 		}
 
 		// SEO Title
@@ -95,7 +91,12 @@ class Document
 
 			$meta[] = '<meta property="og:title" content="' . $doc->getTitle() . '"/>';
 			$meta[] = '<meta property="og:site_name" content="' . $siteName . '"/>';
-			$meta[] = '<meta property="og:description" content="' . $easyset->data->metaDesc . '"/>';
+
+			if (! $metaDesc)
+			{
+				$meta[] = '<meta property="og:description" content="' . $metaDesc . '"/>';
+			}
+
 			$meta[] = '<meta property="og:url" content="' . $url . '"/>';
 
 			// Admin, page, user ids

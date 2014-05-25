@@ -84,6 +84,8 @@ class ContentSeo
 		$title = explode('|', $title);
 		$title = $title[0];
 
+		$easyset->data->originTitle = $title;
+
 		if (UriHelper::isHome())
 		{
 			$easyset->data->siteTitle = $config->get('sitename');
