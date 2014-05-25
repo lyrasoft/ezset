@@ -162,7 +162,7 @@ CSS;
 
 		// ezset
 		$types['events']['from'] = 'resources/ezset';
-		$types['events']['to']   = '';
+		$types['events']['to']   = 'ezset';
 
 		foreach ($types as $type)
 		{
@@ -182,6 +182,11 @@ CSS;
 
 				if (!JFile::exists($file))
 				{
+					if (! is_dir(dirname($file)))
+					{
+						\JFolder::create(dirname($file));
+					}
+
 					JFile::copy($include, $file);
 					$file_list .= '<li>' . $file . '</li>';
 				}
