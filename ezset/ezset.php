@@ -391,7 +391,7 @@ class PlgSystemEzset extends JPlugin
 	 *
 	 * @return  boolean
 	 */
-	public function onUserBeforeSave($user, $isNew, $success, $msg)
+	public function onUserBeforeSave($user, $isNew, $success, $msg = null)
 	{
 		$result = array();
 
@@ -410,7 +410,7 @@ class PlgSystemEzset extends JPlugin
 	 *
 	 * @return    boolean
 	 */
-	public function onUserAfterSave($user, $isNew, $success, $msg)
+	public function onUserAfterSave($user, $isNew, $success, $msg = null)
 	{
 		$result = array();
 
