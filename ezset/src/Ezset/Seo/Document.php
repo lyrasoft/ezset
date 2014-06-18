@@ -56,9 +56,9 @@ class Document
 		}
 
 		// Set Generator
-		if ($params->get('generator'))
+		if ($generator = $params->get('generator'))
 		{
-			$doc->setGenerator($params->get('generator'));
+			$doc->setGenerator($generator);
 		}
 
 		// Set Open Graph
