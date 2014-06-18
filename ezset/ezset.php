@@ -109,6 +109,11 @@ class PlgSystemEzset extends JPlugin
 
 		$this->call(array('Asset\\Script', 'register'));
 
+		if ($gaId = $this->params->get('googleAnalytics'))
+		{
+			$this->call(array('Seo\\Document', 'analytics'), $gaId);
+		}
+
 		@include $this->includeEvent(__FUNCTION__);
 	}
 

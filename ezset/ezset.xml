@@ -196,6 +196,14 @@
 					type="text"
 					label="GENERATOR"
 					description="GENERATOR_DESC" />
+				<field
+					name="googleAnalytics"
+					type="text"
+					label="GOOGLE_ANALYTICS"
+					description="GOOGLE_ANALYTICS_DESC"
+					class=""
+					default=""
+					/>
 				<field default=""
 					type="spacer"
 					hr="true" />
