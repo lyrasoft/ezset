@@ -50,7 +50,7 @@ CSS
 );
 
 		$output = $editor->display($this->name, $this->value, '400px', '400px', 400, 400, false, null, null, null, $params);
-		$output = "<div style=\"height: 400px; margin-bottom: 30px;\">{$output}</div>";
+		$output = "<fieldset class=\"adminform\"><div style=\"height: 400px; margin-bottom: 30px;\">{$output}</div></fieldset>";
 
 		return $output;
 	}
