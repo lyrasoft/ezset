@@ -30,8 +30,7 @@ class Style
 			return;
 		}
 
-		$body = \JResponse::getBody();
-
+		$body  = $app->getBody();
 		$body  = explode('</head>', $body);
 		$style = "\n";
 
@@ -48,6 +47,7 @@ class Style
 		$body[0] .= $style;
 
 		$body = implode('</head>', $body);
-		\JResponse::setBody($body);
+
+		$app->setBody($body);
 	}
 }
