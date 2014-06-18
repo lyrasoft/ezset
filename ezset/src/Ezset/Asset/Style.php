@@ -42,7 +42,7 @@ class Style
 		}
 		else
 		{
-			$style .= '<link rel="stylesheet" href="ezset/css/custom-admin.css" type="text/css" />' . "\n";
+			$style .= '<link rel="stylesheet" href="' . \JUri::root(true) . '/ezset/css/custom-admin.css" type="text/css" />' . "\n";
 		}
 
 		$body[0] .= $style;
