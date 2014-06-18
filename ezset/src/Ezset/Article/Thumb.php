@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of joomla330 project.
+ * Part of Ezset project.
  *
  * @copyright  Copyright (C) 2011 - 2014 SMS Taiwan, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
@@ -8,8 +8,8 @@
 
 namespace Ezset\Article;
 
-use Ezset\Helper\UriHelper;
 use Joomla\Registry\Registry;
+use Windwalker\Helper\UriHelper;
 
 /**
  * Class Thumb

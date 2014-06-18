@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of joomla330 project.
+ * Part of Ezset project.
  *
  * @copyright  Copyright (C) 2011 - 2014 SMS Taiwan, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
@@ -8,7 +8,7 @@
 
 namespace Ezset\Seo;
 
-use Ezset\Helper\UriHelper;
+use Windwalker\Helper\UriHelper;
 
 /**
  * Class ContentSeo
@@ -86,7 +86,7 @@ class ContentSeo
 
 		$easyset->data->originTitle = $title;
 
-		if (UriHelper::isHome())
+		if (\Ezset::isHome())
 		{
 			$easyset->data->siteTitle = $config->get('sitename');
 		}
