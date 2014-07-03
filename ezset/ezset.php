@@ -94,6 +94,7 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterRoute()
 	{
+		@include $this->includeEvent(__FUNCTION__);
 	}
 
 	/**
