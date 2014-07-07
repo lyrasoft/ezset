@@ -10,7 +10,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>asika@asikart.com</authorEmail>
 	<authorUrl>http://asikart.com</authorUrl>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<description>PLG_SYSTEM_EZSET_XML_DESCRIPTION</description>
 
 	<scriptfile>install.php</scriptfile>
@@ -196,9 +196,25 @@
 					type="text"
 					label="GENERATOR"
 					description="GENERATOR_DESC" />
+				<field
+					name="googleAnalytics"
+					type="text"
+					label="GOOGLE_ANALYTICS"
+					description="GOOGLE_ANALYTICS_DESC"
+					class=""
+					default=""
+					/>
 				<field default=""
 					type="spacer"
 					hr="true" />
+				<field
+					name=""
+					type="note"
+					label=""
+					description="因為 Bootstrap 標籤的原因，CodeMirror 編輯器需要在上面按一次鍵盤按鍵後才會展開，除此之外一切正常"
+					class="alert alert-info"
+					default=""
+					/>
 				<field name="insertHeader"
 					type="codemirror"
 					filter="raw"
@@ -291,6 +307,14 @@
 				<field type="spacer"
 					hr="true"
 					description="" />
+				<field
+					name=""
+					type="note"
+					label=""
+					description="因為 Bootstrap 標籤的原因，CodeMirror 編輯器需要在上面按一次鍵盤按鍵後才會展開，除此之外一切正常"
+					class="alert alert-info"
+					default=""
+					/>
 				<field name="insertArticleTop"
 					type="codemirror"
 					filter="raw"

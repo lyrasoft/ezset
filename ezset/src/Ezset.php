@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of joomla330 project. 
+ * Part of Ezset project.
  *
  * @copyright  Copyright (C) 2011 - 2014 SMS Taiwan, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
@@ -30,16 +30,20 @@ class Ezset
 	 */
 	public static function isHome()
 	{
-		$uri = \JUri::getInstance();
-		$current = $uri->toString();
+		$uri  = \JUri::getInstance();
+		$root = $uri::root(true);
 
-		if (\JUri::base() == $current || trim(\JUri::base(), '/') . '/index.php' == $current)
+		// Get site route
+		$route = \JString::substr($uri->getPath(), \JString::strlen($root));
+
+		// Remove index.php
+		$route = str_replace('index.php', '', $route);
+
+		if (! trim($route, '/') && ! $uri->getVar('option'))
 		{
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 }

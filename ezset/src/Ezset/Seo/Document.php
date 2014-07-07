@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of joomla330 project.
+ * Part of Ezset project.
  *
  * @copyright  Copyright (C) 2011 - 2014 SMS Taiwan, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
@@ -8,7 +8,7 @@
 
 namespace Ezset\Seo;
 
-use Ezset\Helper\UriHelper;
+use Windwalker\Helper\UriHelper;
 
 /**
  * Class Document
@@ -56,9 +56,9 @@ class Document
 		}
 
 		// Set Generator
-		if ($params->get('generator'))
+		if ($generator = $params->get('generator'))
 		{
-			$doc->setGenerator($params->get('generator'));
+			$doc->setGenerator($generator);
 		}
 
 		// Set Open Graph
@@ -118,5 +118,36 @@ class Document
 			}
 		}
 	}
+
+	/**
+	 * analytics
+	 *
+	 * @param   string $id
+	 *
+	 * @return  void
+	 */
+	public static function analytics($id)
+	{
+		$doc = \JFactory::getDocument();
+
+		$host = \JUri::getInstance()->getHost();
+
+		$script = <<<GA
+
+  /* Google Analytics Start */
+  ;
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '{$id}', '{$host}');
+  ga('send', 'pageview');
+  /* Google Analytics End */
+
+
+GA;
+
+		$doc->addScriptDeclaration($script);
+	}
 }
- 

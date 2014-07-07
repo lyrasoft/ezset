@@ -1,0 +1,23 @@
+/* ASIKART EasySet Custom CSS System */
+
+/* GLOBAL */
+.float-left, .fltlft {float:left;}
+.float-right, .fltrgt {float:right;}
+.clr, .clearfix {clear:both;}
+
+/* FRAMEWORK */
+.width-10{width:10%; }
+.width-20{width:20%; }
+.width-30{width:30%; }
+.width-40{width:40%; }
+.width-50{width:50%; }
+.width-60{width:60%; }
+.width-70{width:70%; }
+.width-80{width:80%; }
+.width-90{width:90%; }
+.width-100{width:100%; }
+
+/* BLOG LAYOUT */
+.ak_blog_img_wrap{padding:0 15px 15px 0;text-align:center;}
+.ak_blog_intro{padding:0 15px;}
+.asikart-fb-like{padding:15px 0; }
