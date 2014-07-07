@@ -136,6 +136,16 @@ class PlgSystemEzset extends JPlugin
 		@include $this->includeEvent(__FUNCTION__);
 	}
 
+	/**
+	 * onBeforeCompileHead
+	 *
+	 * @return  void
+	 */
+	public function onBeforeCompileHead()
+	{
+		@include $this->includeEvent(__FUNCTION__);
+	}
+
 	// Content Events
 	// ======================================================================================
 
