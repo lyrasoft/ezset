@@ -48,7 +48,7 @@ class Document
 		}
 
 		// SEO Title
-		$easyset->call(array('Sep\\ContentSeo', 'seTitle'));
+		$easyset->call(array('Seo\\ContentSeo', 'setTitle'));
 
 		if ($params->get('titleFix') && $easyset->data->siteTitle)
 		{

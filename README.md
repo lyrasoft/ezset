@@ -14,7 +14,7 @@ If you want to modify Ezset, you can follow these step to create project.
 - Run this command:
 
 ``` bash
-$ cd /var/myrepo/ace-markdown-editor
+$ cd /var/myrepo/ezset
 $ php bin/makelink /your/joomla/root/path
 ```
 
