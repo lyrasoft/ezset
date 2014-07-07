@@ -42,8 +42,6 @@ class Document
 		{
 			$metaDesc = \Ezset::isHome() ? $config->get('MetaDesc') : $easyset->data->metaDesc;
 
-			$metaDesc = $metaDesc ? : $easyset->data->metaDesc;
-
 			$doc->setDescription($metaDesc);
 		}
 
