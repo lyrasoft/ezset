@@ -162,9 +162,6 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onContentPrepare($context, $article, $params, $page = 0)
 	{
-		// Get Meta
-		$this->call(array('Seo\\ContentSeo', 'setMeta'), $article, $this);
-
 		// OpenGraph
 		if ($this->params->get('openGraph', 1))
 		{
@@ -183,6 +180,9 @@ class PlgSystemEzset extends JPlugin
 		// Custom Code
 		$this->call(array('Article\\CodeInsert', 'customCode'), 'insertArticleTop', true, $article);
 		$this->call(array('Article\\CodeInsert', 'customCode'), 'insertContentTop', true, $article);
+
+		// Get Meta
+		$this->call(array('Seo\\ContentSeo', 'setMeta'), $article, $this);
 
 		@include $this->includeEvent(__FUNCTION__);
 	}
