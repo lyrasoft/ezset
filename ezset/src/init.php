@@ -28,3 +28,10 @@ if (is_dir(EZSET_FRONT . '/src'))
 \JLoader::registerNamespace('Ezset', EZSET_ROOT . '/src');
 
 include_once __DIR__ . '/bc.php';
+
+// Register ezset event listeners
+Windwalker\Event\ListenerHelper::registerListeners(
+    'MyEzset',
+    JEventDispatcher::getInstance(),
+    EZSET_FRONT . '/src/MyEzset/Listener'
+);
