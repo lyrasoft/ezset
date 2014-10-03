@@ -311,4 +311,3 @@ class AcmeListener extends \JEvent
 	{
 	}
 }
- 
