@@ -6,4 +6,8 @@
  * @license    GNU General Public License version 2 or later;
  */
 
-// Your logic here
+/*
+ * Here is Ezset init hook.
+ *
+ * You can register some other autoloading or Listener in this file.
+ */
