@@ -35,3 +35,9 @@ Windwalker\Event\ListenerHelper::registerListeners(
     JEventDispatcher::getInstance(),
     EZSET_FRONT . '/src/MyEzset/Listener'
 );
+
+// Include custom init.php
+if (is_file(EZSET_FRONT . '/src/init.php'))
+{
+	include_once EZSET_FRONT . '/src/init.php';
+}
