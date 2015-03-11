@@ -11,7 +11,13 @@ var Ezset = {
 	 */
 	init: function(opt, config)
 	{
+		this.config = config;
+		this.options = opt;
 
+		if (this.options['smoothScroll'])
+		{
+			this.smoothScroll();
+		}
 	},
 
 	/**
@@ -24,5 +30,5 @@ var Ezset = {
 			new Fx.SmoothScroll({duration: 300}, window);
 		});
 	}
-}
+};
 
