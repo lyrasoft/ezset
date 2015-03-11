@@ -31,8 +31,19 @@ class PlgSystemEzsetInstallerScript
 		$db    = JFactory::getDbo();
 		$query = $db->getQuery(true);
 
+		// Reorder system plugins
+		$query->update('#__extensions')
+			->set('ordering = ordering + 1')
+			->where($query->format('%n = %q', 'folder', 'system'));
+
+		$db->setQuery($query)->execute();
+
+		// Enable Ezset
+		$query = $db->getQuery(true);
+
 		$query->update('#__extensions')
 			->set('enabled = 1')
+			->set('ordering = 1')
 			->where($query->format('%n = %q', 'element', 'ezset'))
 			->where($query->format('%n = %q', 'folder', 'system'));
 
