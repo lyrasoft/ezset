@@ -52,7 +52,7 @@ window.addEvent('domready', function() {
 			method: 'get' ,
 			url: '{$ajaxUrl}',
 			onSuccess: function(responseText){
-				$('{$name}_response').set('html', '<input disabled="true" value="'+responseText+'">');
+				$('{$name}_response').set('html', '<input class="btn btn-default" disabled="true" type="button" value="'+responseText+'">');
 			}
 		});
 
@@ -63,7 +63,7 @@ AJAX;
 		$doc = JFactory::getDocument();
 		$doc->addScriptDeclaration($ajaxCode);
 
-		$link = '<div id="' . $name . '_response" ><input id="' . $name . '" type="button" value="按此覆蓋"></div>';
+		$link = '<div id="' . $name . '_response" ><input class="btn btn-default" id="' . $name . '" type="button" value="按此覆蓋"></div>';
 
 		return $link;
 	}
