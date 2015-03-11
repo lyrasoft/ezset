@@ -1,1 +1,16 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+	<!-- Joomla!3.4 -->
+	<update>
+		<name>Asikart Quickicons</name>
+		<version>1.0.4</version>
+		<infourl title="Asikart Ezset Plugin">http://ext.asikart.com</infourl>
+		<downloads>
+			<downloadurl type="upgrade" format="zip">https://github.com/asikart/ezset/archive/master.zip</downloadurl>
+		</downloads>
+		<targetplatform name="joomla" version="3.4" />
+		<element>ezset</element>
+		<folder>system</folder>
+		<type>plugin</type>
+	</update>
+</updates>
