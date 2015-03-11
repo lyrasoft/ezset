@@ -46,7 +46,9 @@ class Secure
 		{
 			if (substr(php_sapi_name(), 0, 3) == 'cgi')
 			{
-				throw new \RuntimeException(\JText::_('Not Apache Handler'), 500);
+				$app->enqueueMessage('Not Apache handler, fallback to default login method.', 'warning');
+
+				return;
 			}
 
 			if (!$session->get('tried_login'))
@@ -60,6 +62,9 @@ class Secure
 				$username = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : null;
 				$password = isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null;
 
+				// Workaround to simulate system lang input
+				$_REQUEST['lang'] = '';
+
 				if ($mode == 'auth_user')
 				{
 					if (!$app->login(array('username' => $username, 'password' => $password), array('remember' => true)))
@@ -67,7 +72,7 @@ class Secure
 						throw new \Exception;
 					}
 
-					$session->set('user', \JFactory::getUser($username));
+					// $session->set('user', \JFactory::getUser($username));
 				}
 				else
 				{
@@ -81,7 +86,7 @@ class Secure
 			}
 			catch (\Exception $e)
 			{
-				header('WWW-Authenticate: Basic realm="' . $app->getCfg('sitename') . '"');
+				header('WWW-Authenticate: Basic realm="' . $app->get('sitename') . '"');
 				header('HTTP/1.0 401 Unauthorized');
 				die();
 			}
@@ -95,6 +100,8 @@ class Secure
 			if (!$logged)
 			{
 				$app->redirect(\JURI::root());
+
+				exit();
 			}
 		}
 
@@ -102,7 +109,10 @@ class Secure
 		{
 			$session->set('aksecure', true);
 			$session->set('tried_login', false);
+
 			$app->redirect(\JUri::getInstance()->toString());
+
+			exit();
 		}
 	}
 }
