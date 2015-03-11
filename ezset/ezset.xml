@@ -50,8 +50,8 @@
 					default="0"
 					type="radio"
 					class="btn-group"
-					label="TIDY_REPAIR"
-					description="TIDY_REPAIR_DESC">
+					label="PLG_SYSTEM_EZSET_TIDY_REPAIR"
+					description="PLG_SYSTEM_EZSET_TIDY_REPAIR_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
@@ -59,35 +59,35 @@
 					default="0"
 					type="radio"
 					class="btn-group"
-					label="SMOOTH_SCROLL"
-					description="SMOOTH_SCROLL_DESC">
+					label="PLG_SYSTEM_EZSET_SMOOTH_SCROLL"
+					description="PLG_SYSTEM_EZSET_SMOOTH_SCROLL_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
 				<field name="spacer4"
 					type="spacer"
 					hr="true"
-					description="" />
+					description="PLG_SYSTEM_EZSET_" />
 				<field name="blogViewClearly"
 					default="0"
 					type="radio"
 					class="btn-group"
-					label="BLOG_VIEW_CLEARLY"
-					description="BLOG_VIEW_CLEARLY_DESC">
+					label="PLG_SYSTEM_EZSET_BLOG_VIEW_CLEARLY"
+					description="PLG_SYSTEM_EZSET_BLOG_VIEW_CLEARLY_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
 				<field name="blogViewImgWidth"
 					default="150"
 					type="text"
-					label="BLOG_VIEW_IMG_WIDTH"
-					description="BLOG_VIEW_IMG_WIDTH_DESC" />
+					label="PLG_SYSTEM_EZSET_BLOG_VIEW_IMG_WIDTH"
+					description="PLG_SYSTEM_EZSET_BLOG_VIEW_IMG_WIDTH_DESC" />
 				<field name="blogViewImgCrop"
 					default="0"
 					type="radio"
 					class="btn-group"
-					label="BLOG_VIEW_IMG_CROP"
-					description="BLOG_VIEW_IMG_CROP_DESC">
+					label="PLG_SYSTEM_EZSET_BLOG_VIEW_IMG_CROP"
+					description="PLG_SYSTEM_EZSET_BLOG_VIEW_IMG_CROP_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
@@ -95,30 +95,30 @@
 					default="0"
 					type="radio"
 					class="btn-group"
-					label="BLOG_VIEW_CLEAN_TAGS"
-					description="BLOG_VIEW_CLEAN_TAGS_DESC">
+					label="PLG_SYSTEM_EZSET_BLOG_VIEW_CLEAN_TAGS"
+					description="PLG_SYSTEM_EZSET_BLOG_VIEW_CLEAN_TAGS_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
 				<field name="blogViewTagsAllow"
 					type="text"
 					filter="raw"
-					label="BLOG_VIEW_TAGS_ALLOW"
-					description="BLOG_VIEW_TAGS_ALLOW_DESC" />
+					label="PLG_SYSTEM_EZSET_BLOG_VIEW_TAGS_ALLOW"
+					description="PLG_SYSTEM_EZSET_BLOG_VIEW_TAGS_ALLOW_DESC" />
 				<field name="blogViewMaxChar"
 					default="250"
 					type="text"
-					label="BLOG_VIEW_MAX_CHAR"
-					description="BLOG_VIEW_MAX_CHAR" />
+					label="PLG_SYSTEM_EZSET_BLOG_VIEW_MAX_CHAR"
+					description="PLG_SYSTEM_EZSET_BLOG_VIEW_MAX_CHAR" />
 				<field type="spacer"
 					hr="true"
-					description="" />
+					description="PLG_SYSTEM_EZSET_" />
 				<field name="autoThumbnail"
 					default="0"
 					type="radio"
 					class="btn-group"
-					label="AUTO_THUMB"
-					description="AUTO_THUMB_DESC">
+					label="PLG_SYSTEM_EZSET_AUTO_THUMB"
+					description="PLG_SYSTEM_EZSET_AUTO_THUMB_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
@@ -126,8 +126,8 @@
 					default="1"
 					type="radio"
 					class="btn-group"
-					label="ONLY_LOCAL_THUMB"
-					description="ONLY_LOCAL_THUMB_DESC">
+					label="PLG_SYSTEM_EZSET_ONLY_LOCAL_THUMB"
+					description="PLG_SYSTEM_EZSET_ONLY_LOCAL_THUMB_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
@@ -137,33 +137,33 @@
 					default="0"
 					type="radio"
 					class="btn-group"
-					label="TRAN_ALIAS"
-					description="TRAN_ALIAS_DESC">
+					label="PLG_SYSTEM_EZSET_TRAN_ALIAS"
+					description="PLG_SYSTEM_EZSET_TRAN_ALIAS_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
 				<field name="originLan"
 					default=""
 					type="text"
-					label="ORIGIN_LAN"
-					description="ORIGIN_LAN_DESC" />
+					label="PLG_SYSTEM_EZSET_ORIGIN_LAN"
+					description="PLG_SYSTEM_EZSET_ORIGIN_LAN_DESC" />
 				<field name="tranLan"
 					default=""
 					type="text"
-					label="TRAN_LAN"
-					description="TRAN_LAN_DESC" />
+					label="PLG_SYSTEM_EZSET_TRAN_LAN"
+					description="PLG_SYSTEM_EZSET_TRAN_LAN_DESC" />
 				<field name="spacer3"
 					default=""
 					type="spacer"
 					hr="true"
-					label=""
-					description="" />
+					label="PLG_SYSTEM_EZSET_"
+					description="PLG_SYSTEM_EZSET_" />
 				<field name="seo"
 					default="0"
 					type="radio"
 					class="btn-group"
-					label="SEO"
-					description="SEO_DESC">
+					label="PLG_SYSTEM_EZSET_SEO"
+					description="PLG_SYSTEM_EZSET_SEO_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
@@ -171,36 +171,36 @@
 					default="{%TITLE%} | {%SITE%}"
 					type="text"
 					size="50"
-					label="TITLE_FIX"
-					description="TITLE_FIX_DESC" />
+					label="PLG_SYSTEM_EZSET_TITLE_FIX"
+					description="PLG_SYSTEM_EZSET_TITLE_FIX_DESC" />
 				<field name="titleSeparator"
 					default="|"
 					type="text"
-					label="TITLE_SEPARATOR"
-					description="TITLE_SEPARATOR_DESC" />
+					label="PLG_SYSTEM_EZSET_TITLE_SEPARATOR"
+					description="PLG_SYSTEM_EZSET_TITLE_SEPARATOR_DESC" />
 				<field name="getMeta"
 					default="0"
 					type="radio"
 					class="btn-group"
-					label="GET_META"
-					description="GET_META_DESC">
+					label="PLG_SYSTEM_EZSET_GET_META"
+					description="PLG_SYSTEM_EZSET_GET_META_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
 				<field name="maxMetaChar"
 					default="250"
 					type="text"
-					label="MAX_META_CHAR"
-					description="MAX_META_CHAR_DESC" />
+					label="PLG_SYSTEM_EZSET_MAX_META_CHAR"
+					description="PLG_SYSTEM_EZSET_MAX_META_CHAR_DESC" />
 				<field name="generator"
 					type="text"
-					label="GENERATOR"
-					description="GENERATOR_DESC" />
+					label="PLG_SYSTEM_EZSET_GENERATOR"
+					description="PLG_SYSTEM_EZSET_GENERATOR_DESC" />
 				<field
 					name="googleAnalytics"
 					type="text"
-					label="GOOGLE_ANALYTICS"
-					description="GOOGLE_ANALYTICS_DESC"
+					label="PLG_SYSTEM_EZSET_GOOGLE_ANALYTICS"
+					description="PLG_SYSTEM_EZSET_GOOGLE_ANALYTICS_DESC"
 					class=""
 					default=""
 					/>
@@ -219,16 +219,16 @@
 					type="codemirror"
 					filter="raw"
 					default=""
-					label="INCLUDE_HEADER"
-					description="INCLUDE_HEADER_DESC" />
+					label="PLG_SYSTEM_EZSET_INCLUDE_HEADER"
+					description="PLG_SYSTEM_EZSET_INCLUDE_HEADER_DESC" />
 			</fieldset>
 			<fieldset name="SOCIAL">
 				<field name="openGraph"
 					type="radio"
 					class="btn-group"
 					default="0"
-					label="OG"
-					description="OG_DESC">
+					label="PLG_SYSTEM_EZSET_OG"
+					description="PLG_SYSTEM_EZSET_OG_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
@@ -236,14 +236,14 @@
 					type="media"
 					directory="images"
 					default=""
-					label="OG_DEFAULT_IMAGE"
-					description="OG_DEFAULT_IMAGE_DESC" />
+					label="PLG_SYSTEM_EZSET_OG_DEFAULT_IMAGE"
+					description="PLG_SYSTEM_EZSET_OG_DEFAULT_IMAGE_DESC" />
 				<field name="ogDefaultImageOnlyFrontPage"
 					type="radio"
 					class="btn-group"
 					default="1"
-					label="OG_DEFAULT_IMAGE_ONLY_FRONTPAGE"
-					description="OG_DEFAULT_IMAGE_ONLY_FRONTPAGE_DESC">
+					label="PLG_SYSTEM_EZSET_OG_DEFAULT_IMAGE_ONLY_FRONTPAGE"
+					description="PLG_SYSTEM_EZSET_OG_DEFAULT_IMAGE_ONLY_FRONTPAGE_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
@@ -251,29 +251,29 @@
 					default=""
 					type="text"
 					size="30"
-					label="OG_ADMIN"
-					description="OG_ADMIN_DESC" />
+					label="PLG_SYSTEM_EZSET_OG_ADMIN"
+					description="PLG_SYSTEM_EZSET_OG_ADMIN_DESC" />
 				<field name="ogPageId"
 					default=""
 					type="text"
 					size="30"
-					label="OG_PAGE"
-					description="OG_PAGE_DESC" />
+					label="PLG_SYSTEM_EZSET_OG_PAGE"
+					description="PLG_SYSTEM_EZSET_OG_PAGE_DESC" />
 				<field name="ogAppId"
 					default=""
 					type="text"
 					size="30"
-					label="OG_APP"
-					description="OG_APP_DESC" />
+					label="PLG_SYSTEM_EZSET_OG_APP"
+					description="PLG_SYSTEM_EZSET_OG_APP_DESC" />
 				<field type="spacer"
 					hr="true"
-					description="" />
+					description="PLG_SYSTEM_EZSET_" />
 				<field name="fbLike"
 					type="radio"
 					class="btn-group"
 					default="0"
-					label="FB_LIKE"
-					description="FB_LIKE">
+					label="PLG_SYSTEM_EZSET_FB_LIKE"
+					description="PLG_SYSTEM_EZSET_FB_LIKE">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
@@ -281,8 +281,8 @@
 					type="radio"
 					class="btn-group"
 					default="0"
-					label="FB_LIKE_ON_BLOG"
-					description="FB_LIKE_ON_BLOG_DESC">
+					label="PLG_SYSTEM_EZSET_FB_LIKE_ON_BLOG"
+					description="PLG_SYSTEM_EZSET_FB_LIKE_ON_BLOG_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
@@ -290,11 +290,11 @@
 					type="radio"
 					class="btn-group"
 					default="3"
-					label="FB_LIKE_POSITION"
-					description="FB_LIKE_POSITION_DESC">
-					<option value="1">AFTER_TITLE</option>
-					<option value="2">AFTER_CONTENT</option>
-					<option value="3">BOTH</option>
+					label="PLG_SYSTEM_EZSET_FB_LIKE_POSITION"
+					description="PLG_SYSTEM_EZSET_FB_LIKE_POSITION_DESC">
+					<option value="1">PLG_SYSTEM_EZSET_AFTER_TITLE</option>
+					<option value="2">PLG_SYSTEM_EZSET_AFTER_CONTENT</option>
+					<option value="3">PLG_SYSTEM_EZSET_BOTH</option>
 				</field>
 			</fieldset>
 			<fieldset name="CODE_INSERT"
@@ -302,11 +302,11 @@
 				<field name="inputCodeBase"
 					type="text"
 					default="ezset/code"
-					label="INPUT_CODE_BASE"
-					description="INPUT_CODE_BASE_DESC" />
+					label="PLG_SYSTEM_EZSET_INPUT_CODE_BASE"
+					description="PLG_SYSTEM_EZSET_INPUT_CODE_BASE_DESC" />
 				<field type="spacer"
 					hr="true"
-					description="" />
+					description="PLG_SYSTEM_EZSET_" />
 				<field
 					name=""
 					type="note"
@@ -319,26 +319,26 @@
 					type="codemirror"
 					filter="raw"
 					default=""
-					label="INCLUDE_ARTICLE_TOP"
-					description="INCLUDE_ARTICLE_TOP_DESC" />
+					label="PLG_SYSTEM_EZSET_INCLUDE_ARTICLE_TOP"
+					description="PLG_SYSTEM_EZSET_INCLUDE_ARTICLE_TOP_DESC" />
 				<field name="insertTitleBottom"
 					type="codemirror"
 					filter="raw"
 					default=""
-					label="INCLUDE_TITLE_BOTTOM"
-					description="INCLUDE_TITLE_BOTTOM_DESC" />
+					label="PLG_SYSTEM_EZSET_INCLUDE_TITLE_BOTTOM"
+					description="PLG_SYSTEM_EZSET_INCLUDE_TITLE_BOTTOM_DESC" />
 				<field name="insertContentTop"
 					type="codemirror"
 					filter="raw"
 					default=""
-					label="INCLUDE_CONTENT_TOP"
-					description="INCLUDE_CONTENT_TOP_DESC" />
+					label="PLG_SYSTEM_EZSET_INCLUDE_CONTENT_TOP"
+					description="PLG_SYSTEM_EZSET_INCLUDE_CONTENT_TOP_DESC" />
 				<field name="insertContentBottom"
 					type="codemirror"
 					filter="raw"
 					default=""
-					label="INCLUDE_CONTENT_BOTTOM"
-					description="INCLUDE_CONTENT_BOTTOM_DESC" />
+					label="PLG_SYSTEM_EZSET_INCLUDE_CONTENT_BOTTOM"
+					description="PLG_SYSTEM_EZSET_INCLUDE_CONTENT_BOTTOM_DESC" />
 				<field type="spacer"
 					hr="true"
 					description="" />
@@ -346,28 +346,28 @@
 					type="radio"
 					class="btn-group"
 					default="1"
-					label="SHOW_ON_BLOG"
-					description="SHOW_ON_BLOG_DESC">
+					label="PLG_SYSTEM_EZSET_SHOW_ON_BLOG"
+					description="PLG_SYSTEM_EZSET_SHOW_ON_BLOG_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
 				<field name="showNumber"
 					type="text"
 					default="3"
-					label="SHOW_NUMBER"
-					description="SHOW_NUMBER_DESC" />
+					label="PLG_SYSTEM_EZSET_SHOW_NUMBER"
+					description="PLG_SYSTEM_EZSET_SHOW_NUMBER_DESC" />
 			</fieldset>
 			<fieldset name="system">
 				<field
 					name="adminSecure"
 					type="list"
-					label="ADMIN_SECURE"
-					description="ADMIN_SECURE_DESC"
+					label="PLG_SYSTEM_EZSET_ADMIN_SECURE"
+					description="PLG_SYSTEM_EZSET_ADMIN_SECURE_DESC"
 					>
 					<option value="">JNO</option>
-					<option value="url">ADMIN_SECURE_BY_URL</option>
-					<option value="auth">ADMIN_SECURE_BY_HTTP_AUTH</option>
-					<option value="auth_user">ADMIN_SECURE_BY_HTTP_AUTH_AND_USER</option>
+					<option value="url">PLG_SYSTEM_EZSET_ADMIN_SECURE_BY_URL</option>
+					<option value="auth">PLG_SYSTEM_EZSET_ADMIN_SECURE_BY_HTTP_AUTH</option>
+					<option value="auth_user">PLG_SYSTEM_EZSET_ADMIN_SECURE_BY_HTTP_AUTH_AND_USER</option>
 				</field>
 
 				<field
@@ -375,19 +375,19 @@
 					type="text"
 					default="ezset"
 					size="30"
-					label="ADMIN_SECURE_CODE"
-					description="ADMIN_SECURE_CODE_DESC"
+					label="PLG_SYSTEM_EZSET_ADMIN_SECURE_CODE"
+					description="PLG_SYSTEM_EZSET_ADMIN_SECURE_CODE_DESC"
 					/>
 
 				<field type="spacer"
 					hr="true"
-					description="" />
+					description="PLG_SYSTEM_EZSET_" />
 				<field name="languageOrphan"
 					type="radio"
 					class="btn-group"
 					default="0"
-					label="LANGUAGE_ORPHAN"
-					description="LANGUAGE_ORPHAN_DESC">
+					label="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN"
+					description="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
@@ -395,17 +395,17 @@
 					type="text"
 					default="logs/language.ini"
 					size="30"
-					label="LANGUAGE_ORPHAN_PATH"
-					description="LANGUAGE_ORPHAN_PATH_DESC" />
+					label="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_PATH"
+					description="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_PATH_DESC" />
 				<field type="spacer"
 					hr="true"
-					description="" />
+					description="PLG_SYSTEM_EZSET_" />
 				<field name="cacheManagerEnabled"
 					type="radio"
 					class="btn-group"
 					default="0"
-					label="CACHE_MANAGER_ENABLED"
-					description="CACHE_MANAGER_ENABLED_DESC">
+					label="PLG_SYSTEM_EZSET_CACHE_MANAGER_ENABLED"
+					description="PLG_SYSTEM_EZSET_CACHE_MANAGER_ENABLED_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
@@ -413,45 +413,45 @@
 					type="radio"
 					class="btn-group"
 					default="exclude"
-					label="CACHE_CONTROL_TYPE"
-					description="CACHE_CONTROL_TYPE_DESC">
-					<option value="exclude">CACHE_EXCLUDE</option>
-					<option value="include">CACHE_INCLUDE</option>
+					label="PLG_SYSTEM_EZSET_CACHE_CONTROL_TYPE"
+					description="PLG_SYSTEM_EZSET_CACHE_CONTROL_TYPE_DESC">
+					<option value="exclude">PLG_SYSTEM_EZSET_CACHE_EXCLUDE</option>
+					<option value="include">PLG_SYSTEM_EZSET_CACHE_INCLUDE</option>
 				</field>
 				<field name="CacheMenus"
 					type="menuitem"
 					multiple="true"
 					size="15"
-					label="CACHE_MENUS"
-					description="CACHE_MENUS_DESC" />
+					label="PLG_SYSTEM_EZSET_CACHE_MENUS"
+					description="PLG_SYSTEM_EZSET_CACHE_MENUS_DESC" />
 				<field name="CacheQueries"
 					type="textarea"
 					cols="45"
 					rows="8"
-					label="CACHE_QUERIES"
-					description="CACHE_QUERIES_DESC" />
+					label="PLG_SYSTEM_EZSET_CACHE_QUERIES"
+					description="PLG_SYSTEM_EZSET_CACHE_QUERIES_DESC" />
 			</fieldset>
 			<fieldset name="advanced"
 				addfieldpath="/plugins/system/ezset/resources/fields">
 				<field name="siteoverlay"
 					type="ajax"
-					label="SITEOVERLAY"
-					description="SITEOVERLAY_DESC" />
+					label="PLG_SYSTEM_EZSET_SITEOVERLAY"
+					description="PLG_SYSTEM_EZSET_SITEOVERLAY_DESC" />
 				<field name="jceoverlay"
 					type="ajax"
-					label="JCEOVERLAY"
-					description="JCEOVERLAY_DESC" />
+					label="PLG_SYSTEM_EZSET_JCEOVERLAY"
+					description="PLG_SYSTEM_EZSET_JCEOVERLAY_DESC" />
 				<field name="contentoverlay"
 					type="ajax"
-					label="CONTENTOVERLAY"
-					description="CONTENTOVERLAY_DESC" />
+					label="PLG_SYSTEM_EZSET_CONTENTOVERLAY"
+					description="PLG_SYSTEM_EZSET_CONTENTOVERLAY_DESC" />
 			</fieldset>
 		</fields>
 	</config>
 
-	<!--<updateservers>
-		<server type="collection">http://ezset.com/list.xml</server>
-		<server type="extension" priority="1" name="Asikart Ezset Plugin">http://update.asikart.com/plugins/plg_ezset.xml</server>
-	</updateservers>-->
+	<updateservers>
+		<!--<server type="collection">http://ezset.com/list.xml</server>-->
+		<server type="extension" priority="1" name="Asikart Ezset Plugin">https://raw.githubusercontent.com/asikart/ezset/staging/update.xml</server>
+	</updateservers>
 
 </extension>
