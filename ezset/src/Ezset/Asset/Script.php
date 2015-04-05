@@ -8,6 +8,8 @@
 
 namespace Ezset\Asset;
 
+use Ezset\Uri\UriChecker;
+
 /**
  * Class Script
  *
@@ -23,8 +25,9 @@ class Script
 	public static function register()
 	{
 		/** @var $doc \JDocumentHtml */
-		$doc  = \JFactory::getDocument();
-		$es   = \Ezset::getInstance();
+		$doc   = \JFactory::getDocument();
+		$es    = \Ezset::getInstance();
+		$input = \JFactory::getApplication()->input;
 
 		if ($doc->getType() !== 'html')
 		{
@@ -43,10 +46,13 @@ class Script
 
 		$smoothScroll = $smoothScroll ? 'true' : 'false';
 
+		$confirmLeave = ($es->params->get('confirmLeave', 0) && UriChecker::isArticleEdit()) ? 'true' : 'false';
+
 		$script =<<<SCRIPT
 <script type="text/javascript">
 	var ezsetOption = {
-		"smoothScroll" : {$smoothScroll}
+		smoothScroll: {$smoothScroll},
+		confirmLeave: $confirmLeave
 	};
 
 	var ezsetConfig = {
