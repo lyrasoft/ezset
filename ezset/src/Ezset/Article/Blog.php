@@ -39,7 +39,7 @@ class Blog
 		$es        = \Ezset::getInstance();
 		$imgW      = $es->params->get('blogViewImgWidth', 150);
 		$maxChar   = $es->params->get('blogViewMaxChar', 250);
-		$crop      = $es->params->get('blogViewImgCrop', 1);
+		$crop      = (boolean) $es->params->get('blogViewImgCrop', true);
 		$allowTags = $es->params->get('blogViewTagsAllow');
 		$doc       = \JFactory::getDocument();
 		$text      = $article->introtext;
@@ -99,7 +99,7 @@ class Blog
 		}
 		else
 		{
-			$imageUrl = $thumb->resize($mainImg, $imgW, 999, 0);
+			$imageUrl = $thumb->resize($mainImg, $imgW, 999);
 		}
 
 		// Article Link
