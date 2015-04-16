@@ -21,6 +21,11 @@ var Ezset = {
 			this.smoothScroll();
 		}
 
+		if (this.options['logoLink'])
+		{
+			this.logoLink();
+		}
+
 		if (this.options['confirmLeave'])
 		{
 			jQuery(document).ready(function()
@@ -69,6 +74,23 @@ var Ezset = {
 
 			// For Chrome, Safari, IE8+ and Opera 12+
 			return message;
+		});
+	},
+
+	/**
+	 * Logo link.
+	 */
+	logoLink: function()
+	{
+		var self = this;
+
+		jQuery(document).ready(function()
+		{
+			var logo = jQuery('.admin-logo');
+
+			logo.removeClass('disabled');
+
+			logo.attr('href', self.config.base);
 		});
 	}
 };

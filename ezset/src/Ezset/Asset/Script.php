@@ -37,6 +37,7 @@ class Script
 		$uri = \JUri::getInstance();
 
 		$root = $uri::root();
+		$base = $uri::base();
 		$host = $uri->toString(array('scheme', 'host')) . '/';
 
 		if ($smoothScroll = $es->params->get('smoothScroll', 0))
@@ -48,15 +49,19 @@ class Script
 
 		$confirmLeave = ($es->params->get('confirmLeave', 0) && UriChecker::isArticleEdit()) ? 'true' : 'false';
 
+		$logoLink = \JFactory::getApplication()->isAdmin() ? 'true' : 'false';
+
 		$script =<<<SCRIPT
 <script type="text/javascript">
 	var ezsetOption = {
 		smoothScroll: {$smoothScroll},
-		confirmLeave: $confirmLeave
+		confirmLeave: $confirmLeave,
+		logoLink: $logoLink
 	};
 
 	var ezsetConfig = {
 		root : '{$root}',
+		base : '{$base}',
 		host : '{$host}'
 	};
 
