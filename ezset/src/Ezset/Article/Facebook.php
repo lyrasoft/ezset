@@ -36,15 +36,17 @@ class Facebook
 		}
 
 		$input = \JFactory::getApplication()->input;
+		$uri   = \JUri::getInstance();
 
 		// Set Route
-		$uri = JContentHelper::getArticleLink("{$article->id}:{$article->alias}", $article->catid, 1);
+		$link = JContentHelper::getArticleLink("{$article->id}:{$article->alias}", $article->catid, false);
+		$link = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port')) . \JRoute::_($link);
 
 		// Set like
 		$es       = \Ezset::getInstance();
 		$position = $es->params->get('fbLikePosition', 1);
 
-		$like = with(new FileLayout('ezset.article.facebook.like'))->render(array('uri' => $uri));
+		$like = with(new FileLayout('ezset.article.facebook.like'))->render(array('uri' => $link));
 
 		if ($input->get('view') == 'featured' || $input->get('layout') == 'blog')
 		{
