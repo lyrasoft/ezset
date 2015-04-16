@@ -100,6 +100,13 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
+				<field name="blogViewImgDefault"
+					default=""
+					type="media"
+					class="btn-group"
+					label="PLG_SYSTEM_EZSET_BLOG_VIEW_IMG_DEFAULT"
+					description="PLG_SYSTEM_EZSET_BLOG_VIEW_IMG_DEFAULT_DESC"
+					/>
 				<field name="blogViewCleanTags"
 					default="0"
 					type="radio"

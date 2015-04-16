@@ -1,5 +1,7 @@
 <?php
 
+use Windwalker\Helper\UriHelper;
+
 defined('_JEXEC') or die;
 
 // Get some datas
@@ -45,7 +47,7 @@ foreach ($menus as $menu)
 	$uri = new JURI($menu->link);
 	$uri->setVar('Itemid', $menu->id);
 
-	if ($app->getCfg('sef'))
+	if ($app->get('sef'))
 	{
 		$uri->setVar('layout', null);
 	}
@@ -53,7 +55,7 @@ foreach ($menus as $menu)
 	$link = JRoute::_($uri->toString());
 	$host = str_replace('http://' . $_SERVER['HTTP_HOST'], '', JURI::root());
 	$link = str_replace($host, '', $link);
-	$link = \Ezset\Helper\UriHelper::pathAddHost($link);
+	$link = UriHelper::pathAddHost($link);
 
 	// Set xml data
 	$url = $xml->addChild('url');
@@ -82,7 +84,7 @@ $cats = $db->loadObjectList();
 foreach ($cats as $cat)
 {
 	// Get category link
-	$link = \Windwalker\Helper\JContentHelper::getCategoryLink($cat->id, true);
+	$link = Ezset\Article\ArticleHelper::getCategoryLink($cat->id);
 
 	if (in_array($link, $exists_links))
 	{
@@ -121,7 +123,7 @@ $contents = $db->loadObjectList();
 foreach ($contents as $content)
 {
 	// Get category link
-	$link = \Windwalker\Helper\JContentHelper::getArticleLink($content->id, $content->catid, true);
+	$link = \Ezset\Article\ArticleHelper::getArticleLink($content->id, $content->catid, true);
 
 	if (in_array($link, $exists_links))
 	{

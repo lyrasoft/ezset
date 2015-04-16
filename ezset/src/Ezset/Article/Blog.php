@@ -39,6 +39,7 @@ class Blog
 		$es        = \Ezset::getInstance();
 		$imgW      = $es->params->get('blogViewImgWidth', 150);
 		$maxChar   = $es->params->get('blogViewMaxChar', 250);
+		$default   = $es->params->get('blogViewImgDefault');
 		$crop      = (boolean) $es->params->get('blogViewImgCrop', true);
 		$allowTags = $es->params->get('blogViewTagsAllow');
 		$doc       = \JFactory::getDocument();
@@ -48,6 +49,13 @@ class Blog
 		if ($doc->getType() != 'html')
 		{
 			return;
+		}
+
+		$thumb = new \Windwalker\Image\Thumb;
+
+		if ($default)
+		{
+			$thumb->setDefaultImage($default);
 		}
 
 		// Clean Tags
@@ -91,8 +99,6 @@ class Blog
 		}
 
 		// Handle Image
-		$thumb = new \Windwalker\Image\Thumb;
-
 		if ($crop)
 		{
 			$imageUrl = $thumb->resize($mainImg, $imgW, $imgW, $crop);
