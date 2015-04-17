@@ -31,7 +31,7 @@ class AuthoriseHelper
 			$username = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : null;
 			$password = isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null;
 
-			$user = \JFactory::getUser($username);
+			$user = \JUser::getInstance($username);
 
 			if (!$username || $user->username != $username)
 			{
