@@ -9,8 +9,6 @@
 const _JEXEC = 1;
 error_reporting(32767);
 
-include_once __DIR__ . '/../libraries/vendor/autoload.php';
-
 define('INSTALL_ROOT', __DIR__);
 define('JPATH_BASE', dirname(__DIR__));
 
@@ -23,7 +21,7 @@ require_once JPATH_LIBRARIES . '/cms.php';
  *
  * @since  {DEPLOY_VERSION}
  */
-class InstallationApplication extends \Joomla\Application\AbstractWebApplication
+class InstallationApplication extends JApplicationWeb
 {
 	/**
 	 * Method to run the application routines.  Most likely you will want to instantiate a controller
