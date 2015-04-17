@@ -1,18 +1,28 @@
 <?php
 /**
- * Part of joomla34 project. 
+ * Part of Ezset project.
  *
  * @copyright  Copyright (C) 2015 {ORGANIZATION}. All rights reserved.
  * @license    GNU General Public License version 2 or later;
  */
 
+$app = JFactory::getApplication();
+
 header('Content-Type:text/html;charset=utf-8');//防止中文信息有亂碼
 header('Cache-Control:no-cache');//防止瀏覽器緩存，導致按F5刷新不管用
 
-$backupZipFile = new SplFileInfo(JPATH_ROOT . '/tmp/ezset-backup.zip');
-$backupSQLFile = new SplFileInfo(JPATH_ROOT . '/tmp/ezset-sql-backup-' . '.sql');
-$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(JPATH_ROOT));
-$app      = JFactory::getApplication();
+\Ezset\System\AuthoriseHelper::auth();
+
+$uri = JUri::getInstance();
+
+$backupZipFile = new SplFileInfo(JPATH_ROOT . '/tmp/ezset-backup-' . $uri->getHost() . '.zip');
+$backupSQLFile = new SplFileInfo(JPATH_ROOT . '/tmp/ezset-sql-backup.sql');
+$iterator      = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(JPATH_ROOT));
+
+$installationFolder   = realpath(__DIR__ . '/../resources/installation');
+$installationIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($installationFolder));
+
+
 ?>
 	<h1>壓縮中，完成將自動下載 - ASIKART Backup System</h1>
 
@@ -27,7 +37,7 @@ $app      = JFactory::getApplication();
 		}, 200);
 	</script>
 
-	<textarea  cols="120" rows="20" id="main-textarea"><?php
+	<textarea  style="width: 100%;" rows="20" id="main-textarea"><?php
 
 $export = \Ezset\Database\Backup::export();
 
@@ -50,12 +60,30 @@ if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 			continue;
 		}
 
-		echo $item->getPathname() . "\n";
+		$dest = str_replace(JPATH_ROOT . DIRECTORY_SEPARATOR, '', $item->getPathname());
 
-		$zip->addFile($item->getPathname(), str_replace(JPATH_ROOT . DIRECTORY_SEPARATOR, '', $item->getPathname()));
+		echo $item->getPathname() . '  =>  ' . $dest . "\n";
+
+		$zip->addFile($item->getPathname(), $dest);
+	}
+
+	foreach ($installationIterator as $item)
+	{
+		if ($item->isDir())
+		{
+			continue;
+		}
+
+		$dest = str_replace($installationFolder . DIRECTORY_SEPARATOR, '', 'installation/' . $item->getPathname());
+
+		echo $item->getPathname() . '  =>  ' . $dest . "\n";
+
+		$zip->addFile($item->getPathname(), $dest);
 	}
 
 	$zip->addFile($backupSQLFile->getPathname(), $backupSQLFile->getBasename());
+
+	$zip->renameName('configuration.php', 'configuration.dist.php');
 
 	$zip->close();
 
