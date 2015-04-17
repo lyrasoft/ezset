@@ -18,11 +18,11 @@ class AuthoriseHelper
 	/**
 	 * auth
 	 *
-	 * @return  void
+	 * @param bool $superUser
 	 *
 	 * @throws \Exception
 	 */
-	public static function auth()
+	public static function auth($superUser = true)
 	{
 		$app = \JFactory::getApplication();
 
@@ -41,6 +41,14 @@ class AuthoriseHelper
 			if (!$password || !\JUserHelper::verifyPassword($password, $user->password))
 			{
 				throw new \Exception;
+			}
+
+			if ($superUser)
+			{
+				if (!$user->authorise('core.admin'))
+				{
+					throw new \Exception;
+				}
 			}
 		}
 		catch (\Exception $e)
