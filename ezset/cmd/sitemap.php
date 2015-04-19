@@ -12,7 +12,7 @@ $date         = JFactory::getDate('now', JFactory::getConfig()->get('offset'));
 
 // Get XML parser
 $xml = simplexml_load_string(
-'<?xml version="1.0" encoding="utf-8"?' . '>
+	'<?xml version="1.0" encoding="utf-8"?' . '>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" />'
 );
 
@@ -59,8 +59,7 @@ foreach ($menus as $menu)
 
 	// Set xml data
 	$url = $xml->addChild('url');
-	$loc = $url->addChild('loc');
-	$loc->value = $link;
+	$loc = $url->addChild('loc', $link);
 	$url->addChild('lastmod', $date->format('Y-m-d'));
 	$url->addChild('changefreq', 'weekly');
 	$url->addChild('priority', '0.8');
@@ -98,8 +97,7 @@ foreach ($cats as $cat)
 
 	// Set xml data
 	$url = $xml->addChild('url');
-	$loc = $url->addChild('loc');
-	$loc->value = $link;
+	$loc = $url->addChild('loc', $link);
 	$url->addChild('lastmod', $modified);
 	$url->addChild('changefreq', 'weekly');
 	$url->addChild('priority', '0.7');
@@ -137,8 +135,7 @@ foreach ($contents as $content)
 
 	// Set xml data
 	$url = $xml->addChild('url');
-	$loc = $url->addChild('loc');
-	$loc->value = $link;
+	$loc = $url->addChild('loc', $link);
 	$url->addChild('lastmod', $modified);
 	$url->addChild('changefreq', 'weekly');
 	$url->addChild('priority', '0.6');

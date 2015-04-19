@@ -86,7 +86,7 @@ class Secure
 			}
 			catch (\Exception $e)
 			{
-				header('WWW-Authenticate: Basic realm="' . $app->get('sitename') . '"');
+				header('WWW-Authenticate: Basic realm="This operation must login."');
 				header('HTTP/1.0 401 Unauthorized');
 				die();
 			}

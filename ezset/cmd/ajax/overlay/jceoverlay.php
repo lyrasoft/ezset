@@ -1,5 +1,7 @@
 <?php
 
+defined('_JEXEC') or die;
+
 $db = JFactory::getDbo();
 jimport('joomla.filesystem.path');
 
