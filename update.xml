@@ -9,6 +9,7 @@
 			<downloadurl type="upgrade" format="zip">https://github.com/asikart/ezset/archive/master.zip</downloadurl>
 		</downloads>
 		<targetplatform name="joomla" version="3.4" />
+		<client_id>0</client_id>
 		<element>ezset</element>
 		<folder>system</folder>
 		<type>plugin</type>
@@ -16,13 +17,14 @@
 	
 	<!-- Joomla!3.3 -->
 	<update>
-		<name>plg_system_ezset</name>
+		<name>Asikart Ezset Plugin</name>
 		<version>1.0.6</version>
-		<infourl title="plg_system_ezset">http://ext.asikart.com</infourl>
+		<infourl title="Asikart Ezset Plugin">http://ext.asikart.com</infourl>
 		<downloads>
 			<downloadurl type="upgrade" format="zip">https://github.com/asikart/ezset/archive/master.zip</downloadurl>
 		</downloads>
 		<targetplatform name="joomla" version="3.3" />
+		<client_id>0</client_id>
 		<element>ezset</element>
 		<folder>system</folder>
 		<type>plugin</type>
