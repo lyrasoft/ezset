@@ -13,4 +13,18 @@
 		<folder>system</folder>
 		<type>plugin</type>
 	</update>
+	
+	<!-- Joomla!3.3 -->
+	<update>
+		<name>Asikart Ezset Plugin</name>
+		<version>1.0.4</version>
+		<infourl title="Asikart Ezset Plugin">http://ext.asikart.com</infourl>
+		<downloads>
+			<downloadurl type="upgrade" format="zip">https://github.com/asikart/ezset/archive/master.zip</downloadurl>
+		</downloads>
+		<targetplatform name="joomla" version="3.3" />
+		<element>ezset</element>
+		<folder>system</folder>
+		<type>plugin</type>
+	</update>
 </updates>
