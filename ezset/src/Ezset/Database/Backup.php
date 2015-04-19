@@ -32,7 +32,7 @@ class Backup
 		{
 			$create = $db->setQuery('SHOW CREATE TABLE ' . $table)->loadRow();
 
-			$sql[] = 'DROP TABLE ' . $table . ' IF EXISTS';
+			$sql[] = 'DROP TABLE IF EXISTS ' . $table;
 			$sql[] = $create[1];
 
 			static::exportRows($table, $sql);
