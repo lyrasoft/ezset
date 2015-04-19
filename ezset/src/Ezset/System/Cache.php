@@ -8,6 +8,8 @@
 
 namespace Ezset\System;
 
+use Windwalker\Data\Data;
+
 /**
  * Class Cache
  *
@@ -133,5 +135,57 @@ class Cache
 		$config->set('caching', $caching);
 
 		return $caching;
+	}
+
+	/**
+	 * cacheEzsetData
+	 *
+	 * @param \PlgSystemEzset $ezset
+	 *
+	 * @return  void
+	 */
+	public static function cacheEzsetData(\PlgSystemEzset $ezset)
+	{
+		$cache = \JFactory::getCache('ezset', 'output');
+
+		$id = static::getPageStoreId();
+
+		if (!$cache->get($id))
+		{
+			$cache->store($ezset->data, $id);
+		}
+	}
+
+	/**
+	 * prepareEzsetData
+	 *
+	 * @param \PlgSystemEzset $ezset
+	 *
+	 * @return  void
+	 */
+	public static function prepareEzsetData(\PlgSystemEzset $ezset)
+	{
+		$cache = \JFactory::getCache('ezset', 'output');
+
+		$id = static::getPageStoreId();
+
+		$data = $cache->get($id);
+
+		if ($data)
+		{
+			$ezset->data = new Data($data);
+		}
+	}
+
+	/**
+	 * getPageStoreId
+	 *
+	 * @return  string
+	 */
+	public static function getPageStoreId()
+	{
+		$uri = \JUri::getInstance()->toString();
+
+		return 'ezset-' . md5($uri);
 	}
 }

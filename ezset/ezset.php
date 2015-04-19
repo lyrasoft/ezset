@@ -50,6 +50,8 @@ class PlgSystemEzset extends JPlugin
 		$this->data = new \Windwalker\Data\Data;
 
 		self::$self = $this;
+
+		$this->call(array('System\\Cache', 'prepareEzsetData'), $this);
 	}
 
 	/**
@@ -129,6 +131,11 @@ class PlgSystemEzset extends JPlugin
 	{
 		$this->call(array('Article\\CodeInsert', 'insertHeader'));
 		$this->call(array('Asset\\Style', 'register'));
+
+		if ($this->app->get('caching', 0))
+		{
+			$this->call(array('System\\Cache', 'cacheEzsetData'), $this);
+		}
 
 		if ($this->params->get('cacheManagerEnabled', 0) && $this->app->isSite())
 		{
