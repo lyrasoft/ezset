@@ -3,7 +3,7 @@
 	<!-- Joomla!3.4 -->
 	<update>
 		<name>Asikart Ezset Plugin</name>
-		<version>1.0.6</version>
+		<version>1.0.7</version>
 		<infourl title="Asikart Ezset Plugin">http://ext.asikart.com</infourl>
 		<downloads>
 			<downloadurl type="upgrade" format="zip">https://github.com/asikart/ezset/archive/master.zip</downloadurl>
@@ -18,7 +18,7 @@
 	<!-- Joomla!3.3 -->
 	<update>
 		<name>Asikart Ezset Plugin</name>
-		<version>1.0.6</version>
+		<version>1.0.7</version>
 		<infourl title="Asikart Ezset Plugin">http://ext.asikart.com</infourl>
 		<downloads>
 			<downloadurl type="upgrade" format="zip">https://github.com/asikart/ezset/archive/master.zip</downloadurl>
