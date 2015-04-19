@@ -9,7 +9,7 @@
 			<downloadurl type="upgrade" format="zip">https://github.com/asikart/ezset/archive/master.zip</downloadurl>
 		</downloads>
 		<targetplatform name="joomla" version="3.4" />
-		<client_id>0</client_id>
+		<client>site</client>
 		<element>ezset</element>
 		<folder>system</folder>
 		<type>plugin</type>
@@ -24,7 +24,7 @@
 			<downloadurl type="upgrade" format="zip">https://github.com/asikart/ezset/archive/master.zip</downloadurl>
 		</downloads>
 		<targetplatform name="joomla" version="3.3" />
-		<client_id>0</client_id>
+		<client>site</client>
 		<element>ezset</element>
 		<folder>system</folder>
 		<type>plugin</type>
