@@ -49,6 +49,8 @@ try
 	$config->set('db',       $options['database']);
 	$config->set('password', $options['password']);
 	$config->set('user',     $options['user']);
+	$config->set('log_path', JPATH_BASE . '/logs');
+	$config->set('tmp_path', JPATH_BASE . '/tmp');
 
 	file_put_contents($configFile->getPathname(), $config->toString('php', array('class' => 'JConfig')));
 
