@@ -24,6 +24,11 @@ $installationIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIter
 
 $quite = $app->input->get('quite', 0);
 
+if ($quite)
+{
+	ob_start();
+}
+
 ?><h1>壓縮中，完成將自動下載 - ASIKART Backup System</h1>
 
 	<script>
@@ -129,5 +134,10 @@ else
 	</script>
 
 <?php
+
+if ($quite)
+{
+	ob_end_clean();
+}
 
 $app->redirect(JUri::base() . 'tmp/' . $backupZipFile->getBasename());
