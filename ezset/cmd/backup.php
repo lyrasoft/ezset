@@ -32,21 +32,20 @@ if ($quite)
 ?><h1>壓縮中，完成將自動下載 - ASIKART Backup System</h1>
 
 	<script>
-		var stop = false;
-
-		setInterval(function()
-		{
-			if (stop)
+		var stop = false
+			,toBottom = function()
 			{
-				return;
-			}
+				if (stop)
+				{
+					return;
+				}
 
-			var t = document.getElementById('main-textarea');
+				t = document.getElementById('main-textarea')
 
-			t.scrollTop = t.scrollHeight;
+				t.scrollTop = t.scrollHeight;
+			};
 
-			console.log(t.scrollHeight);
-		}, 200);
+		setInterval(toBottom, 200);
 	</script>
 
 	<textarea  style="width: 100%;" rows="20" id="main-textarea">
@@ -63,6 +62,9 @@ if (is_file($backupZipFile->getPathname()))
 {
 	JFile::delete($backupZipFile->getPathname());
 }
+
+ob_flush();
+flush();
 
 if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 {
@@ -96,6 +98,8 @@ if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 		}
 
 		echo $item->getPathname() . '  =>  ' . $dest . "\n";
+		ob_flush();
+		flush();
 
 		$zip->addFile($item->getPathname(), $dest);
 	}
@@ -110,6 +114,8 @@ if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 		$dest = str_replace($installationFolder . DIRECTORY_SEPARATOR, '', 'installation/' . $item->getPathname());
 
 		echo $item->getPathname() . '  =>  ' . $dest . "\n";
+		ob_flush();
+		flush();
 
 		$zip->addFile($item->getPathname(), $dest);
 	}
@@ -130,6 +136,7 @@ else
 ?></textarea>
 
 	<script>
+		toBottom();
 		stop = true;
 	</script>
 
