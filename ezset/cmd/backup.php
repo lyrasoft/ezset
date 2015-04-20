@@ -22,13 +22,20 @@ $iterator      = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(JP
 $installationFolder   = realpath(__DIR__ . '/../resources/installation');
 $installationIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($installationFolder));
 
+$quite = $app->input->get('quite', 0);
 
-?>
-	<h1>壓縮中，完成將自動下載 - ASIKART Backup System</h1>
+?><h1>壓縮中，完成將自動下載 - ASIKART Backup System</h1>
 
 	<script>
+		var stop = false;
+
 		setInterval(function()
 		{
+			if (stop)
+			{
+				return;
+			}
+
 			var t = document.getElementById('main-textarea');
 
 			t.scrollTop = t.scrollHeight;
@@ -37,7 +44,8 @@ $installationIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIter
 		}, 200);
 	</script>
 
-	<textarea  style="width: 100%;" rows="20" id="main-textarea"><?php
+	<textarea  style="width: 100%;" rows="20" id="main-textarea">
+<?php
 
 $export = \Ezset\Database\Backup::export();
 
@@ -53,6 +61,8 @@ if (is_file($backupZipFile->getPathname()))
 
 if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 {
+	$excludes = array('tmp', 'cache', 'logs', 'log');
+
 	foreach ($iterator as $item)
 	{
 		if ($item->isDir())
@@ -61,6 +71,24 @@ if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 		}
 
 		$dest = str_replace(JPATH_ROOT . DIRECTORY_SEPARATOR, '', $item->getPathname());
+
+		// Excludes
+		$continue = false;
+
+		foreach ($excludes as $exclude)
+		{
+			if (strpos($dest, $exclude . DIRECTORY_SEPARATOR) === 0 && $dest != $exclude . DIRECTORY_SEPARATOR . 'index.html')
+			{
+				$continue = true;
+
+				break;
+			}
+		}
+
+		if ($continue)
+		{
+			continue;
+		}
 
 		echo $item->getPathname() . '  =>  ' . $dest . "\n";
 
@@ -96,6 +124,10 @@ else
 
 ?></textarea>
 
+	<script>
+		stop = true;
+	</script>
+
 <?php
 
-$app->redirect(JUri::base() . '/tmp/' . $backupZipFile->getBasename());
+$app->redirect(JUri::base() . 'tmp/' . $backupZipFile->getBasename());
