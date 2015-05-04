@@ -96,6 +96,8 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterRoute()
 	{
+		$this->call(array('Route\\QuickRouting', 'route'));
+
 		$this->call(array('Seo\\OpenGraph', 'disableGzip'));
 
 		@include $this->includeEvent(__FUNCTION__);
