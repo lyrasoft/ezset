@@ -6,6 +6,8 @@
  * @license    GNU General Public License version 2 or later;
  */
 
+defined('_JEXEC') or die;
+
 $app = JFactory::getApplication();
 
 header('Content-Type:text/html;charset=utf-8');//防止中文信息有亂碼

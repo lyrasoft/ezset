@@ -470,6 +470,10 @@
 					type="ajax"
 					label="PLG_SYSTEM_EZSET_CONTENTOVERLAY"
 					description="PLG_SYSTEM_EZSET_CONTENTOVERLAY_DESC" />
+				<field name="robotsoverlay"
+					type="ajax"
+					label="PLG_SYSTEM_EZSET_ROBOTSOVERLAY"
+					description="PLG_SYSTEM_EZSET_ROBOTSOVERLAY_DESC" />
 			</fieldset>
 		</fields>
 	</config>
