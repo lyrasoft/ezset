@@ -10,7 +10,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>asika@asikart.com</authorEmail>
 	<authorUrl>http://asikart.com</authorUrl>
-	<version>1.0.9</version>
+	<version>1.0.8</version>
 	<description>PLG_SYSTEM_EZSET_XML_DESCRIPTION</description>
 
 	<scriptfile>install.php</scriptfile>
@@ -260,6 +260,15 @@
 					default="1"
 					label="PLG_SYSTEM_EZSET_OG_DEFAULT_IMAGE_ONLY_FRONTPAGE"
 					description="PLG_SYSTEM_EZSET_OG_DEFAULT_IMAGE_ONLY_FRONTPAGE_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="ogOnlyTitle"
+					type="radio"
+					class="btn-group"
+					default="1"
+					label="PLG_SYSTEM_EZSET_OG_ONLY_TITLE"
+					description="PLG_SYSTEM_EZSET_OG_ONLY_TITLE_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>

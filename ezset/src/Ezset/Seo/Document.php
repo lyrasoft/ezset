@@ -83,7 +83,9 @@ class Document
 			$page_id  = $params->get('ogPageId');
 			$app_id   = $params->get('ogAppId');
 
-			$meta[] = '<meta property="og:title" content="' . $doc->getTitle() . '"/>';
+			$title = $params->get('ogOnlyTitle', 1) ? $easyset->data->originTitle : $doc->getTitle();
+
+			$meta[] = '<meta property="og:title" content="' . $title . '"/>';
 			$meta[] = '<meta property="og:site_name" content="' . $siteName . '"/>';
 
 			if ($metaDesc)
