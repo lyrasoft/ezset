@@ -68,7 +68,19 @@ flush();
 
 if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 {
-	$excludes = array('tmp', 'cache', 'logs', 'log');
+	$ignores = array(
+		'/logs/*',
+		'!/logs/index.html',
+		'/log/*',
+		'!/log/index.html',
+		'/cache/*',
+		'!/cache/index.html',
+		'/tmp/*',
+		'!/tmp/index.html',
+		'/administrator/components/com_akeeba/backup/*.zip',
+	);
+
+	$filter = new \Ezset\Filesystem\FileFilter($ignores);
 
 	foreach ($iterator as $item)
 	{
@@ -80,19 +92,7 @@ if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 		$dest = str_replace(JPATH_ROOT . DIRECTORY_SEPARATOR, '', $item->getPathname());
 
 		// Excludes
-		$continue = false;
-
-		foreach ($excludes as $exclude)
-		{
-			if (strpos($dest, $exclude . DIRECTORY_SEPARATOR) === 0 && $dest != $exclude . DIRECTORY_SEPARATOR . 'index.html')
-			{
-				$continue = true;
-
-				break;
-			}
-		}
-
-		if ($continue)
+		if ($filter->test($item->getPathname()))
 		{
 			continue;
 		}
