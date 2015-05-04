@@ -30,6 +30,17 @@ class Ezset
 	 */
 	public static function isHome()
 	{
+		$langPath = null;
+
+		// For multi language
+		if (JPluginHelper::isEnabled('system', 'languagefilter'))
+		{
+			$lang = JLanguageHelper::detectLanguage();
+			$langCodes = \JLanguageHelper::getLanguages('lang_code');
+
+			$langPath = $langCodes[$lang]->sef;
+		}
+
 		$uri  = \JUri::getInstance();
 		$root = $uri::root(true);
 
@@ -39,9 +50,19 @@ class Ezset
 		// Remove index.php
 		$route = str_replace('index.php', '', $route);
 
-		if (! trim($route, '/') && ! $uri->getVar('option'))
+		if ($langPath)
 		{
-			return true;
+			if (trim($route, '/') == $langPath && ! $uri->getVar('option'))
+			{
+				return true;
+			}
+		}
+		else
+		{
+			if (! trim($route, '/') && ! $uri->getVar('option'))
+			{
+				return true;
+			}
 		}
 
 		return false;
