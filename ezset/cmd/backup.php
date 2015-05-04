@@ -15,8 +15,8 @@ header('Cache-Control:no-cache');//防止瀏覽器緩存，導致按F5刷新不�
 
 $uri = JUri::getInstance();
 
-$backupZipFile = new SplFileInfo(JPATH_ROOT . '/tmp/ezset-backup-' . $uri->getHost() . '.zip');
-$backupSQLFile = new SplFileInfo(JPATH_ROOT . '/tmp/ezset-sql-backup.sql');
+$backupZipFile = new SplFileInfo(JPATH_ROOT . '/tmp/ezset/backup/ezset-backup-' . $uri->getHost() . '.zip');
+$backupSQLFile = new SplFileInfo(JPATH_ROOT . '/tmp/ezset/backup/ezset-sql-backup.sql');
 $iterator      = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(JPATH_ROOT));
 
 $installationFolder   = realpath(__DIR__ . '/../resources/installation');
@@ -27,6 +27,29 @@ $quite = $app->input->get('quite', 0);
 if ($quite)
 {
 	ob_start();
+}
+
+// Create folder
+if (!JFolder::exists($backupZipFile->getPath()))
+{
+	JFolder::create($backupZipFile->getPath());
+}
+
+if (!JFile::exists($backupZipFile->getPath() . '/.htaccess'))
+{
+	$htaccess = <<<HT
+<IfModule !mod_authz_core.c>
+Order deny,allow
+Deny from all
+</IfModule>
+<IfModule mod_authz_core.c>
+  <RequireAll>
+    Require all denied
+  </RequireAll>
+</IfModule>
+HT;
+
+	file_put_contents($backupZipFile->getPath() . '/.htaccess', $htaccess);
 }
 
 ?><h1>壓縮中，完成將自動下載 - ASIKART Backup System</h1>
@@ -147,4 +170,5 @@ if ($quite)
 	ob_end_clean();
 }
 
-$app->redirect(JUri::base() . 'tmp/' . $backupZipFile->getBasename());
+// $app->redirect(JUri::base() . 'tmp/' . $backupZipFile->getBasename());
+$app->redirect(JUri::base() . '?cmd=backup.download');
