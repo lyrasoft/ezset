@@ -53,7 +53,7 @@ class AuthoriseHelper
 		}
 		catch (\Exception $e)
 		{
-			header('WWW-Authenticate: Basic realm="' . $app->get('sitename') . '"');
+			header('WWW-Authenticate: Basic realm="Please login first"');
 			header('HTTP/1.0 401 Unauthorized');
 
 			exit();

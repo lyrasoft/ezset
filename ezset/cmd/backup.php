@@ -54,7 +54,18 @@ HT;
 	file_put_contents($backupZipFile->getPath() . '/.htaccess', $htaccess);
 }
 
-?><h1>壓縮中，完成將自動下載 - ASIKART Backup System</h1>
+?>
+	<style>
+		body {
+			background-color: #333;
+			color: #eee;
+		}
+		#main-textarea {
+			background-color: #111;
+			border-radius: 5px;
+		}
+	</style>
+	<h1>壓縮中，完成將自動下載 - ASIKART Backup System</h1>
 
 	<script>
 		var stop = false
@@ -73,8 +84,7 @@ HT;
 		setInterval(toBottom, 200);
 	</script>
 
-	<textarea  style="width: 100%;" rows="20" id="main-textarea">
-<?php
+	<pre id="main-textarea" style="height: 500px; overflow: scroll;"><?php
 
 $export = \Ezset\Database\Backup::export();
 
@@ -94,6 +104,7 @@ flush();
 if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 {
 	$ignores = array(
+		'*/.git/*',
 		'/logs/*',
 		'!/logs/index.html',
 		'/log/*',
@@ -136,7 +147,7 @@ if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 			continue;
 		}
 
-		$dest = str_replace($installationFolder . DIRECTORY_SEPARATOR, '', 'installation/' . $item->getPathname());
+		$dest = str_replace($installationFolder . DIRECTORY_SEPARATOR, '', 'installation' . DIRECTORY_SEPARATOR . $item->getPathname());
 
 		echo $item->getPathname() . '  =>  ' . $dest . "\n";
 		ob_flush();
@@ -147,6 +158,7 @@ if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 
 	$zip->addFile($backupSQLFile->getPathname(), $backupSQLFile->getBasename());
 
+	$zip->deleteName('configuration.dist.php');
 	$zip->renameName('configuration.php', 'configuration.dist.php');
 
 	$zip->close();
@@ -158,7 +170,7 @@ else
 	echo 'failed';
 }
 
-?></textarea>
+?></pre>
 
 	<script>
 		toBottom();

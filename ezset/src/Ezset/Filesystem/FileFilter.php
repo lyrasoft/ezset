@@ -41,7 +41,7 @@ class FileFilter
 
 		foreach ($this->rules as &$rule)
 		{
-			$rule = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $rule);
+			$rule = str_replace(array('/', '\\'), '/', $rule);
 		}
 
 		$this->root = $root;
@@ -58,7 +58,10 @@ class FileFilter
 	{
 		$match = false;
 
-		$string = substr($string, strlen(rtrim($this->root, DIRECTORY_SEPARATOR)));
+		// fnmatch() only work for UNIX file path
+		$string = str_replace(array('/', '\\'), '/', $string);
+
+		$string = substr($string, strlen(rtrim($this->root, '/')));
 
 		foreach ($this->rules as $rule)
 		{
