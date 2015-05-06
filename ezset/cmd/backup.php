@@ -63,6 +63,7 @@ HT;
 		#main-textarea {
 			background-color: #111;
 			border-radius: 5px;
+			padding: 15px;
 		}
 	</style>
 	<h1>壓縮中，完成將自動下載 - ASIKART Backup System</h1>
