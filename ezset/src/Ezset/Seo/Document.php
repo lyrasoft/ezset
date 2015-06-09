@@ -128,6 +128,11 @@ class Document
 	 */
 	public static function analytics($id)
 	{
+		if (\JFactory::getApplication()->isAdmin())
+		{
+			return;
+		}
+		
 		$doc = \JFactory::getDocument();
 
 		$host = \JUri::getInstance()->getHost();
@@ -144,7 +149,6 @@ class Document
   ga('create', '{$id}', '{$host}');
   ga('send', 'pageview');
   /* Google Analytics End */
-
 
 GA;
 
