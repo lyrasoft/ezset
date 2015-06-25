@@ -74,6 +74,8 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterInitialise()
 	{
+		$this->call(array('Route\\QuickRouting', 'route'));
+
 		$this->call(array('System\\Command', 'execute'));
 
 		if ($this->params->get('tranAlias', 1))
@@ -96,8 +98,6 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterRoute()
 	{
-		$this->call(array('Route\\QuickRouting', 'route'));
-
 		$this->call(array('Seo\\OpenGraph', 'disableGzip'));
 
 		@include $this->includeEvent(__FUNCTION__);

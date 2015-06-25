@@ -8,7 +8,7 @@
 
 namespace Ezset\Asset;
 
-use Ezset\Uri\UriChecker;
+use Ezset\Library\Uri\UriChecker;
 
 /**
  * Class Script

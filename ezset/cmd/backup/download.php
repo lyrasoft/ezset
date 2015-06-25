@@ -8,7 +8,7 @@
 
 defined('_JEXEC') or die;
 
-\Ezset\System\AuthoriseHelper::auth();
+\Ezset\Library\Authorization\AuthoriseHelper::auth();
 
 $uri = JUri::getInstance();
 

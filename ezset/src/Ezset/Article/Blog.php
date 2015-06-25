@@ -8,7 +8,7 @@
 
 namespace Ezset\Article;
 
-use Ezset\Layout\FileLayout;
+use Ezset\Library\Layout\FileLayout;
 use Windwalker\Helper\JContentHelper;
 
 /**

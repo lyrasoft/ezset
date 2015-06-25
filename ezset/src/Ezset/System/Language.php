@@ -8,6 +8,8 @@
 
 namespace Ezset\System;
 
+use Ezset\Library\Language\LanguageOrphan;
+
 /**
  * Class Language
  *

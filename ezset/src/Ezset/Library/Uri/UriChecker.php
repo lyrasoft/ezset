@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later;
  */
 
-namespace Ezset\Uri;
+namespace Ezset\Library\Uri;
 
 use Windwalker\Helper\ArrayHelper;
 
@@ -54,6 +54,8 @@ abstract class UriChecker
 
 	/**
 	 * Query a two-dimensional array values to get second level array.
+	 *
+	 * This is a clone from Windwalke RAD 2.1, will be remove if RAD 2.1 released.
 	 *
 	 * @param   array    $array    An array to query.
 	 * @param   mixed    $queries  Query strings, may contain Comparison Operators: '>', '>=', '<', '<='.

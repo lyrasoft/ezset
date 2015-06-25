@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later;
  */
 
-namespace Ezset\Database;
+namespace Ezset\Library\Database;
 
 /**
  * The Backup class.

@@ -83,7 +83,7 @@ $cats = $db->loadObjectList();
 foreach ($cats as $cat)
 {
 	// Get category link
-	$link = Ezset\Article\ArticleHelper::getCategoryLink($cat->id);
+	$link = \Ezset\Library\Article\ArticleHelper::getCategoryLink($cat->id);
 
 	if (in_array($link, $exists_links))
 	{
@@ -121,7 +121,7 @@ $contents = $db->loadObjectList();
 foreach ($contents as $content)
 {
 	// Get category link
-	$link = \Ezset\Article\ArticleHelper::getArticleLink($content->id, $content->catid, true);
+	$link = \Ezset\Library\Article\ArticleHelper::getArticleLink($content->id, $content->catid, true);
 
 	if (in_array($link, $exists_links))
 	{

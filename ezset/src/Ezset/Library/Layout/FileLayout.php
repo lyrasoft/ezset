@@ -6,7 +6,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Ezset\Layout;
+namespace Ezset\Library\Layout;
+
+use JLayoutFile;
 
 /**
  * Class FileLayout

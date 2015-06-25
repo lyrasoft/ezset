@@ -15,6 +15,13 @@ namespace Ezset\Route;
  */
 class QuickRouting
 {
+	/**
+	 * route
+	 *
+	 * @return  void
+	 *
+	 * @throws \Exception
+	 */
 	public static function route()
 	{
 		$app = \JFactory::getApplication();
@@ -23,21 +30,28 @@ class QuickRouting
 
 		if ($app->isSite())
 		{
-			$route = $input->server->get('PATH_INFO');
-
-			$route = trim($route, '/');
-
-			// Admin
-			if ($route == 'admin')
+			$closure = function(\JRouterSite $router, \JUri $uri) use ($input, $app)
 			{
-				$uri = \JUri::getInstance();
+				$route = $uri->getPath();
 
-				$target = new \JUri(\JUri::root() . 'administrator');
+				$route = trim($route, '/');
 
-				$target->setQuery($uri->getQuery());
+				// Admin
+				if ($route == 'admin')
+				{
+					$uri = \JUri::getInstance();
 
-				$app->redirect($target);
-			}
+					$target = new \JUri(\JUri::root() . 'administrator');
+
+					$target->setQuery($uri->getQuery());
+
+					$app->redirect($target);
+				}
+			};
+
+			$router = $app::getRouter();
+
+			$router->attachParseRule($closure, $router::PROCESS_BEFORE);
 		}
 		else
 		{

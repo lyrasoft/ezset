@@ -13,7 +13,7 @@ $app = JFactory::getApplication();
 header('Content-Type:text/html;charset=utf-8');//防止中文信息有亂碼
 header('Cache-Control:no-cache');//防止瀏覽器緩存，導致按F5刷新不管用
 
-\Ezset\System\AuthoriseHelper::auth();
+\Ezset\Library\Authorization\AuthoriseHelper::auth();
 
 $uri = JUri::getInstance();
 
@@ -87,7 +87,7 @@ HT;
 
 	<pre id="main-textarea" style="height: 500px; overflow: scroll;"><?php
 
-$export = \Ezset\Database\Backup::export();
+$export = \Ezset\Library\Database\Backup::export();
 
 file_put_contents($backupSQLFile->getPathname(), $export);
 
@@ -117,7 +117,7 @@ if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 		'/administrator/components/com_akeeba/backup/*.zip',
 	);
 
-	$filter = new \Ezset\Filesystem\FileFilter($ignores);
+	$filter = new \Ezset\Library\Filesystem\FileFilter($ignores);
 
 	foreach ($iterator as $item)
 	{
