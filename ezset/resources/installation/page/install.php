@@ -54,6 +54,9 @@ try
 
 	file_put_contents($configFile->getPathname(), $config->toString('php', array('class' => 'JConfig')));
 
+	// Fix UTF-8 files
+	\Ezset\Library\Backup\Backup::fix();
+
 	$this->redirect('index.php?page=complete');
 }
 catch (\Exception $e)

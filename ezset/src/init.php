@@ -20,6 +20,8 @@ else
 define('EZSET_FRONT', JPATH_ROOT . '/ezset');
 define('EZSET_ROOT', realpath(__DIR__ . '/..'));
 
+include_once EZSET_ROOT . '/lib/autoload.php';
+
 if (is_dir(EZSET_FRONT . '/src'))
 {
 	\JLoader::registerNamespace('MyEzset', EZSET_FRONT . '/src');

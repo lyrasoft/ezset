@@ -31,9 +31,6 @@
 	-->
 
 	<files>
-		<filename plugin="ezset">ezset.php</filename>
-		<filename>index.html</filename>
-		<filename>install.php</filename>
 		<folder>asset</folder>
 		<folder>cmd</folder>
 		<folder>language</folder>
@@ -41,6 +38,11 @@
 		<folder>lib</folder>
 		<folder>resources</folder>
 		<folder>src</folder>
+		<filename plugin="ezset">ezset.php</filename>
+		<filename>composer.json</filename>
+		<filename>composer.lock</filename>
+		<filename>index.html</filename>
+		<filename>install.php</filename>
 	</files>
 
 	<config>

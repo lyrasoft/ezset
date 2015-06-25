@@ -1,0 +1,8 @@
+{
+    "require": {
+        "paquettg/php-html-parser": "1.6.*@stable"
+    },
+    "config" : {
+        "vendor-dir" : "lib"
+    }
+}

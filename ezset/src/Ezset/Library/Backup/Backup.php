@@ -73,6 +73,20 @@ class Backup
 	}
 
 	/**
+	 * encode
+	 *
+	 * @param string $file
+	 *
+	 * @return  string
+	 */
+	public static function encode($file)
+	{
+		$file = urlencode($file);
+
+		return str_replace(array('%5C', '%2F'), DIRECTORY_SEPARATOR, $file);
+	}
+
+	/**
 	 * filter
 	 *
 	 * @param string $file
@@ -170,5 +184,80 @@ HT;
 		\JFactory::getApplication()->redirect($uri);
 
 		exit();
+	}
+
+	/**
+	 * fix
+	 *
+	 * @param string $path
+	 *
+	 * @return  array
+	 */
+	public static function fix($path = null)
+	{
+		$path = $path ? : JPATH_ROOT;
+
+		$iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
+
+		$dirs = array();
+		$fixed = array();
+
+		/** @var \SplFileInfo $item */
+		foreach ($iterator as $item)
+		{
+			$relative = str_replace(JPATH_ROOT . DIRECTORY_SEPARATOR, '', \JPath::clean($item->getPathname()));
+
+			if (!static::hasUTF8($relative))
+			{
+				continue;
+			}
+
+			if ($item->isDir())
+			{
+				$dirs[] = $item;
+
+				continue;
+			}
+
+			$relative = urldecode($relative);
+
+			$dest = new \SplFileInfo(JPATH_ROOT . DIRECTORY_SEPARATOR . $relative);
+
+			if (!is_dir($dest->getPath()))
+			{
+				\JFolder::create($dest->getPath());
+			}
+
+			$fixed[] = $item->getPathname() . ' => ' . $dest->getPathname();
+
+			\JFile::move($item->getPathname(), $dest->getPathname());
+		}
+
+		/** @var \SplFileInfo $dir */
+		foreach ($dirs as $dir)
+		{
+			if (is_dir($dir->getPathname()))
+			{
+				\JFolder::delete($dir->getPathname());
+			}
+		}
+
+		return $fixed;
+	}
+
+	/**
+	 * hasUTF8
+	 *
+	 * @param string $file
+	 *
+	 * @return  boolean
+	 */
+	public static function hasUTF8($file)
+	{
+		\JPath::clean($file);
+
+		$file = str_replace(JPATH_ROOT . DIRECTORY_SEPARATOR, '', $file);
+
+		return strpos($file, '%') !== false;
 	}
 }

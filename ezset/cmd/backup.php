@@ -77,15 +77,11 @@ $ob->flush();
 if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 {
 	// Prepare all files iterator
-	$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(JPATH_ROOT));
+	$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(JPATH_ROOT, RecursiveDirectoryIterator::SKIP_DOTS));
 
+	/** @var \SplFileInfo $item */
 	foreach ($iterator as $item)
 	{
-		if ($item->isDir())
-		{
-			continue;
-		}
-
 		$dest = str_replace(JPATH_ROOT . DIRECTORY_SEPARATOR, '', $item->getPathname());
 
 		// Excludes
@@ -94,9 +90,16 @@ if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 			continue;
 		}
 
+		if ($item->isDir())
+		{
+			$zip->addEmptyDir(Backup::encode($dest));
+
+			continue;
+		}
+
 		$ob->out($item->getPathname() . '  =>  ' . $dest . "\n");
 
-		$zip->addFile($item->getPathname(), $dest);
+		$zip->addFile($item->getPathname(), Backup::encode($dest));
 	}
 
 	foreach ($installIterator as $item)

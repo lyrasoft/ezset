@@ -7,7 +7,6 @@
  */
 
 const _JEXEC = 1;
-error_reporting(32767);
 
 define('INSTALL_ROOT', __DIR__);
 define('JPATH_BASE', dirname(__DIR__));
@@ -21,7 +20,7 @@ require_once JPATH_LIBRARIES . '/cms.php';
  *
  * @since  {DEPLOY_VERSION}
  */
-class InstallationApplication extends JApplicationWeb
+class InstallationApplication extends JApplicationCms
 {
 	/**
 	 * Method to run the application routines.  Most likely you will want to instantiate a controller
@@ -33,6 +32,12 @@ class InstallationApplication extends JApplicationWeb
 	 */
 	protected function doExecute()
 	{
+		$this->checkConfiguration();
+
+		JFactory::$application = $this;
+
+		require_once JPATH_PLUGINS . '/system/ezset/src/init.php';
+
 		$page = $this->input->get('page', 'form');
 
 		$this->set('title', 'ASIKART Joomla Installation');
@@ -46,6 +51,40 @@ class InstallationApplication extends JApplicationWeb
 		ob_end_clean();
 
 		include INSTALL_ROOT . '/tmpl/html.php';
+	}
+
+	/**
+	 * enqueueMessage
+	 *
+	 * @param string $msg
+	 * @param string $type
+	 *
+	 * @return  boolean
+	 */
+	public function enqueueMessage($msg, $type = 'info')
+	{
+		return true;
+	}
+
+	/**
+	 * checkConfiguration
+	 *
+	 * @return  boolean
+	 */
+	protected function checkConfiguration()
+	{
+		$configuration = JPATH_ROOT . '/configuration.php';
+
+		$page = $this->input->get('page', 'form');
+
+		if (is_file($configuration) && $page != 'complete')
+		{
+			$this->redirect('index.php?page=complete');
+
+			return true;
+		}
+
+		return false;
 	}
 }
 
