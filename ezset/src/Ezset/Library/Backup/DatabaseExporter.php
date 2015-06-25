@@ -6,21 +6,35 @@
  * @license    GNU General Public License version 2 or later;
  */
 
-namespace Ezset\Library\Database;
+namespace Ezset\Library\Backup;
 
 /**
  * The Backup class.
  * 
  * @since  {DEPLOY_VERSION}
  */
-class Backup
+class DatabaseExporter
 {
+	/**
+	 * exportToFile
+	 *
+	 * @param string $file
+	 *
+	 * @return  void
+	 */
+	public static function export($file)
+	{
+		$export = DatabaseExporter::exportAll();
+
+		file_put_contents($file, $export);
+	}
+
 	/**
 	 * export
 	 *
 	 * @return  string
 	 */
-	public static function export()
+	public static function exportAll()
 	{
 		$db = \JFactory::getDbo();
 

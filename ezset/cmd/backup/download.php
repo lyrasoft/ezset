@@ -8,10 +8,8 @@
 
 defined('_JEXEC') or die;
 
-\Ezset\Library\Authorization\AuthoriseHelper::auth();
+\Ezset\Library\Auth\HttpAuthentication::authenticate();
 
-$uri = JUri::getInstance();
-
-$backupZipFile = new SplFileInfo(JPATH_ROOT . '/tmp/ezset/backup/ezset-backup-' . $uri->getHost() . '.zip');
+$backupZipFile = new SplFileInfo(\Ezset\Library\Backup\Backup::getBackupZipFile());
 
 \Windwalker\Helper\UriHelper::download($backupZipFile->getPathname(), true, true);

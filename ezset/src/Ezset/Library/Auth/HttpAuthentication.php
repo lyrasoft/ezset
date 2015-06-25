@@ -6,26 +6,24 @@
  * @license    GNU General Public License version 2 or later;
  */
 
-namespace Ezset\Library\Authorization;
+namespace Ezset\Library\Auth;
 
 /**
  * The AuthoriseHelper class.
  * 
  * @since  {DEPLOY_VERSION}
  */
-class AuthoriseHelper
+class HttpAuthentication
 {
 	/**
-	 * auth
+	 * authenticate
 	 *
 	 * @param bool $superUser
 	 *
 	 * @throws \Exception
 	 */
-	public static function auth($superUser = true)
+	public static function authenticate($superUser = true)
 	{
-		$app = \JFactory::getApplication();
-
 		try
 		{
 			$username = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : null;
@@ -35,23 +33,23 @@ class AuthoriseHelper
 
 			if (!$username || $user->username != $username)
 			{
-				throw new \Exception;
+				throw new AuthException;
 			}
 
 			if (!$password || !\JUserHelper::verifyPassword($password, $user->password))
 			{
-				throw new \Exception;
+				throw new AuthException;
 			}
 
 			if ($superUser)
 			{
 				if (!$user->authorise('core.admin'))
 				{
-					throw new \Exception;
+					throw new AuthException;
 				}
 			}
 		}
-		catch (\Exception $e)
+		catch (AuthException $e)
 		{
 			header('WWW-Authenticate: Basic realm="Please login first"');
 			header('HTTP/1.0 401 Unauthorized');
