@@ -72,9 +72,19 @@ class Document
 					$meta[] = '<meta property="og:image" content="' . UriHelper::pathAddHost($params->get('ogDefaultImage')) . '"/>';
 				}
 			}
-			elseif ($easyset->data->ogImage)
+			elseif ($easyset->data->ogImages)
 			{
-				$meta[] = '<meta property="og:image" content="' . UriHelper::pathAddHost($easyset->data->ogImage) . '"/>';
+				$count = $params->get('ogGetInnerPageImageCount', 1);
+
+				foreach ($easyset->data->ogImages as $k => $image)
+				{
+					if (($k + 1) > $count)
+					{
+						break;
+					}
+
+					$meta[] = '<meta property="og:image" content="' . UriHelper::pathAddHost($image) . '"/>';
+				}
 			}
 
 			// Others
@@ -153,5 +163,59 @@ class Document
 GA;
 
 		$doc->addScriptDeclaration($script);
+	}
+
+	/**
+	 * favicon
+	 *
+	 * @return  void
+	 *
+	 * @throws \Exception
+	 */
+	public static function favicon()
+	{
+		$app = \JFactory::getApplication();
+		$es = \Ezset::getInstance();
+
+		if ($app->isSite())
+		{
+			$favicon = $es->params->get('faviconSite');
+		}
+		else
+		{
+			$favicon = $es->params->get('faviconAdmin');
+		}
+
+		if (!$favicon)
+		{
+			return;
+		}
+
+		/** @var \JDocumentHTML $doc */
+		$doc = \JFactory::getDocument();
+
+		if ($doc->getType() != 'html')
+		{
+			return;
+		}
+
+		foreach ($doc->_links as $key => $link)
+		{
+			if ($link['relation'] == 'shortcut icon')
+			{
+				unset($doc->_links[$key]);
+
+				continue;
+			}
+
+			if (substr($key, -4) == '.ico')
+			{
+				unset($doc->_links[$key]);
+
+				continue;
+			}
+		}
+
+		$doc->addFavicon(\JUri::root(true) . '/' . $favicon);
 	}
 }

@@ -40,12 +40,12 @@ class Translate
 
 		// Set translate language
 		$SourceLan = $easyset->params->get('originLan');
-		$ResultLan = $easyset->params->get('tranLlan', 'en');
+		$ResultLan = $easyset->params->get('tranLan', 'en');
 
 		// Get query
 		$jform = $input->post->getRaw('jform', array());
 
-		if (!isset($jform) || !isset($jform['alias']))
+		if (!isset($jform) || !isset($jform['alias']) || !isset($jform['title']))
 		{
 			return;
 		}
@@ -61,7 +61,7 @@ class Translate
 			$alias = \JFilterOutput::stringURLSafe($titleTmp[1]);
 		}
 
-		if (trim($alias) == '')
+		if ('' == (string) trim($alias))
 		{
 			$alias = LanguageHelper::translate($title, $SourceLan, $ResultLan);
 			$alias = trim($alias);

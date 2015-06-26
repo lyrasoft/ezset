@@ -154,6 +154,8 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onBeforeCompileHead()
 	{
+		$this->call(array('Seo\\Document', 'favicon'));
+
 		@include $this->includeEvent(__FUNCTION__);
 	}
 
@@ -303,6 +305,11 @@ class PlgSystemEzset extends JPlugin
 			{
 				$this->call(array('Article\\Content', 'tidyRepair'), $article, $this);
 			}
+		}
+
+		if ($this->params->get('saveFirstArticleImage', 0))
+		{
+			$this->call(array('Article\\Content', 'saveFirstImage'), $context, $article);
 		}
 
 		@include $this->includeEvent(__FUNCTION__);

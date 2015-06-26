@@ -8,6 +8,7 @@
 
 namespace Ezset\Seo;
 
+use PHPHtmlParser\Dom;
 use Windwalker\Helper\UriHelper;
 
 /**
@@ -44,47 +45,59 @@ class OpenGraph
 			return;
 		}
 
+		if (!$es->params->get('ogGetInnerPageImage', 1))
+		{
+			return;
+		}
+
 		if ('article' == $view)
 		{
 			$images = new \JRegistry($article->images);
-			$img    = $images->get('image_fulltext', $images->get('image_intro'));
+			$ignoreFirst = false;
+			$imgs = array();
+			$img  = $images->get('image_fulltext', $images->get('image_intro'));
 
-			if (!$img)
+			if ($img)
 			{
-				include_once EZSET_ROOT . '/lib/dom/simple_html_dom.php';
+				$imgs[] = $img;
+			}
 
-				// If first image = main image, delete this paragraph.
-				$html = str_get_html($article->text);
-				$imgs = $html->find('img');
+			if ($imgs)
+			{
+				$ignoreFirst = true;
+			}
 
-				if (!empty($imgs[0]))
+			$dom = new Dom;
+
+			// If first image = main image, delete this paragraph.
+			$dom->load($article->text);
+			$images = $dom->find('img');
+
+			foreach ($images as $image)
+			{
+				if ($ignoreFirst)
 				{
-					$img = $imgs[0]->src;
+					continue;
 				}
+
+				$imgs[] = $image->src;
 			}
 
-			$cat = \JTable::getInstance('category');
-			$cat->load($article->catid);
-			$cat->params = new \JRegistry($cat->params);
-
-			$catimg = $cat->params->get('image');
-
-			if (isset($img))
+			if (!$imgs && isset($article->catid))
 			{
-				$es->ogImage = $img;
-			}
-			elseif ($catimg)
-			{
-				$es->ogImage = UriHelper::pathAddHost($catimg);
+				$cat = \JTable::getInstance('category');
+				$cat->load($article->catid);
+				$cat->params = new \JRegistry($cat->params);
 
+				$imgs[] = $cat->params->get('image');
 			}
-			else
+
+			if (!$imgs && !$es->params->get('ogDefaultImageOnlyFrontPage', 1))
 			{
-				if (!$es->params->get('ogDefaultImageOnlyFrontPage', 1))
-				{
-					$es->data->ogImage = UriHelper::pathAddHost($es->params->get('ogDefaultImage'));
-				}
+				$imgs[] = UriHelper::pathAddHost($es->params->get('ogDefaultImage'));
 			}
+
+			$es->data->ogImages = $imgs;
 		}
 		elseif ('category' == $view)
 		{
