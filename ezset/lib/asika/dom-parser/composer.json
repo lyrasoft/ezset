@@ -1,0 +1,27 @@
+{
+    "name": "asika/dom-parser",
+    "type": "library",
+    "description": "An HTML DOM parser. It allows you to manipulate HTML. Find tags on an HTML page with selectors just like jQuery.",
+    "keywords": ["html", "dom", "parser"],
+    "homepage": "https://github.com/asika32764/php-dom-parser",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simon Asika",
+            "email": "asika32764@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "paquettg/string-encode": "0.1.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "0.9.*"
+    },
+    "autoload": {
+        "psr-0": { 
+        	"PHPHtmlParser": "src/"
+       	}
+    },
+    "minimum-stability": "beta"
+}

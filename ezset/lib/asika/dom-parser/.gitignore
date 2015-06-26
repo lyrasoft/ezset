@@ -1,0 +1,7 @@
+# System
+.*
+!.travis.yml
+!.gitignore
+
+# Composer
+/vendor

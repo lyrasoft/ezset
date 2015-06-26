@@ -71,7 +71,7 @@
         },
         "time": "2015-06-26 08:19:09",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "PHPHtmlParser": "src/"
