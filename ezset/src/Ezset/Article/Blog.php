@@ -9,6 +9,7 @@
 namespace Ezset\Article;
 
 use Ezset\Library\Layout\FileLayout;
+use PHPHtmlParser\Dom;
 use Windwalker\Helper\JContentHelper;
 
 /**
@@ -37,6 +38,7 @@ class Blog
 		}
 
 		$es        = \Ezset::getInstance();
+		$html      = new Dom;
 		$imgW      = $es->params->get('blogViewImgWidth', 150);
 		$maxChar   = $es->params->get('blogViewMaxChar', 250);
 		$default   = $es->params->get('blogViewImgDefault');
@@ -59,36 +61,41 @@ class Blog
 		}
 
 		// Clean Tags
-		if ($es->params->get('blogViewCleanTags', 1))
+		if ($es->params->get('blogViewClearly', 0))
 		{
-			include_once EZSET_ROOT . '/lib/dom/simple_html_dom.php';
-
 			// If first image = main image, delete this paragraph.
-			$html = str_get_html($text);
+			$html = $html->load($text);
+
+			/** @var \PHPHtmlParser\Dom\Collection|\PHPHtmlParser\Dom\HtmlNode[] $imgs */
 			$imgs = $html->find('img');
 
-			if ($imgs)
+			if ($imgs->count())
 			{
 				$mainImg = $imgs[0]->src;
 
 				// Is img in p tag?
-				$p = $imgs[0]->parent();
+				/** @var \PHPHtmlParser\Dom\HtmlNode $p */
+				$p = $imgs[0]->getParent();
 
 				// If image has anchor, get parent.
-				if ($p->tag != 'p')
+				if ($p->getTag() != 'p')
 				{
-					$p = $p->parent();
+					$p = $p->getParent();
 				}
 
-				$imgtext      = $p->children[0]->outertext;
-				$p->innertext = str_replace($imgtext, '', $p->innertext);
+				// remove first img
+				$p->setInnerHtml(str_replace($p->firstChild()->outerHtml(), '', $p->innerHtml()));
 
-				if (!trim($p->innertext))
+				if (!trim($p->innerHtml()))
 				{
-					$p->outertext = '';
+					$p->setOuterHtml('');
 				}
 
-				$text = $html->save();
+				$text = (string) $html;
+			}
+
+			if ($es->params->get('blogViewCleanTags', 0))
+			{
 				$text = strip_tags($text, $allowTags);
 
 				if (!$allowTags)

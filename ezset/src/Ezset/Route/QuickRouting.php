@@ -47,6 +47,8 @@ class QuickRouting
 
 					$app->redirect($target);
 				}
+
+				return array();
 			};
 
 			$router = $app::getRouter();

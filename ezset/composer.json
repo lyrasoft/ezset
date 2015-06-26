@@ -1,6 +1,6 @@
 {
     "require": {
-        "paquettg/php-html-parser": "1.6.*@stable"
+        "asika/dom-parser": "1.0.*@stable"
     },
     "config" : {
         "vendor-dir" : "lib"
