@@ -20,7 +20,7 @@ require_once JPATH_LIBRARIES . '/cms.php';
  *
  * @since  {DEPLOY_VERSION}
  */
-class InstallationApplication extends JApplicationCms
+class InstallationApplication extends JApplicationWeb
 {
 	/**
 	 * Method to run the application routines.  Most likely you will want to instantiate a controller
@@ -77,7 +77,7 @@ class InstallationApplication extends JApplicationCms
 
 		$page = $this->input->get('page', 'form');
 
-		if (is_file($configuration) && $page != 'complete')
+		if (is_file($configuration) && $page != 'complete' && $page != 'delete')
 		{
 			$this->redirect('index.php?page=complete');
 

@@ -10,7 +10,7 @@ defined('_JEXEC') or die;
 
 if (!is_file(JPATH_BASE . '/configuration.php'))
 {
-	$this->redirect('index.php');
+	$this->redirect(JUri::base() . '../index.php');
 
 	exit();
 }
