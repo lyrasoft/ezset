@@ -53,7 +53,7 @@ class QuickRouting
 
 			$router = $app::getRouter();
 
-			$router->attachParseRule($closure, $router::PROCESS_BEFORE);
+			$router->attachParseRule($closure, JVERSION >= 3.4 ? $router::PROCESS_BEFORE : null);
 		}
 		else
 		{

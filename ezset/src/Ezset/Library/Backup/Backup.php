@@ -111,10 +111,53 @@ class Backup
 	{
 		if (!static::$filter)
 		{
-			static::$filter = new FileFilter(static::$ignores);
+			static::$filter = new FileFilter(static::getIgnores());
 		}
 
 		return static::$filter;
+	}
+
+	/**
+	 * getIgnores
+	 *
+	 * @return  array
+	 */
+	protected static function getIgnores()
+	{
+		// Get custom ignores
+		$ignoreFile = new \SplFileInfo(EZSET_FRONT . '/cmd/backupignore');
+
+		$ignores = array();
+
+		if (is_file($ignoreFile->getPathname()))
+		{
+			$ignores = file_get_contents($ignoreFile->getPathname());
+
+			$ignores = array_filter(array_map('trim', explode("\n", $ignores)), 'strlen');
+
+			$ignores = array_filter($ignores, array(__CLASS__, 'notComment'));
+		}
+
+		return array_merge(static::$ignores, $ignores);
+	}
+
+	/**
+	 * isComment
+	 *
+	 * @param string $line
+	 *
+	 * @return  bool
+	 */
+	public static function notComment($line)
+	{
+		if (!strlen($line))
+		{
+			return true;
+		}
+
+		$line = trim($line);
+
+		return $line[0] != '#';
 	}
 
 	/**
