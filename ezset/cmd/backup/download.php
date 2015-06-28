@@ -8,7 +8,7 @@
 
 defined('_JEXEC') or die;
 
-\Ezset\Library\Auth\HttpAuthentication::authenticate();
+\Ezset\Library\Auth\Authentication::authenticate();
 
 $backupZipFile = new SplFileInfo(\Ezset\Library\Backup\Backup::getBackupZipFile());
 

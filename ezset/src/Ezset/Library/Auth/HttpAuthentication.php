@@ -20,6 +20,7 @@ class HttpAuthentication
 	 *
 	 * @param bool $superUser
 	 *
+	 * @return bool
 	 * @throws \Exception
 	 */
 	public static function authenticate($superUser = true)
@@ -48,6 +49,8 @@ class HttpAuthentication
 					throw new AuthException;
 				}
 			}
+
+			return true;
 		}
 		catch (AuthException $e)
 		{

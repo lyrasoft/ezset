@@ -441,6 +441,13 @@
 					description="PLG_SYSTEM_EZSET_ADMIN_SECURE_CODE_DESC"
 					/>
 
+				<field
+					name="watcherPublicKey"
+					type="text"
+					label="PLG_SYSTEM_EZSET_PUBLIC_KEY"
+					description="PLG_SYSTEM_EZSET_PUBLIC_KEY_DESC"
+					/>
+
 				<field type="spacer"
 					hr="true"
 					description="PLG_SYSTEM_EZSET_" />

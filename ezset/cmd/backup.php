@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later;
  */
 
-use Ezset\Library\Auth\HttpAuthentication;
+use Ezset\Library\Auth\Authentication;
 use Ezset\Library\Backup\Backup;
 use Ezset\Library\Backup\DatabaseExporter;
 use Ezset\Library\Backup\OutputBuffer;
@@ -16,7 +16,10 @@ defined('_JEXEC') or die;
 
 ResponseHelper::simpleUTF8Header();
 
-HttpAuthentication::authenticate();
+Authentication::authenticate();
+
+set_time_limit(0);
+ini_set('memory_limit', '1G');
 
 $backupZipFile   = new SplFileInfo(Backup::getBackupZipFile());
 $backupSQLFile   = new SplFileInfo(Backup::getBackupSQLFile());

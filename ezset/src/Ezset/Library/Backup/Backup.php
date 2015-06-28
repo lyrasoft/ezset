@@ -49,7 +49,11 @@ class Backup
 	 */
 	public static function getBackupZipFile()
 	{
-		return JPATH_ROOT . '/tmp/ezset/backup/ezset-backup-' . \JUri::getInstance()->getHost() . '.zip';
+		$uri = new \JUri(\JUri::root());
+
+		$uri->setScheme(null);
+
+		return JPATH_ROOT . '/tmp/ezset/backup/ezset-backup-' . \JFilterOutput::stringURLSafe($uri) . '.zip';
 	}
 
 	/**
@@ -175,10 +179,13 @@ HT;
 		$username = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : null;
 		$password = isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null;
 
-		$uri = \JUri::getInstance(\JUri::root());
+		$input = \JFactory::getApplication()->input;
+
+		$uri = new \JUri(\JUri::root());
 
 		$uri->setUser($username);
 		$uri->setPass($password);
+		$uri->setVar('access_token', $input->get('access_token'));
 		$uri->setVar('cmd', 'backup.download');
 
 		\JFactory::getApplication()->redirect($uri);
