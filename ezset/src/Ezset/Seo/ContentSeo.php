@@ -76,7 +76,7 @@ class ContentSeo
 			$metaDesc = str_replace( "\r\n" , '' , $metaDesc);
 			$metaDesc = str_replace( "&nbsp;" , '' , $metaDesc);
 			$metaDesc = trim($metaDesc);
-			$metaDesc = \JString::substr($metaDesc, 0, $ezset->params->get('maxMetaChar',250));
+			$metaDesc = \JString::substr($metaDesc, 0, $ezset->params->get('maxMetaChar', 250));
 
 			// Remove latest word
 			$metaDesc = trim($metaDesc);
@@ -92,6 +92,15 @@ class ContentSeo
 			$metaDesc = implode(' ', $metaDesc);
 
 			$ezset->data->metaDesc = $metaDesc;
+
+			// Find category name
+			if (property_exists($article, 'catid'))
+			{
+				$category = \JTable::getInstance('Category');
+				$category->load($article->catid);
+
+				$ezset->data->catName = $category->title;
+			}
 		}
 
 		static::$firstArticle = false;
@@ -105,7 +114,7 @@ class ContentSeo
 	public static function setTitle()
 	{
 		$input    = \JFactory::getApplication()->input;
-		$easyset  = \Ezset::getInstance();
+		$ezset    = \Ezset::getInstance();
 		$doc      = \JFactory::getDocument();
 		$config   = \JFactory::getConfig();
 		$siteName = $config->get('sitename');
@@ -116,15 +125,15 @@ class ContentSeo
 		$title = explode('|', $title);
 		$title = $title[0];
 
-		$easyset->data->originTitle = $title;
+		$ezset->data->originTitle = $title;
 
 		if (\Ezset::isHome())
 		{
-			$easyset->data->siteTitle = $config->get('sitename');
+			$ezset->data->siteTitle = $config->get('sitename');
 		}
 		else
 		{
-			$separator = trim($easyset->params->get('titleSeparator'));
+			$separator = trim($ezset->params->get('titleSeparator'));
 
 			$replace['{%SITE%}']  = $siteName;
 			$replace['{%TITLE%}'] = $title;
@@ -135,10 +144,10 @@ class ContentSeo
 			}
 			else
 			{
-				$replace['{%CATEGORY%}'] = $easyset->data->catName;
+				$replace['{%CATEGORY%}'] = $ezset->data->catName;
 			}
 
-			$siteTitle = strtr($easyset->params->get('titleFix'), $replace);
+			$siteTitle = strtr($ezset->params->get('titleFix'), $replace);
 			$siteTitle = explode('|', $siteTitle);
 
 			foreach ($siteTitle as $k => $v)
@@ -155,7 +164,7 @@ class ContentSeo
 
 			$siteTitle = implode(" {$separator} ", $siteTitle);
 
-			$easyset->data->siteTitle = $siteTitle;
+			$ezset->data->siteTitle = $siteTitle;
 		}
 	}
 }

@@ -92,7 +92,6 @@ class OutputBuffer
 	{
 		if (!$this->quite)
 		{
-			ob_flush();
 			flush();
 		}
 	}

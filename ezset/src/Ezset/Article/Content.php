@@ -72,7 +72,6 @@ class Content
 		}
 
 		$image->set('image_intro', $imageSrc);
-		$image->set('image_fulltext', $imageSrc);
 
 		$article->images = $image->toString();
 	}
