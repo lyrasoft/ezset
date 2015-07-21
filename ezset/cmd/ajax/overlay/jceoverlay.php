@@ -1,6 +1,7 @@
 <?php
 
 defined('_JEXEC') or die;
+JFactory::getSession()->getFormToken() or die;
 
 $db = JFactory::getDbo();
 jimport('joomla.filesystem.path');

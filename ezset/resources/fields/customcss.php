@@ -39,6 +39,13 @@ class JFormFieldCustomcss extends JFormField
 	 */
 	protected function getInput()
 	{
+		$plugin = JPluginHelper::isEnabled('system', 'ezset');
+
+		if (!$plugin)
+		{
+			return print_r($plugin, 1) . '需要先啟動外掛！';
+		}
+
 		$this->loadScript();
 
 		$editor = \JEditor::getInstance('codemirror');

@@ -42,6 +42,7 @@ class JFormFieldAjax extends JFormField
 		$name = str_replace('jform_params_', '', $this->id);
 
 		\JHtmlBehavior::framework(true);
+		$token = JFactory::getSession()->getFormToken();
 
 		$ajaxUrl  = JURI::root() . 'index.php?cmd=ajax.overlay.' . $name;
 		$ajaxCode = <<<AJAX
@@ -49,9 +50,12 @@ window.addEvent('domready', function() {
 
 	$('$name').addEvent('click', function(e) {
 		var myRequest = new Request({
-			method: 'get' ,
+			method: 'post',
+			data: {
+				'{$token}': 1
+			},
 			url: '{$ajaxUrl}',
-			onSuccess: function(responseText){
+			onSuccess: function(responseText) {
 				$('{$name}_response').set('html', '<input class="btn btn-default" disabled="true" type="button" value="'+responseText+'">');
 			}
 		});
