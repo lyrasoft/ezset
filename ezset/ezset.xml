@@ -159,6 +159,26 @@
 					<option value="0">JNO</option>
 				</field>
 			</fieldset>
+			<fieldset name="VIEW">
+				<field
+					name="customCssSite"
+					type="customcss"
+					label="PLG_SYSTEM_EZSET_CUSTOM_CSS_SITE"
+					description="PLG_SYSTEM_EZSET_CUSTOM_CSS_SITE_DESC"
+					client="site"
+					/>
+				<field
+					type="spacer"
+					hr="true"
+					/>
+				<field
+					name="customCssAdmin"
+					type="customcss"
+					label="PLG_SYSTEM_EZSET_CUSTOM_CSS_ADMIN"
+					description="PLG_SYSTEM_EZSET_CUSTOM_CSS_ADMIN_DESC"
+					client="admin"
+					/>
+			</fieldset>
 			<fieldset name="SEO">
 				<field name="tranAlias"
 					default="0"

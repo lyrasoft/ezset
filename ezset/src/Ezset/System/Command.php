@@ -25,11 +25,6 @@ class Command
 		$app = \JFactory::getApplication();
 		$input = $app->input;
 
-		if ($app->isAdmin())
-		{
-			return;
-		}
-
 		$cmd = $input->getCmd('cmd');
 
 		if ($cmd)

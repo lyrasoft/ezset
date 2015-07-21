@@ -43,7 +43,7 @@ class JFormFieldCodemirror extends JFormField
 		$doc->addStyleDeclaration(<<<CSS
 .CodeMirror
 {
-	width: 700px;
+	w/idth: 700px;
 	height: 400px;
 }
 CSS
