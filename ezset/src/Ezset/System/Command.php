@@ -25,6 +25,18 @@ class Command
 		$app = \JFactory::getApplication();
 		$input = $app->input;
 
+		$option = $input->get('option');
+
+		if ($option)
+		{
+			return;
+		}
+
+		if ($app->isSite() && !\Ezset::isHome())
+		{
+			return;
+		}
+
 		$cmd = $input->getCmd('cmd');
 
 		if ($cmd)
