@@ -116,7 +116,7 @@ if ($zip->open($backupZipFile->getPathname(), ZipArchive::CREATE) === true)
 
 		$ob->out($item->getPathname() . '  =>  ' . $dest . "\n");
 
-		$zip->addFile($item->getPathname(), $dest);
+		$zip->addFile($item->getPathname(), str_replace('\\', '/', $dest));
 	}
 
 	$zip->addFile($backupSQLFile->getPathname(), $backupSQLFile->getBasename());

@@ -87,7 +87,7 @@ class Backup
 	{
 		$file = urlencode($file);
 
-		return str_replace(array('%5C', '%2F'), DIRECTORY_SEPARATOR, $file);
+		return str_replace(array('%5C', '%2F'), '/', $file);
 	}
 
 	/**
