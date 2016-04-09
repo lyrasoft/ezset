@@ -38,6 +38,9 @@ class Facebook
 		$input = \JFactory::getApplication()->input;
 		$uri   = \JUri::getInstance();
 
+		// Force http to make like button always use same link.
+		$uri->setScheme('http');
+
 		// Set Route
 		$link = JContentHelper::getArticleLink("{$article->id}:{$article->alias}", $article->catid, false);
 		$link = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port')) . \JRoute::_($link);
