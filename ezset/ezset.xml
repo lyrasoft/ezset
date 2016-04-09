@@ -469,6 +469,45 @@
 				<field type="spacer"
 					hr="true"
 					description="PLG_SYSTEM_EZSET_" />
+
+				<field
+					name="ipBlock"
+					type="radio"
+					label="PLG_SYSTEM_EZSET_IP_BLOCK"
+					description="PLG_SYSTEM_EZSET_IP_BLOCK_DESC"
+					class="btn-group"
+					default="0"
+					>
+					<option value="0">JDISABLED</option>
+					<option value="allow">PLG_SYSTEM_EZSET_IP_BLOCK_ALLOW</option>
+					<option value="deny">PLG_SYSTEM_EZSET_IP_BLOCK_DENY</option>
+				</field>
+
+				<field
+					name="ipBlockClient"
+					type="checkboxes"
+					label="PLG_SYSTEM_EZSET_IP_BLOCK_CLIENT"
+					description="PLG_SYSTEM_EZSET_IP_BLOCK_CLIENT_DESC"
+					class=""
+					default="0"
+				>
+					<option value="site">JSITE</option>
+					<option value="administrator">JADMINISTRATOR</option>
+				</field>
+
+				<field
+					name="ipBlockList"
+					type="textarea"
+					label="PLG_SYSTEM_EZSET_IP_BLOCK_IPS"
+					description="PLG_SYSTEM_EZSET_IP_BLOCK_IPS_DESC"
+					class="span4"
+					rows="7"
+					default="localhost"
+				/>
+
+				<field type="spacer"
+					hr="true"
+					description="PLG_SYSTEM_EZSET_" />
 				<field name="languageOrphan"
 					type="radio"
 					class="btn-group"

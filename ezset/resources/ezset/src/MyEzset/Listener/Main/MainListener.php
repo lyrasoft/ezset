@@ -6,14 +6,14 @@
  * @license    GNU General Public License version 2 or later;
  */
 
-namespace MyEzset\Listener\Acme;
+namespace MyEzset\Listener\Main;
 
 /**
- * The AcmeListener class.
+ * The MainListener class.
  * 
- * @since  {DEPLOY_VERSION}
+ * @since  1.0
  */
-class AcmeListener extends \JEvent
+class MainListener extends \JEvent
 {
 	/**
 	 * After Initialise Event.

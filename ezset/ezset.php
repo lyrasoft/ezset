@@ -86,7 +86,9 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterInitialise()
 	{
-		$this->call(array('Route\\QuickRouting', 'route'));
+		$this->call('Route\\Routing::ipBlock');
+
+		$this->call(array('Route\\Routing', 'quickRouting'));
 
 		$this->call(array('System\\Command', 'execute'));
 

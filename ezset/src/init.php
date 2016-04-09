@@ -29,6 +29,12 @@ if (is_dir(EZSET_FRONT . '/src'))
 
 \JLoader::registerNamespace('Ezset', EZSET_ROOT . '/src');
 
+// Include frontend composer
+if (is_file(EZSET_FRONT . '/vendor/autoload.php'))
+{
+	include_once EZSET_FRONT . '/vendor/autoload.php';
+}
+
 // Register ezset event listeners
 Windwalker\Event\ListenerHelper::registerListeners(
     'MyEzset',
