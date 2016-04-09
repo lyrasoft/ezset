@@ -9,6 +9,7 @@
 namespace Ezset\Article;
 
 use Ezset\Library\Layout\FileLayout;
+use Joomla\String\StringHelper;
 use PHPHtmlParser\Dom;
 use Windwalker\Helper\JContentHelper;
 
@@ -100,7 +101,7 @@ class Blog
 
 				if (!$allowTags)
 				{
-					$text = \JString::substr($text, 0, $maxChar);
+					$text = StringHelper::substr($text, 0, $maxChar);
 				}
 			}
 		}

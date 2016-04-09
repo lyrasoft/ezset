@@ -5,6 +5,7 @@
  * @copyright  Copyright (C) 2011 - 2014 SMS Taiwan, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
+use Joomla\String\StringHelper;
 
 /**
  * Class Ezset
@@ -45,7 +46,7 @@ class Ezset
 		$root = $uri::root(true);
 
 		// Get site route
-		$route = \JString::substr($uri->getPath(), \JString::strlen($root));
+		$route = StringHelper::substr($uri->getPath(), StringHelper::strlen($root));
 
 		// Remove index.php
 		$route = str_replace('index.php', '', $route);

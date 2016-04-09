@@ -8,7 +8,7 @@
 
 namespace Ezset\Seo;
 
-use Windwalker\Helper\UriHelper;
+use Joomla\String\StringHelper;
 
 /**
  * Class ContentSeo
@@ -76,7 +76,7 @@ class ContentSeo
 			$metaDesc = str_replace( "\r\n" , '' , $metaDesc);
 			$metaDesc = str_replace( "&nbsp;" , '' , $metaDesc);
 			$metaDesc = trim($metaDesc);
-			$metaDesc = \JString::substr($metaDesc, 0, $ezset->params->get('maxMetaChar', 250));
+			$metaDesc = StringHelper::substr($metaDesc, 0, $ezset->params->get('maxMetaChar', 250));
 
 			// Remove latest word
 			$metaDesc = trim($metaDesc);
