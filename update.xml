@@ -1,29 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
-	<!-- Joomla!3.4 -->
+	<!-- Joomla!3.[345] -->
 	<update>
 		<name>Asikart Ezset Plugin</name>
-		<version>1.1.4</version>
+		<version>1.1.5</version>
 		<infourl title="Asikart Ezset Plugin">http://ext.asikart.com</infourl>
 		<downloads>
 			<downloadurl type="upgrade" format="zip">https://github.com/asikart/ezset/archive/master.zip</downloadurl>
 		</downloads>
-		<targetplatform name="joomla" version="3.4" />
-		<client>site</client>
-		<element>ezset</element>
-		<folder>system</folder>
-		<type>plugin</type>
-	</update>
-	
-	<!-- Joomla!3.3 -->
-	<update>
-		<name>Asikart Ezset Plugin</name>
-		<version>1.1.4</version>
-		<infourl title="Asikart Ezset Plugin">http://ext.asikart.com</infourl>
-		<downloads>
-			<downloadurl type="upgrade" format="zip">https://github.com/asikart/ezset/archive/master.zip</downloadurl>
-		</downloads>
-		<targetplatform name="joomla" version="3.3" />
+		<targetplatform name="joomla" version="3.[345]" />
 		<client>site</client>
 		<element>ezset</element>
 		<folder>system</folder>
