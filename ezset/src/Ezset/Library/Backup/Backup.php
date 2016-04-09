@@ -40,6 +40,7 @@ class Backup
 		'/tmp/*',
 		'!/tmp/index.html',
 		'/administrator/components/com_akeeba/backup/*.zip',
+		'/administrator/components/com_akeeba/backup/*.jpa',
 	);
 
 	/**
@@ -190,7 +191,7 @@ class Backup
 			return;
 		}
 
-		$htaccess = <<<HT
+		$htaccess = <<<HTACCESS
 <IfModule !mod_authz_core.c>
 Order deny,allow
 Deny from all
@@ -200,7 +201,40 @@ Deny from all
     Require all denied
   </RequireAll>
 </IfModule>
-HT;
+HTACCESS;
+
+		if (!is_dir(dirname($dest)))
+		{
+			\JFolder::create(dirname($dest));
+		}
+
+		file_put_contents($dest, $htaccess);
+	}
+
+	/**
+	 * writeWebConfig
+	 *
+	 * @param   string  $dest
+	 *
+	 * @return  void
+	 */
+	public static function writeWebConfig($dest)
+	{
+		if (is_file($dest))
+		{
+			return;
+		}
+
+		$htaccess = <<<XML
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <system.web>
+        <authorization>
+            <deny users="*"/>
+        </authorization>
+    </system.web>
+</configuration>
+XML;
 
 		if (!is_dir(dirname($dest)))
 		{

@@ -32,6 +32,7 @@ $ob->start();
 
 Backup::prepareFolder($backupZipFile->getPath());
 Backup::writeHtaccess($backupZipFile->getPath() . '/.htaccess');
+Backup::writeWebConfig($backupZipFile->getPath() . '/web.config');
 
 ?>
 <style>
