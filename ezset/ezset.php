@@ -6,10 +6,14 @@
  * @license        GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+use Windwalker\Data\Data;
+
 // No direct access
 defined('_JEXEC') or die;
 
-include_once __DIR__ . '/src/init.php';
+$result = include_once __DIR__ . '/src/init.php';
+
+if ($result):
 
 /**
  * Ezset System Plugin
@@ -28,9 +32,16 @@ class PlgSystemEzset extends JPlugin
 	public static $self = null;
 
 	/**
+	 * Property app.
+	 *
+	 * @var  JApplicationCms
+	 */
+	public $app;
+
+	/**
 	 * Property data.
 	 *
-	 * @var \Windwalker\Data\Data
+	 * @var Data
 	 */
 	public $data = null;
 
@@ -45,9 +56,10 @@ class PlgSystemEzset extends JPlugin
 		parent::__construct($subject, $config);
 
 		$this->loadLanguage();
+		
 		$this->app = JFactory::getApplication();
 
-		$this->data = new \Windwalker\Data\Data;
+		$this->data = new Data;
 
 		self::$self = $this;
 
@@ -598,11 +610,16 @@ class PlgSystemEzset extends JPlugin
 
 		$class = \Windwalker\String\StringNormalise::toClassNamespace($callable[0]);
 
-		$classname = '\\MyEzset\\' . trim($class, '\\');
+		$classname = 'MyEzset_' . trim(str_replace('\\', '_', $class), '\\');
 
 		if (!is_callable(array($classname, $callable[1])))
 		{
-			$classname = '\\Ezset\\' . trim($class, '\\');
+			$classname = 'MyEzset\\' . trim($class, '\\');
+		}
+
+		if (!is_callable(array($classname, $callable[1])))
+		{
+			$classname = 'Ezset\\' . trim($class, '\\');
 		}
 
 		if (!is_callable(array($classname, $callable[1])))
@@ -617,3 +634,5 @@ class PlgSystemEzset extends JPlugin
 		return call_user_func_array(array($classname, $callable[1]), $args);
 	}
 }
+
+endif;

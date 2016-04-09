@@ -14,7 +14,7 @@ if (is_file($wwInit))
 }
 else
 {
-	throw new \RuntimeException('Please install Windwalker framework 2.x first to enable Ezset');
+	return false;
 }
 
 define('EZSET_FRONT', JPATH_ROOT . '/ezset');
@@ -41,3 +41,5 @@ if (is_file(EZSET_FRONT . '/src/init.php'))
 {
 	include_once EZSET_FRONT . '/src/init.php';
 }
+
+return true;
