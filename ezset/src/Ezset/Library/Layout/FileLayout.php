@@ -53,5 +53,8 @@ class FileLayout extends \JLayoutFile
 
 		// (1 - lower priority) Frontend base layouts
 		$this->addIncludePaths(EZSET_ROOT . '/layouts');
+		
+		// (2 - lower priority) Frontend base layouts
+		$this->addIncludePaths(EZSET_FRONT . '/layouts');
 	}
 }
