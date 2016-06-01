@@ -6,6 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 use Joomla\String\StringHelper;
+use Windwalker\System\ExtensionHelper;
 
 /**
  * Class Ezset
@@ -32,14 +33,16 @@ class Ezset
 	public static function isHome()
 	{
 		$langPath = null;
+		$tag      = null;
+		$lang     = \JFactory::getLanguage();
 
 		// For multi language
-		if (JPluginHelper::isEnabled('system', 'languagefilter'))
+		if (\JPluginHelper::isEnabled('system', 'languagefilter'))
 		{
-			$lang = JLanguageHelper::detectLanguage();
+			$tag = $lang->getTag();
 			$langCodes = \JLanguageHelper::getLanguages('lang_code');
 
-			$langPath = $langCodes[$lang]->sef;
+			$langPath = $langCodes[$tag]->sef;
 		}
 
 		$uri  = \JUri::getInstance();
@@ -51,8 +54,17 @@ class Ezset
 		// Remove index.php
 		$route = str_replace('index.php', '', $route);
 
+		// If Multiple language enabled, we check first part of URI is language code or not.
 		if ($langPath)
 		{
+			$params = ExtensionHelper::getParams('plg_system_languagefilter');
+
+			if ($tag == $lang->getDefault() && $params->get('remove_default_prefix', 0))
+			{
+				$langPath = '';
+			}
+
+			// If route equals lang path, means it is home route.
 			if (trim($route, '/') == $langPath && ! $uri->getVar('option'))
 			{
 				return true;
