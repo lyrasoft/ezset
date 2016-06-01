@@ -10,6 +10,13 @@ $doc          = JFactory::getDocument();
 $exists_links = array();
 $date         = JFactory::getDate('now', JFactory::getConfig()->get('offset'));
 
+// Routing
+// Get the full request URI.
+$uri = clone JUri::getInstance();
+
+$router = $app::getRouter();
+$result = $router->parse($uri);
+
 // Get XML parser
 $xml = simplexml_load_string(
 	'<?xml version="1.0" encoding="utf-8"?' . '>
@@ -43,8 +50,13 @@ foreach ($menus as $menu)
 		continue;
 	}
 
+	if (in_array($menu->type, array('alias', 'url')))
+	{
+		continue;
+	}
+
 	// Fix URI bugs
-	$uri = new JURI($menu->link);
+	$uri = new JUri($menu->link);
 	$uri->setVar('Itemid', $menu->id);
 
 	if ($app->get('sef'))
@@ -121,7 +133,7 @@ $contents = $db->loadObjectList();
 foreach ($contents as $content)
 {
 	// Get category link
-	$link = \Ezset\Library\Article\ArticleHelper::getArticleLink($content->id, $content->catid, true);
+	$link = \Ezset\Library\Article\ArticleHelper::getArticleLink($content->id, $content->catid);
 
 	if (in_array($link, $exists_links))
 	{
