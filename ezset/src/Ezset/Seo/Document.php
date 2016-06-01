@@ -40,9 +40,10 @@ class Document
 
 		if ($params->get('getMeta'))
 		{
-			$metaDesc = \Ezset::isHome() ? $config->get('MetaDesc') : $easyset->data->metaDesc;
-
-			$doc->setDescription($metaDesc);
+			if ($easyset->data->metaDesc)
+			{
+				$doc->setDescription($easyset->data->metaDesc);
+			}
 		}
 
 		// SEO Title
