@@ -94,5 +94,43 @@
             "html",
             "parser"
         ]
+    },
+    {
+        "name": "asika/sitemap",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/asika32764/php-sitemap.git",
+            "reference": "04e6d5f0430aca38d8a15586a19a83307fe54a6f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/asika32764/php-sitemap/zipball/04e6d5f0430aca38d8a15586a19a83307fe54a6f",
+            "reference": "04e6d5f0430aca38d8a15586a19a83307fe54a6f",
+            "shasum": ""
+        },
+        "require-dev": {
+            "windwalker/test": "2.*@stable"
+        },
+        "time": "2015-06-07 15:26:31",
+        "type": "php",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Asika\\Sitemap\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0+"
+        ],
+        "description": "PHP Simple Sitemap Generator",
+        "homepage": "https://github.com/asika32764/php-sitemap",
+        "keywords": [
+            "Sitemap",
+            "google",
+            "seo"
+        ]
     }
 ]

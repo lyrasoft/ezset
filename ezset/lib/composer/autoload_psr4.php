@@ -6,4 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Asika\\Sitemap\\' => array($vendorDir . '/asika/sitemap/src'),
 );

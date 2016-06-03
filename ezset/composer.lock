@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "45977d263e2ad9b5174a8f0393828b78",
+    "hash": "e7d9e65afa2a825e9d0904a6e9bae833",
+    "content-hash": "8f0f739cac5c4735006c3de25d209507",
     "packages": [
         {
             "name": "asika/dom-parser",
@@ -51,6 +52,42 @@
                 "parser"
             ],
             "time": "2015-06-26 08:19:09"
+        },
+        {
+            "name": "asika/sitemap",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/asika32764/php-sitemap.git",
+                "reference": "04e6d5f0430aca38d8a15586a19a83307fe54a6f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/asika32764/php-sitemap/zipball/04e6d5f0430aca38d8a15586a19a83307fe54a6f",
+                "reference": "04e6d5f0430aca38d8a15586a19a83307fe54a6f",
+                "shasum": ""
+            },
+            "require-dev": {
+                "windwalker/test": "2.*@stable"
+            },
+            "type": "php",
+            "autoload": {
+                "psr-4": {
+                    "Asika\\Sitemap\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "description": "PHP Simple Sitemap Generator",
+            "homepage": "https://github.com/asika32764/php-sitemap",
+            "keywords": [
+                "Sitemap",
+                "google",
+                "seo"
+            ],
+            "time": "2015-06-07 15:26:31"
         },
         {
             "name": "paquettg/string-encode",
