@@ -28,14 +28,14 @@ abstract class AbstractNode {
 	 *
 	 * @var array
 	 */
-	protected $attr = [];
+	protected $attr = array();
 
 	/**
 	 * An array of all the children.
 	 *
 	 * @var array
 	 */
-	protected $children = [];
+	protected $children = array();
 
 	/**
 	 * Contains the parent Node.
@@ -78,14 +78,14 @@ abstract class AbstractNode {
 		}
 		switch (strtolower($key))
 		{
-			case 'outerhtml': 
+			case 'outerhtml':
 				return $this->outerHtml();
-			case 'innerhtml': 
+			case 'innerhtml':
 				return $this->innerHtml();
-			case 'text': 
+			case 'text':
 				return $this->text();
 		}
-		
+
 		return null;
 	}
 
@@ -95,9 +95,9 @@ abstract class AbstractNode {
 	public function __destruct()
 	{
 		$this->tag      = null;
-		$this->attr     = [];
+		$this->attr     = array();
 		$this->parent   = null;
-		$this->children = [];
+		$this->children = array();
 	}
 
 	/**
@@ -142,7 +142,7 @@ abstract class AbstractNode {
 		{
 			throw new CircularException('Can not add descendant "'.$parent->id().'" as my parent.');
 		}
-		
+
 		// remove from old parent
 		if ( ! is_null($this->parent))
 		{
@@ -166,7 +166,7 @@ abstract class AbstractNode {
 		return $this;
 	}
 
-	/** 
+	/**
 	 * Sets the encoding class to this node and propagates it
 	 * to all its children.
 	 *
@@ -213,7 +213,7 @@ abstract class AbstractNode {
 	/**
 	 * Adds a child node to this node and returns the id of the child for this
 	 * parent.
-	 * 
+	 *
 	 * @param AbstractNode $child
 	 * @return bool
 	 * @throws CircularExceptionException
@@ -248,11 +248,11 @@ abstract class AbstractNode {
 		}
 
 		// add the child
-		$this->children[$child->id()] = [
+		$this->children[$child->id()] = array(
 			'node' => $child,
 			'next' => null,
 			'prev' => $key,
-		];
+		);
 
 		// tell child I am the new parent
 		$child->setParent($this);
@@ -285,7 +285,7 @@ abstract class AbstractNode {
 		{
 			$this->children[$prev]['next'] = $next;
 		}
-		
+
 		// remove the child
 		unset($this->children[$id]);
 
@@ -324,7 +324,7 @@ abstract class AbstractNode {
 	}
 
 	/**
-	 * Checks if the given node id is a decendant of the 
+	 * Checks if the given node id is a decendant of the
 	 * current node.
 	 *
 	 * @param int $id
@@ -548,7 +548,7 @@ abstract class AbstractNode {
 			// return nth-element or array
 			if (isset($nodes[$nth]))
 				return $nodes[$nth];
-			
+
 			return null;
 		}
 
@@ -597,9 +597,9 @@ abstract class AbstractNode {
 		if ( ! is_null($this->tag->getAttribute('style')))
 		{
 			// Thanks to user gnarf from stackoverflow for this regular expression.
-			$attributes = [];
+			$attributes = array();
 			preg_match_all("/([\w-]+)\s*:\s*([^;]+)\s*;?/", $this->tag->getAttribute['style'], $matches, PREG_SET_ORDER);
-			foreach ($matches as $match) 
+			foreach ($matches as $match)
 			{
 				$attributes[$match[1]] = $match[2];
 			}
@@ -636,10 +636,10 @@ abstract class AbstractNode {
 
 		}
 
-		$result = [
+		$result = array(
 			'height' => $height,
 			'width'  => $width
-		];
+		);
 		return $result;
 	}
 
