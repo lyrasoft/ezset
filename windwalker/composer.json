@@ -1,0 +1,52 @@
+{
+    "name": "windwalker/joomla-rad",
+    "description": "Rapido de la vento viro.",
+    "license": "GNU Lesser General Public License",
+    "minimum-stability": "beta",
+    "authors": [
+        {
+            "name": "Simon Asika",
+            "email": "asika32764@gmail.com"
+        }
+    ],
+    "require": {
+        "windwalker/compare": "~2.0",
+        "windwalker/cache": "~2.0",
+        "windwalker/data": "~2.0",
+        "windwalker/datamapper": "~2.0",
+        "windwalker/html": "~2.0",
+        "windwalker/router": "~2.0",
+        "windwalker/filesystem": "~2.0",
+        "windwalker/console": "~2.0",
+        "asika/muse": "~1.0",
+        "symfony/yaml": "~2.0",
+        "filp/whoops": "~1.0|~2.0"
+    },
+    "require-dev": {
+        "windwalker/test": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "../../cli/windwalker",
+            "Windwalker\\": "src",
+            "Windwalker\\Test\\": "test"
+        }
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "Windwalker\\System\\Installer\\ComposerInstaller::install"
+        ],
+        "post-update-cmd": []
+    },
+    "bin": [
+        "src/init.php"
+    ],
+    "config": {
+        "bin-dir": "../../bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.2-dev"
+        }
+    }
+}

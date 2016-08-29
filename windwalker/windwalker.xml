@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="library" version="3.4" method="upgrade">
+	<name>windwalker</name>
+	<libraryname>windwalker</libraryname>
+	<creationDate>2012-11-23</creationDate>
+	<copyright>Copyright (C) 2008 - 2016 LYRASOFT. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<author>Asika</author>
+	<authorEmail>asika32764@gmail.com</authorEmail>
+	<authorUrl>http://lyrasoft.net</authorUrl>
+	<version>4.1.6</version>
+	<newversion>2.1.6</newversion>
+	<description>LIB_WINDWALKER_XML_DESC</description>
+
+	<files>
+		<folder>bin</folder>
+		<folder>bundles</folder>
+		<folder>language</folder>
+		<folder>resource</folder>
+		<folder>src</folder>
+		<folder>vendor</folder>
+		<file>composer.json</file>
+		<file>composer.lock</file>
+		<file>config.dist.json</file>
+		<file>index.html</file>
+		<file>windwalker.xml</file>
+	</files>
+
+	<languages folder="language">
+		<language tag="zh-TW">zh-TW/zh-TW.lib_windwalker.ini</language>
+		<language tag="zh-TW">zh-TW/zh-TW.lib_windwalker.sys.ini</language>
+
+		<language tag="en-GB">en-GB/en-GB.lib_windwalker.ini</language>
+		<language tag="en-GB">en-GB/en-GB.lib_windwalker.sys.ini</language>
+	</languages>
+
+	<updateservers>
+		<server type="extension" priority="1" name="WindWalker Framework">https://raw.githubusercontent.com/ventoviro/windwalker-joomla-rad/staging/update.xml</server>
+	</updateservers>
+</extension>
+
