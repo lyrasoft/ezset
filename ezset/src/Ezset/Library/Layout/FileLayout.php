@@ -52,9 +52,26 @@ class FileLayout extends \JLayoutFile
 		parent::refreshIncludePaths();
 
 		// (1 - lower priority) Frontend base layouts
-		$this->addIncludePaths(EZSET_ROOT . '/layouts');
+		$this->addIncludePath(EZSET_ROOT . '/layouts');
 		
 		// (2 - lower priority) Frontend base layouts
-		$this->addIncludePaths(EZSET_FRONT . '/layouts');
+		$this->addIncludePath(EZSET_FRONT . '/layouts');
+	}
+
+	/**
+	 * Get the default array of include paths
+	 *
+	 * @return  array
+	 *
+	 * @since   3.5
+	 */
+	public function getDefaultIncludePaths()
+	{
+		$paths = parent::getDefaultIncludePaths();
+
+		$paths[] = EZSET_ROOT . '/layouts';
+		$paths[] = EZSET_FRONT . '/layouts';
+
+		return $paths;
 	}
 }
