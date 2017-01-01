@@ -2,13 +2,14 @@
 <?php
 /**
  * Asikart Joomla! Extensions extension link script.
- * 
+ *
  * @copyright (c) 2014 Asikart.com. All rights reserved.
  */
 
 // Dirs config
 // -------------------------------------------------------------------------
 $dirs = array(
+	'administrator/components/com_ezset' => 'admin',
 	'plugins/system/ezset' => 'ezset'
 );
 

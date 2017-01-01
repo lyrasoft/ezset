@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="basic">
+		<fieldset name="setting">
+			<field name="generator"
+				type="text"
+				label="PLG_SYSTEM_EZSET_GENERATOR"
+				description="PLG_SYSTEM_EZSET_GENERATOR_DESC" />
+			<field
+				name="googleAnalytics"
+				type="text"
+				label="PLG_SYSTEM_EZSET_GOOGLE_ANALYTICS"
+				description="PLG_SYSTEM_EZSET_GOOGLE_ANALYTICS_DESC"
+				class=""
+				default=""
+			/>
+		</fieldset>
+
+		<fieldset name="head">
+			<field name="insertHeader"
+				type="codemirror"
+				filter="raw"
+				default=""
+				label="PLG_SYSTEM_EZSET_INCLUDE_HEADER"
+				description="PLG_SYSTEM_EZSET_INCLUDE_HEADER_DESC" />
+		</fieldset>
+	</fields>
+
+	<fields name="security">
+		<fieldset name="admin_protect">
+			<field
+				name="AdminProtect"
+				type="list"
+				label="PLG_SYSTEM_EZSET_ADMIN_PROTECT"
+				description="PLG_SYSTEM_EZSET_ADMIN_PROTECT_DESC"
+			>
+				<option value="">JNO</option>
+				<option value="url">PLG_SYSTEM_EZSET_ADMIN_PROTECT_BY_URL</option>
+				<option value="auth">PLG_SYSTEM_EZSET_ADMIN_PROTECT_BY_HTTP_AUTH</option>
+				<option value="auth_user">PLG_SYSTEM_EZSET_ADMIN_PROTECT_BY_HTTP_AUTH_AND_USER</option>
+			</field>
+
+			<field
+				name="AdminProtect_Code"
+				type="text"
+				default="ezset"
+				size="30"
+				label="PLG_SYSTEM_EZSET_ADMIN_PROTECT_CODE"
+				description="PLG_SYSTEM_EZSET_ADMIN_PROTECT_CODE_DESC"
+			/>
+
+			<field type="spacer" hr="true"/>
+		</fieldset>
+		<fieldset name="ip_block">
+			<field
+				name="IpBlock"
+				type="radio"
+				label="PLG_SYSTEM_EZSET_IP_BLOCK"
+				description="PLG_SYSTEM_EZSET_IP_BLOCK_DESC"
+				class="btn-group"
+				default="0"
+			>
+				<option value="0">JDISABLED</option>
+				<option value="allow">PLG_SYSTEM_EZSET_IP_BLOCK_ALLOW</option>
+				<option value="deny">PLG_SYSTEM_EZSET_IP_BLOCK_DENY</option>
+			</field>
+
+			<field
+				name="IpBlock_Client"
+				type="checkboxes"
+				label="PLG_SYSTEM_EZSET_IP_BLOCK_CLIENT"
+				description="PLG_SYSTEM_EZSET_IP_BLOCK_CLIENT_DESC"
+				class=""
+				default="0"
+			>
+				<option value="site">JSITE</option>
+				<option value="administrator">JADMINISTRATOR</option>
+			</field>
+
+			<field
+				name="IpBlock_Ips"
+				type="textarea"
+				label="PLG_SYSTEM_EZSET_IP_BLOCK_IPS"
+				description="PLG_SYSTEM_EZSET_IP_BLOCK_IPS_DESC"
+				class="span8"
+				rows="7"
+				default="localhost"
+			/>
+
+		</fieldset>
+	</fields>
+	<fields name="cache">
+		<fieldset name="cache_control">
+			<field name="CacheControl"
+				type="radio"
+				class="btn-group"
+				default="0"
+				label="PLG_SYSTEM_EZSET_CACHE_CONTROL_ENABLED"
+				description="PLG_SYSTEM_EZSET_CACHE_CONTROL_ENABLED_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="CacheControl_Type"
+				type="radio"
+				class="btn-group"
+				default="exclude"
+				label="PLG_SYSTEM_EZSET_CACHE_CONTROL_TYPE"
+				description="PLG_SYSTEM_EZSET_CACHE_CONTROL_TYPE_DESC">
+				<option value="exclude">PLG_SYSTEM_EZSET_CACHE_EXCLUDE</option>
+				<option value="include">PLG_SYSTEM_EZSET_CACHE_INCLUDE</option>
+			</field>
+			<field name="CacheControl_Menus"
+				type="menuitem"
+				multiple="true"
+				size="15"
+				label="PLG_SYSTEM_EZSET_CACHE_CONTROL_MENUS"
+				description="PLG_SYSTEM_EZSET_CACHE_CONTROL_MENUS_DESC" />
+			<field name="CacheControl_Queries"
+				type="textarea"
+				cols="45"
+				rows="8"
+				label="PLG_SYSTEM_EZSET_CACHE_CONTROL_QUERIES"
+				description="PLG_SYSTEM_EZSET_CACHE_CONTROL_QUERIES_DESC" />
+		</fieldset>
+	</fields>
+	<fields name="development">
+		<fieldset name="language_orphan">
+			<field name="LanguageOrphan"
+				type="radio"
+				class="btn-group"
+				default="0"
+				label="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN"
+				description="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="LanguageOrphan_Path"
+				type="text"
+				default="logs/language.ini"
+				size="30"
+				label="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_PATH"
+				description="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_PATH_DESC" />
+		</fieldset>
+	</fields>
+</form>

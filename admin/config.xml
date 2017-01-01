@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <fieldset name="component"
+        label="COM_EZSET_COMPONENT_LABEL"
+        description="COM_EZSET_COMPONENT_DESC"
+        addfieldpath="administrator/components/com_ezset/model/field"
+    >
+
+	</fieldset>
+</config>
