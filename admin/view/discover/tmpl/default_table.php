@@ -50,37 +50,17 @@ $grid->registerTableSort();
 
 	<!--TITLE-->
 	<th class="center">
-		<?php echo $grid->sortTitle('JGLOBAL_TITLE', 'discover.title'); ?>
+		<?php echo JText::_('JGLOBAL_TITLE'); ?>
 	</th>
 
-	<!--CATEGORY-->
-	<th width="10%" class="center">
-		<?php echo $grid->sortTitle('JCATEGORY', 'category.title'); ?>
+	<!--NAME-->
+	<th class="center">
+		<?php echo JText::_('COM_EZSET_ADDON_NAME'); ?>
 	</th>
 
-	<!--ACCESS VIEW LEVEL-->
-	<th width="5%" class="center">
-		<?php echo $grid->sortTitle('JGRID_HEADING_ACCESS', 'viewlevel.title'); ?>
-	</th>
-
-	<!--CREATED-->
-	<th width="10%" class="center">
-		<?php echo $grid->sortTitle('JDATE', 'discover.created'); ?>
-	</th>
-
-	<!--USER-->
-	<th width="10%" class="center">
-		<?php echo $grid->sortTitle('JAUTHOR', 'user.name'); ?>
-	</th>
-
-	<!--LANGUAGE-->
-	<th width="5%" class="center">
-		<?php echo $grid->sortTitle('JGRID_HEADING_LANGUAGE', 'lang.title'); ?>
-	</th>
-
-	<!--ID-->
-	<th width="1%" class="nowrap center">
-		<?php echo $grid->sortTitle('JGRID_HEADING_ID', 'discover.id'); ?>
+	<!--CLIENT-->
+	<th class="center">
+		<?php echo JText::_('COM_EZSET_ADDON_CLIENT'); ?>
 	</th>
 </tr>
 </thead>
@@ -109,7 +89,7 @@ $grid->registerTableSort();
 	<tr class="discover-row">
 		<!--CHECKBOX-->
 		<td class="center">
-			<?php echo JHtml::_('grid.id', $i, $item->id); ?>
+			<?php echo JHtml::_('grid.id', $i, $item->name); ?>
 		</td>
 
 		<!--STATE-->
@@ -130,41 +110,26 @@ $grid->registerTableSort();
 			</div>
 
 			<!-- Sub Title -->
-			<div class="small">
-				<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
-			</div>
+			<small class="muted">
+				<?php echo $item->path; ?>
+			</small>
 		</td>
 
-		<!--CATEGORY-->
-		<td class="center">
-			<?php echo $this->escape($item->category_title); ?>
+		<td>
+			<?php echo $item->name; ?>
 		</td>
 
-		<!--ACCESS VIEW LEVEL-->
-		<td class="center">
-			<?php echo $this->escape($item->viewlevel_title); ?>
+		<td>
+			<?php if ($item->client === 'site'): ?>
+			    <span class="label label-success">
+				    <?php echo JText::_('JSITE'); ?>
+			    </span>
+			<?php else: ?>
+				<span class="label label-info">
+					<?php echo JText::_('JADMINISTRATOR'); ?>
+				</span>
+			<?php endif; ?>
 		</td>
-
-		<!--CREATED-->
-		<td class="center">
-			<?php echo JHtml::_('date', $item->created, JText::_('DATE_FORMAT_LC4')); ?>
-		</td>
-
-		<!--USER-->
-		<td class="center">
-			<?php echo $this->escape($item->user_name); ?>
-		</td>
-
-		<!--LANGUAGE-->
-		<td class="center">
-			<?php echo $grid->language(); ?>
-		</td>
-
-		<!--ID-->
-		<td class="center">
-			<?php echo $item->id; ?>
-		</td>
-
 	</tr>
 <?php endforeach; ?>
 </tbody>

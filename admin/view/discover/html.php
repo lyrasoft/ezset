@@ -104,7 +104,21 @@ class EzsetViewDiscoverHtml extends GridView
 	 */
 	protected function prepareData()
 	{
-		
+		foreach ($this['items'] as $item)
+		{
+			$class = $item->class;
+
+			if (is_callable(array($class, 'getTitle')))
+			{
+				$item->title = call_user_func(array($class, 'getTitle'));
+			}
+			else
+			{
+				$item->title = $item->name;
+			}
+
+			$item->alias = $item->name;
+		}
 	}
 
 	/**
@@ -117,16 +131,9 @@ class EzsetViewDiscoverHtml extends GridView
 	 */
 	protected function configureToolbar($buttonSet = array(), $canDo = null)
 	{
-		// Get default button set.
-		$buttonSet = parent::configureToolbar($buttonSet, $canDo);
+		JToolbarHelper::custom('discover.install', 'upload', 'upload', 'JTOOLBAR_INSTALL', true);
+		JToolbarHelper::custom('discover.refresh', 'refresh', 'refresh', 'COM_EZSET_TOOLBAR_DISCOVER', false);
 
-		// In debug mode, we remove trash button but use delete button instead.
-		// if (JDEBUG)
-		{
-			$buttonSet['trash']['access']  = false;
-			$buttonSet['delete']['access'] = true;
-		}
-
-		return $buttonSet;
+		return array();
 	}
 }

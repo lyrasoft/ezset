@@ -11,6 +11,7 @@ namespace Ezset\Addon;
 use Windwalker\Filesystem\Filesystem;
 use Windwalker\Filesystem\Path\PathCollection;
 use Windwalker\Helper\PathHelper;
+use Windwalker\String\StringNormalise;
 
 /**
  * The AddonHelper class.
@@ -38,19 +39,25 @@ class AddonHelper
 		/** @var \SplFileInfo $path */
 		foreach (Filesystem::folders(PathHelper::getAdmin('com_ezset') . '/addon') as $path)
 		{
-			$addons[$path->getBasename()] = (object) array(
-				'name' => $path->getBasename(),
-				'path' => $path->getPath(),
+			$name = $path->getBasename();
+
+			$addons[$name] = (object) array(
+				'name' => $name,
+				'path' => '{ROOT}' . substr($path->getPath(), strlen(JPATH_ROOT)),
+				'class' => 'EzsetAddon' . StringNormalise::toCamelCase($name),
 				'client' => 'admin',
 			);
 		}
 
 		/** @var \SplFileInfo $path */
-		foreach (Filesystem::folders(PathHelper::getAdmin('com_ezset') . '/addon') as $path)
+		foreach (Filesystem::folders(JPATH_ROOT . '/ezset/addon') as $path)
 		{
-			$addons[JPATH_ROOT . '/ezset/addon'] = (object) array(
-				'name' => $path->getBasename(),
-				'path' => $path->getPath(),
+			$name = $path->getBasename();
+			
+			$addons[$name] = (object) array(
+				'name' => $name,
+				'path' => '{ROOT}' . substr($path->getPath(), strlen(JPATH_ROOT)),
+				'class' => 'EzsetAddon' . StringNormalise::toCamelCase($name),
 				'client' => 'site',
 			);
 		}

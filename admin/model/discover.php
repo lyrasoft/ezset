@@ -6,6 +6,7 @@
  * @license     GNU General Public License version 2 or later.
  */
 
+use Windwalker\DataMapper\DataMapper;
 use Windwalker\DI\Container;
 use Windwalker\Model\Filter\FilterHelper;
 use Windwalker\Model\ListModel;
@@ -93,8 +94,24 @@ class EzsetModelDiscover extends ListModel
 	{
 		return $this->fetch('items', function ()
 		{
-		    return array_values(\Ezset\Addon\AddonHelper::findAddons());
+		    $found = \Ezset\Addon\AddonHelper::findAddons();
+
+		    $keep = array_diff(array_keys($found), $this->getInstalled()->name);
+
+		    return array_values(array_intersect_key($found, array_flip($keep)));
 		});
+	}
+
+	/**
+	 * getInstalled
+	 *
+	 * @return  mixed|\Windwalker\Data\DataSet
+	 */
+	public function getInstalled()
+	{
+		$mapper = new DataMapper('#__ezset_addons');
+
+		return $mapper->findAll();
 	}
 
 	/**
