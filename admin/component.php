@@ -9,14 +9,14 @@
 // No direct access
 defined('_JEXEC') or die;
 
-use Ezset\Addon\AddonHelper;
+use Ezset\Library\Addon\AddonHelper;
 
 /**
  * Ezset Component
  *
  * @since 1.0
  */
-final class EzsetComponent extends \Ezset\Component\EzsetComponent
+final class EzsetComponent extends \Ezset\Library\Component\EzsetComponent
 {
 	/**
 	 * Default task name.
@@ -36,6 +36,6 @@ final class EzsetComponent extends \Ezset\Component\EzsetComponent
 	{
 		parent::prepare();
 
-		AddonHelper::loadAddons();
+		AddonHelper::getAddons();
 	}
 }

@@ -6,7 +6,7 @@
  * @license    Please see LICENSE file.
  */
 
-use Ezset\Addon\AddonHelper;
+use Ezset\Library\Addon\AddonHelper;
 
 /**
  * The EzsetControllerDiscoverInstall class.

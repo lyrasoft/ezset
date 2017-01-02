@@ -7,6 +7,7 @@
  */
 
 use Windwalker\Data\Data;
+use Windwalker\Registry\Registry;
 
 // No direct access
 defined('_JEXEC') or die;
@@ -25,25 +26,25 @@ if ($result):
 class PlgSystemEzset extends JPlugin
 {
 	/**
-	 * Property self.
-	 *
-	 * @var  PlgSystemEzset
-	 */
-	public static $self = null;
-
-	/**
 	 * Property app.
 	 *
 	 * @var  JApplicationCms
 	 */
-	public $app;
+	protected $app;
 
 	/**
-	 * Property data.
+	 * Property ezset.
 	 *
-	 * @var Data
+	 * @var  \Ezset
 	 */
-	public $data = null;
+	protected $ezset;
+
+	/**
+	 * Property params.
+	 *
+	 * @var  Registry
+	 */
+	public $params;
 
 	/**
 	 * Constructor
@@ -53,27 +54,15 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function __construct($subject, $config)
 	{
+		$this->ezset = Ezset::getInstance();
+
 		parent::__construct($subject, $config);
 
+		$this->params = $this->ezset->params;
+
 		$this->loadLanguage();
-		
-		$this->app = JFactory::getApplication();
 
-		$this->data = new Data;
-
-		self::$self = $this;
-
-		$this->call(array('System\\Cache', 'prepareEzsetData'), $this);
-	}
-
-	/**
-	 * Get self object.
-	 *
-	 * @return  mixed
-	 */
-	public static function getInstance()
-	{
-		return self::$self;
+		$this->call(array('System\\Cache', 'prepareEzsetData'), $this->ezset);
 	}
 
 	// System Events
@@ -86,23 +75,21 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterInitialise()
 	{
-		$this->call('Route\\Routing::ipBlock');
+		$this->call('Route\Routing::ipBlock');
 
-		$this->call(array('Route\\Routing', 'quickRouting'));
+		$this->call('Route\Routing::quickRouting');
 
-		$this->call(array('System\\Command', 'execute'));
+		$this->call('System\Command::execute');
 
-		if ($this->params->get('tranAlias', 1))
+		if ($this->params->get('article.seo.AliasTranslate', 1))
 		{
-			$this->call(array('Article\\Translate', 'translateAlias'), $this);
+			$this->call('Article\Translate::translateAlias', $this->ezset);
 		}
 
-		if ($this->params->get('languageOrphan', 0))
+		if ($this->params->get('system.development.languageOrphan', 0))
 		{
-			$this->call(array('System\\Language', 'orphan'));
+			$this->call('System\Language::orphan');
 		}
-
-		@include $this->includeEvent(__FUNCTION__);
 	}
 
 	/**
@@ -112,9 +99,7 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterRoute()
 	{
-		$this->call(array('Seo\\OpenGraph', 'disableGzip'));
-
-		@include $this->includeEvent(__FUNCTION__);
+		$this->call('Seo\OpenGraph::disableGzip');
 	}
 
 	/**
@@ -130,12 +115,10 @@ class PlgSystemEzset extends JPlugin
 
 		$this->call(array('Asset\\Script', 'register'));
 
-		if ($gaId = $this->params->get('googleAnalytics'))
+		if ($gaId = $this->params->get('GoogleAnalytics'))
 		{
 			$this->call(array('Seo\\Document', 'analytics'), $gaId);
 		}
-
-		@include $this->includeEvent(__FUNCTION__);
 	}
 
 	/**
@@ -153,12 +136,10 @@ class PlgSystemEzset extends JPlugin
 			$this->call(array('System\\Cache', 'cacheEzsetData'), $this);
 		}
 
-		if ($this->params->get('cacheManagerEnabled', 0) && $this->app->isSite())
+		if ($this->params->get('system.cache.CacheControl', 0) && $this->app->isSite())
 		{
 			$this->call(array('System\\Cache', 'manage'));
 		}
-
-		@include $this->includeEvent(__FUNCTION__);
 	}
 
 	/**
@@ -169,8 +150,6 @@ class PlgSystemEzset extends JPlugin
 	public function onBeforeCompileHead()
 	{
 		$this->call(array('Seo\\Document', 'favicon'));
-
-		@include $this->includeEvent(__FUNCTION__);
 	}
 
 	// Content Events
@@ -190,13 +169,13 @@ class PlgSystemEzset extends JPlugin
 	public function onContentPrepare($context, $article, $params, $page = 0)
 	{
 		// OpenGraph
-		if ($this->params->get('openGraph', 1))
+		if ($this->params->get('article.social.Opengraph', 1))
 		{
 			$this->call(array('Seo\\OpenGraph', 'setOpenGraph'), $context, $article, $this);
 		}
 
 		// Auto Thumb
-		if ($this->params->get('autoThumbnail', 1))
+		if ($this->params->get('article.edit.AutoThumbnail', 1))
 		{
 			$this->call(array('Article\\Thumb', 'autoThumb'), $context, $article, $params);
 		}
@@ -210,8 +189,6 @@ class PlgSystemEzset extends JPlugin
 
 		// Get Meta
 		$this->call(array('Seo\\ContentSeo', 'setMeta'), $article, $this);
-
-		@include $this->includeEvent(__FUNCTION__);
 	}
 
 	/**
@@ -230,8 +207,6 @@ class PlgSystemEzset extends JPlugin
 		$result = null;
 
 		$result = $this->call(array('Article\\CodeInsert', 'customCode'), 'insertTitleBottom');
-
-		@include $this->includeEvent(__FUNCTION__);
 
 		return $result;
 	}
@@ -252,12 +227,10 @@ class PlgSystemEzset extends JPlugin
 		$result = null;
 
 		// Blog View Clearly
-		if ($this->params->get('blogViewClearly', 1))
+		if ($this->params->get('article.blog.SimpleLayout', 1))
 		{
 			$this->call(array('Article\\Blog', 'clearView'), $context, $article, $params);
 		}
-
-		@include $this->includeEvent(__FUNCTION__);
 
 		return $result;
 	}
@@ -280,18 +253,16 @@ class PlgSystemEzset extends JPlugin
 		$input = \JFactory::getApplication();
 
 		// Custom Code
-		if ($input->get('view') == 'article')
+		if ($input->get('view') === 'article')
 		{
 			$result = $this->call(array('Article\\CodeInsert', 'customCode'), 'insertContentBottom');
 		}
 
 		// FB Like
-		if ($this->params->get('fbLike'))
+		if ($this->params->get('article.social.Fb_LikeButton'))
 		{
 			$this->call(array('Article\\Facebook', 'likeButton'), $context, $article);
 		}
-
-		@include $this->includeEvent(__FUNCTION__);
 
 		return $result;
 	}
@@ -315,18 +286,16 @@ class PlgSystemEzset extends JPlugin
 
 		if ('com_categories.category' !== $context)
 		{
-			if ($this->params->get('tidyRepair', 1))
+			if ($this->params->get('article.edit.TidyRepair', 0))
 			{
 				$this->call(array('Article\\Content', 'tidyRepair'), $article, $this);
 			}
 		}
 
-		if ($this->params->get('saveFirstArticleImage', 0))
+		if ($this->params->get('article.edit.SaveFirstImage', 0))
 		{
 			$this->call(array('Article\\Content', 'saveFirstImage'), $context, $article);
 		}
-
-		@include $this->includeEvent(__FUNCTION__);
 
 		return $this->resultBool($result);
 	}
@@ -346,8 +315,6 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		@include $this->includeEvent(__FUNCTION__);
-
 		return $this->resultBool($result);
 	}
 
@@ -362,8 +329,6 @@ class PlgSystemEzset extends JPlugin
 	public function onContentBeforeDelete($context, $data)
 	{
 		$result = array();
-
-		@include $this->includeEvent(__FUNCTION__);
 
 		return $this->resultBool($result);
 	}
@@ -380,8 +345,6 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		@include $this->includeEvent(__FUNCTION__);
-
 		return $this->resultBool($result);
 	}
 
@@ -397,8 +360,6 @@ class PlgSystemEzset extends JPlugin
 	public function onContentChangeState($context, $pks, $value)
 	{
 		$result = array();
-
-		@include $this->includeEvent(__FUNCTION__);
 
 		return $this->resultBool($result);
 	}
@@ -421,8 +382,6 @@ class PlgSystemEzset extends JPlugin
 		$app    = JFactory::getApplication();
 		$result = null;
 
-		@include $this->includeEvent(__FUNCTION__);
-
 		return $result;
 	}
 
@@ -443,8 +402,6 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		@include $this->includeEvent(__FUNCTION__);
-
 		return $this->resultBool($result);
 	}
 
@@ -462,8 +419,6 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		@include $this->includeEvent(__FUNCTION__);
-
 		return $this->resultBool($result);
 	}
 
@@ -479,8 +434,6 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		@include $this->includeEvent(__FUNCTION__);
-
 		return $this->resultBool($result);
 	}
 
@@ -495,8 +448,6 @@ class PlgSystemEzset extends JPlugin
 	public function onUserLogout($user, $options = array())
 	{
 		$result = array();
-
-		@include $this->includeEvent(__FUNCTION__);
 
 		return $this->resultBool($result);
 	}
@@ -515,8 +466,6 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		@include $this->includeEvent(__FUNCTION__);
-
 		return $this->resultBool($result);
 	}
 
@@ -533,8 +482,6 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		@include $this->includeEvent(__FUNCTION__);
-
 		return $this->resultBool($result);
 	}
 
@@ -550,26 +497,7 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		@include $this->includeEvent(__FUNCTION__);
-
 		return $this->resultBool($result);
-	}
-
-	/**
-	 * includeEvent
-	 *
-	 * @param string $func
-	 *
-	 * @return  string
-	 */
-	public function includeEvent($func)
-	{
-		$event = JPATH_ROOT . '/ezset/events/' . $func . '.php';
-
-		if (file_exists($event))
-		{
-			return $event;
-		}
 	}
 
 	/**
@@ -592,48 +520,13 @@ class PlgSystemEzset extends JPlugin
 	/**
 	 * call
 	 *
-	 * @param   callable $callable
+	 * @param   callable  $callable
 	 *
-	 * @return  mixed|null
-	 *
-	 * @throws  InvalidArgumentException
+	 * @return  mixed
 	 */
 	public function call($callable)
 	{
-		if (! is_array($callable))
-		{
-			$callable = explode('::', $callable);
-		}
-
-		if (count($callable) < 2)
-		{
-			throw new \InvalidArgumentException(implode('::', $callable) . ' is not callable.');
-		}
-
-		$class = \Windwalker\String\StringNormalise::toClassNamespace($callable[0]);
-
-		$classname = 'MyEzset_' . trim(str_replace('\\', '_', $class), '\\');
-
-		if (!is_callable(array($classname, $callable[1])))
-		{
-			$classname = 'MyEzset\\' . trim($class, '\\');
-		}
-
-		if (!is_callable(array($classname, $callable[1])))
-		{
-			$classname = 'Ezset\\' . trim($class, '\\');
-		}
-
-		if (!is_callable(array($classname, $callable[1])))
-		{
-			return null;
-		}
-
-		$args = func_get_args();
-
-		array_shift($args);
-
-		return call_user_func_array(array($classname, $callable[1]), $args);
+		return call_user_func_array(array($this->ezset, 'call'), func_get_args());
 	}
 }
 

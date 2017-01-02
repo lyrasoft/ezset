@@ -6,7 +6,8 @@
  * @license     GNU General Public License version 2 or later.
  */
 
-use Ezset\Addon\AddonHelper;
+use Ezset\Library\Addon\AddonHelper;
+use Windwalker\Registry\Registry;
 use Windwalker\String\StringInflector;
 
 // No direct access
@@ -35,7 +36,7 @@ abstract class EzsetHelper
 		JHtmlSidebar::addEntry(
 			JText::_('COM_EZSET_VIEW_ADDONS'),
 			'index.php?option=com_ezset&view=addons',
-			$view === 'addon'
+			$view === 'addons'
 		);
 
 		JHtmlSidebar::addEntry(
@@ -44,18 +45,20 @@ abstract class EzsetHelper
 			$view === 'discover'
 		);
 
-//		$addons = AddonHelper::findAddons();
-//
-//		$addonName = $app->input->get('addon', 'system');
-//
-//		foreach ($addons as $addon => $instance)
-//		{
-//			JHtmlSidebar::addEntry(
-//				JText::_(sprintf('COM_EZSET_ADDON_%s_TITLE', strtoupper($addon))),
-//				'index.php?option=com_ezset&view=config&addon=' . $addon,
-//				$addonName === $addon
-//			);
-//		}
+		JHtmlSidebar::addEntry(
+			'<li class="nav-header">Addons</li>',
+			'',
+			false
+		);
+
+		$addons = AddonHelper::getAddons();
+
+		$currentAddon = $app->input->get('addon');
+
+		foreach ($addons as $name => $addon)
+		{
+			$addon->addMenuItem($currentAddon);
+		}
 
 		$dispatcher = \JEventDispatcher::getInstance();
 		$dispatcher->trigger('onAfterAddSubmenu', array('com_ezset', $vName));

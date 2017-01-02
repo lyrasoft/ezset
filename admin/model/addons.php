@@ -126,7 +126,7 @@ class EzsetModelAddons extends ListModel
 	 *
 	 * @return  void
 	 */
-	protected function populateState($ordering = null, $direction = 'ASC')
+	protected function populateState($ordering = 'addon.ordering', $direction = 'ASC')
 	{
 		// Build ordering prefix
 		if (!$ordering)

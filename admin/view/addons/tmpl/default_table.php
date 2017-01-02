@@ -55,32 +55,17 @@ $grid->registerTableSort();
 
 	<!--TITLE-->
 	<th class="center">
-		<?php echo $grid->sortTitle('JGLOBAL_TITLE', 'addon.title'); ?>
+		<?php echo JText::_('JGLOBAL_TITLE'); ?>
 	</th>
 
-	<!--CATEGORY-->
-	<th width="10%" class="center">
-		<?php echo $grid->sortTitle('JCATEGORY', 'category.title'); ?>
+	<!--NAME-->
+	<th class="center" width="5%">
+		<?php echo JText::_('COM_EZSET_ADDON_NAME'); ?>
 	</th>
 
-	<!--ACCESS VIEW LEVEL-->
-	<th width="5%" class="center">
-		<?php echo $grid->sortTitle('JGRID_HEADING_ACCESS', 'viewlevel.title'); ?>
-	</th>
-
-	<!--CREATED-->
-	<th width="10%" class="center">
-		<?php echo $grid->sortTitle('JDATE', 'addon.created'); ?>
-	</th>
-
-	<!--USER-->
-	<th width="10%" class="center">
-		<?php echo $grid->sortTitle('JAUTHOR', 'user.name'); ?>
-	</th>
-
-	<!--LANGUAGE-->
-	<th width="5%" class="center">
-		<?php echo $grid->sortTitle('JGRID_HEADING_LANGUAGE', 'lang.title'); ?>
+	<!--CLIENT-->
+	<th class="center" width="5%">
+		<?php echo JText::_('COM_EZSET_ADDON_CLIENT'); ?>
 	</th>
 
 	<!--ID-->
@@ -127,51 +112,37 @@ $grid->registerTableSort();
 			<div class="btn-group">
 				<!-- STATE BUTTON -->
 				<?php echo $grid->state() ?>
-
-				<!-- CHANGE STATE DROP DOWN -->
-				<?php echo $this->loadTemplate('dropdown'); ?>
 			</div>
 		</td>
 
 		<!--TITLE-->
 		<td class="has-context quick-edit-wrap">
 			<div class="item-title">
-				<!-- Checkout -->
-				<?php echo $grid->checkoutButton(); ?>
-
 				<!-- Title -->
-				<?php echo $grid->editTitle(); ?>
+				<?php echo $this->escape($item->title); ?>
 			</div>
 
 			<!-- Sub Title -->
-			<div class="small">
-				<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
-			</div>
+			<small class="muted">
+				<?php echo $this->escape($item->path); ?>
+			</small>
 		</td>
 
-		<!--CATEGORY-->
-		<td class="center">
-			<?php echo $this->escape($item->category_title); ?>
+		<!--NAME-->
+		<td>
+			<?php echo $this->escape($item->name); ?>
 		</td>
 
-		<!--ACCESS VIEW LEVEL-->
-		<td class="center">
-			<?php echo $this->escape($item->viewlevel_title); ?>
-		</td>
-
-		<!--CREATED-->
-		<td class="center">
-			<?php echo JHtml::_('date', $item->created, JText::_('DATE_FORMAT_LC4')); ?>
-		</td>
-
-		<!--USER-->
-		<td class="center">
-			<?php echo $this->escape($item->user_name); ?>
-		</td>
-
-		<!--LANGUAGE-->
-		<td class="center">
-			<?php echo $grid->language(); ?>
+		<td>
+			<?php if ($item->client === 'site'): ?>
+				<span class="label label-success">
+				    <?php echo JText::_('JSITE'); ?>
+			    </span>
+			<?php else: ?>
+				<span class="label label-info">
+					<?php echo JText::_('JADMINISTRATOR'); ?>
+				</span>
+			<?php endif; ?>
 		</td>
 
 		<!--ID-->

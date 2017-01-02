@@ -1,9 +1,6 @@
 {
-	"name" : "smstw/ezset",
-
-	"require" : {
-	},
-
-	"require-dev" : {
-	}
+    "require": {
+        "asika/dom-parser": "1.0.*@stable",
+        "asika/sitemap": "1.*"
+    }
 }

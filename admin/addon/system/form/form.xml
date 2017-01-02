@@ -2,12 +2,12 @@
 <form>
 	<fields name="basic">
 		<fieldset name="setting">
-			<field name="generator"
+			<field name="Generator"
 				type="text"
 				label="PLG_SYSTEM_EZSET_GENERATOR"
 				description="PLG_SYSTEM_EZSET_GENERATOR_DESC" />
 			<field
-				name="googleAnalytics"
+				name="GoogleAnalytics"
 				type="text"
 				label="PLG_SYSTEM_EZSET_GOOGLE_ANALYTICS"
 				description="PLG_SYSTEM_EZSET_GOOGLE_ANALYTICS_DESC"
@@ -17,7 +17,7 @@
 		</fieldset>
 
 		<fieldset name="head">
-			<field name="insertHeader"
+			<field name="InsertHeader"
 				type="codemirror"
 				filter="raw"
 				default=""

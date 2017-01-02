@@ -6,7 +6,7 @@
  * @license    Please see LICENSE file.
  */
 
-use Ezset\Addon\AbstractAddon;
+use Ezset\Library\Addon\AbstractAddon;
 
 /**
  * The EzsetAddonDefault class.

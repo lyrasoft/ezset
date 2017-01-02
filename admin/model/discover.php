@@ -94,7 +94,7 @@ class EzsetModelDiscover extends ListModel
 	{
 		return $this->fetch('items', function ()
 		{
-		    $found = \Ezset\Addon\AddonHelper::findAddons();
+		    $found = \Ezset\Library\Addon\AddonHelper::findAddons();
 
 		    $keep = array_diff(array_keys($found), $this->getInstalled()->name);
 

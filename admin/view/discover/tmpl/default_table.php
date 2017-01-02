@@ -106,7 +106,7 @@ $grid->registerTableSort();
 		<td class="has-context quick-edit-wrap">
 			<div class="item-title">
 				<!-- Title -->
-				<?php echo $grid->editTitle(); ?>
+				<?php echo $this->escape($item->title); ?>
 			</div>
 
 			<!-- Sub Title -->

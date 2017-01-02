@@ -6,6 +6,7 @@
  * @license     GNU General Public License version 2 or later.
  */
 
+use Ezset\Library\Addon\AddonHelper;
 use Joomla\DI\Container;
 use Windwalker\Model\Model;
 use Windwalker\View\Engine\PhpEngine;
@@ -82,7 +83,7 @@ class EzsetViewAddonsHtml extends GridView
 			'view_list' => 'addons',
 
 			// Column which we allow to drag sort
-			'order_column'   => 'addon.catid, addon.ordering',
+			'order_column'   => 'addon.ordering',
 
 			// Table id
 			'order_table_id' => 'addonList',
@@ -104,7 +105,20 @@ class EzsetViewAddonsHtml extends GridView
 	 */
 	protected function prepareData()
 	{
-		
+		foreach ($this['items'] as $item)
+		{
+			$addon = AddonHelper::getAddon($item->name);
+
+			if (!$addon)
+			{
+				$item->title = $item->name;
+
+				continue;
+			}
+
+			$item->title = $addon->getTitle();
+			$item->alias = $item->name;
+		}
 	}
 
 	/**

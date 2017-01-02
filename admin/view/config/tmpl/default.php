@@ -14,6 +14,7 @@ defined('_JEXEC') or die;
 JHtmlBootstrap::tooltip();
 JHtmlFormbehavior::chosen('select');
 JHtmlBehavior::formvalidator();
+JHtmlBehavior::tabstate();
 
 /**
  * Prepare data for this template.

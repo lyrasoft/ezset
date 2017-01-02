@@ -84,7 +84,14 @@ class EzsetModelConfig extends AdminModel
 	 */
 	public function getItem($pk = null)
 	{
-		return parent::getItem($pk);
+		if (!$pk)
+		{
+			$pk = $this['addon'];
+		}
+
+		$item = parent::getItem(array('name' => $pk));
+
+		return (object) $item->params;
 	}
 
 	/**
@@ -146,7 +153,7 @@ class EzsetModelConfig extends AdminModel
 		);
 		
 		$addon = $this->get('addon', 'system');
-		$addonInstance = \Ezset\Addon\AddonHelper::getAddon($addon);
+		$addonInstance = \Ezset\Library\Addon\AddonHelper::getAddon($addon);
 
 		if (!$addonInstance)
 		{

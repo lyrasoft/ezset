@@ -9,7 +9,7 @@
 // No direct access
 defined('_JEXEC') or die;
 
-use Ezset\Addon\AddonHelper;
+use Ezset\Library\Addon\AddonHelper;
 
 $fieldset = $data->fieldset;
 
