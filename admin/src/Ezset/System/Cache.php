@@ -9,6 +9,7 @@
 namespace Ezset\System;
 
 use Windwalker\Data\Data;
+use Windwalker\Registry\Registry;
 
 /**
  * Class Cache
@@ -152,7 +153,7 @@ class Cache
 
 		if (!$cache->get($id))
 		{
-			$cache->store($ezset->data, $id);
+			$cache->store($ezset->data->toArray(), $id);
 		}
 	}
 
@@ -173,7 +174,7 @@ class Cache
 
 		if ($data)
 		{
-			$ezset->setData(new Data($data));
+			$ezset->setData(new Registry($data));
 		}
 	}
 

@@ -8,6 +8,8 @@
 
 namespace Ezset\Library\Addon;
 
+use Windwalker\Event\ListenerHelper;
+
 /**
  * The AbstractAddon class.
  *
@@ -48,8 +50,6 @@ abstract class AbstractAddon
 	public function __construct($data = array())
 	{
 		$this->data = $data ? : $this->loadData();
-
-		$this->register();
 	}
 
 	/**
@@ -65,6 +65,7 @@ abstract class AbstractAddon
 		\JForm::addRulePath(static::getDir('rule'));
 
 		$this->registerClasses();
+		$this->registerListeners();
 	}
 
 	/**
@@ -76,6 +77,27 @@ abstract class AbstractAddon
 	protected function registerClasses()
 	{
 		\JLoader::registerNamespace('Ezset', static::getDir('src'));
+	}
+
+	/**
+	 * registerListeners
+	 *
+	 * @return  void
+	 */
+	protected function registerListeners()
+	{
+		$path = static::getDir('src/Ezset/Listener');
+
+		if (is_dir($path))
+		{
+			// Register ezset event listeners
+			ListenerHelper::registerListeners(
+				'Ezset',
+				\JEventDispatcher::getInstance(),
+				$path
+			);
+		}
+
 	}
 
 	/**

@@ -128,6 +128,12 @@
 				type="text"
 				label="PLG_SYSTEM_EZSET_TRAN_LAN"
 				description="PLG_SYSTEM_EZSET_TRAN_LAN_DESC" />
+			<field name="AliasTranslate_GoogleApiKey"
+				default=""
+				type="text"
+				class="input-xlarge"
+				label="PLG_SYSTEM_EZSET_ALIAS_TRANSLATE_GOOGLE_API_KEY"
+				description="PLG_SYSTEM_EZSET_ALIAS_TRANSLATE_GOOGLE_API_KEY_DESC" />
 		</fieldset>
 
 		<fieldset name="seo_meta">
@@ -169,8 +175,8 @@
 	</fields>
 
 	<fields name="social">
-		<fieldset name="Opengraph">
-			<field name="openGraph"
+		<fieldset name="opengraph">
+			<field name="Opengraph"
 				type="radio"
 				class="btn-group"
 				default="0"

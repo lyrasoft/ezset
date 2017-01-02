@@ -75,21 +75,6 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterInitialise()
 	{
-		$this->call('Route\Routing::ipBlock');
-
-		$this->call('Route\Routing::quickRouting');
-
-		$this->call('System\Command::execute');
-
-		if ($this->params->get('article.seo.AliasTranslate', 1))
-		{
-			$this->call('Article\Translate::translateAlias', $this->ezset);
-		}
-
-		if ($this->params->get('system.development.languageOrphan', 0))
-		{
-			$this->call('System\Language::orphan');
-		}
 	}
 
 	/**
@@ -99,7 +84,7 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterRoute()
 	{
-		$this->call('Seo\OpenGraph::disableGzip');
+
 	}
 
 	/**
@@ -109,16 +94,7 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterDispatch()
 	{
-		$this->call(array('System\\Secure', 'adminBlock'));
 
-		$this->call(array('Seo\\Document', 'register'), $this);
-
-		$this->call(array('Asset\\Script', 'register'));
-
-		if ($gaId = $this->params->get('GoogleAnalytics'))
-		{
-			$this->call(array('Seo\\Document', 'analytics'), $gaId);
-		}
 	}
 
 	/**
@@ -128,18 +104,6 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onAfterRender()
 	{
-		$this->call(array('Article\\CodeInsert', 'insertHeader'));
-		$this->call(array('Asset\\Style', 'register'));
-
-		if ($this->app->get('caching', 0))
-		{
-			$this->call(array('System\\Cache', 'cacheEzsetData'), $this);
-		}
-
-		if ($this->params->get('system.cache.CacheControl', 0) && $this->app->isSite())
-		{
-			$this->call(array('System\\Cache', 'manage'));
-		}
 	}
 
 	/**
@@ -150,6 +114,9 @@ class PlgSystemEzset extends JPlugin
 	public function onBeforeCompileHead()
 	{
 		$this->call(array('Seo\\Document', 'favicon'));
+
+		/** @see \Ezset\Core\HtmlHeader::prepareHtmlHeader */
+		$this->call('Core\HtmlHeader::prepareHtmlHeader', $this);
 	}
 
 	// Content Events
@@ -168,27 +135,6 @@ class PlgSystemEzset extends JPlugin
 	 */
 	public function onContentPrepare($context, $article, $params, $page = 0)
 	{
-		// OpenGraph
-		if ($this->params->get('article.social.Opengraph', 1))
-		{
-			$this->call(array('Seo\\OpenGraph', 'setOpenGraph'), $context, $article, $this);
-		}
-
-		// Auto Thumb
-		if ($this->params->get('article.edit.AutoThumbnail', 1))
-		{
-			$this->call(array('Article\\Thumb', 'autoThumb'), $context, $article, $params);
-		}
-
-		// Input Code
-		$this->call(array('Article\\CodeInsert', 'insertContent'), $article, $this);
-
-		// Custom Code
-		$this->call(array('Article\\CodeInsert', 'customCode'), 'insertArticleTop', true, $article);
-		$this->call(array('Article\\CodeInsert', 'customCode'), 'insertContentTop', true, $article);
-
-		// Get Meta
-		$this->call(array('Seo\\ContentSeo', 'setMeta'), $article, $this);
 	}
 
 	/**
@@ -205,8 +151,6 @@ class PlgSystemEzset extends JPlugin
 	public function onContentAfterTitle($context, $article, $params, $page = 0)
 	{
 		$result = null;
-
-		$result = $this->call(array('Article\\CodeInsert', 'customCode'), 'insertTitleBottom');
 
 		return $result;
 	}
@@ -225,12 +169,6 @@ class PlgSystemEzset extends JPlugin
 	public function onContentBeforeDisplay($context, $article, $params, $page = 0)
 	{
 		$result = null;
-
-		// Blog View Clearly
-		if ($this->params->get('article.blog.SimpleLayout', 1))
-		{
-			$this->call(array('Article\\Blog', 'clearView'), $context, $article, $params);
-		}
 
 		return $result;
 	}
@@ -252,18 +190,6 @@ class PlgSystemEzset extends JPlugin
 
 		$input = \JFactory::getApplication();
 
-		// Custom Code
-		if ($input->get('view') === 'article')
-		{
-			$result = $this->call(array('Article\\CodeInsert', 'customCode'), 'insertContentBottom');
-		}
-
-		// FB Like
-		if ($this->params->get('article.social.Fb_LikeButton'))
-		{
-			$this->call(array('Article\\Facebook', 'likeButton'), $context, $article);
-		}
-
 		return $result;
 	}
 
@@ -284,20 +210,7 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		if ('com_categories.category' !== $context)
-		{
-			if ($this->params->get('article.edit.TidyRepair', 0))
-			{
-				$this->call(array('Article\\Content', 'tidyRepair'), $article, $this);
-			}
-		}
-
-		if ($this->params->get('article.edit.SaveFirstImage', 0))
-		{
-			$this->call(array('Article\\Content', 'saveFirstImage'), $context, $article);
-		}
-
-		return $this->resultBool($result);
+		return $this->assertAllTrue($result);
 	}
 
 	/**
@@ -315,7 +228,7 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		return $this->resultBool($result);
+		return $this->assertAllTrue($result);
 	}
 
 	/**
@@ -330,7 +243,7 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		return $this->resultBool($result);
+		return $this->assertAllTrue($result);
 	}
 
 	/**
@@ -345,7 +258,7 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		return $this->resultBool($result);
+		return $this->assertAllTrue($result);
 	}
 
 	/**
@@ -361,7 +274,7 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		return $this->resultBool($result);
+		return $this->assertAllTrue($result);
 	}
 
 
@@ -402,7 +315,7 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		return $this->resultBool($result);
+		return $this->assertAllTrue($result);
 	}
 
 	/**
@@ -419,7 +332,7 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		return $this->resultBool($result);
+		return $this->assertAllTrue($result);
 	}
 
 	/**
@@ -434,7 +347,7 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		return $this->resultBool($result);
+		return $this->assertAllTrue($result);
 	}
 
 	/**
@@ -449,7 +362,7 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		return $this->resultBool($result);
+		return $this->assertAllTrue($result);
 	}
 
 	/**
@@ -466,7 +379,7 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		return $this->resultBool($result);
+		return $this->assertAllTrue($result);
 	}
 
 	/**
@@ -482,7 +395,7 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		return $this->resultBool($result);
+		return $this->assertAllTrue($result);
 	}
 
 	/**
@@ -497,19 +410,19 @@ class PlgSystemEzset extends JPlugin
 	{
 		$result = array();
 
-		return $this->resultBool($result);
+		return $this->assertAllTrue($result);
 	}
 
 	/**
 	 * resultBool
 	 *
-	 * @param array $result
+	 * @param bool[] $results
 	 *
 	 * @return  bool
 	 */
-	public function resultBool($result = array())
+	public function assertAllTrue(array $results = array())
 	{
-		if (in_array(false, $result))
+		if (in_array(false, $results))
 		{
 			return false;
 		}

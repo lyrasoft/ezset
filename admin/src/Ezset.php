@@ -16,8 +16,9 @@ use Windwalker\System\ExtensionHelper;
  * Class Ezset
  *
  * @property-read  JApplicationCms  app
- * @property-read  Data             data
+ * @property-read  Registry         data
  * @property-read  Registry         params
+ * @property-read  JInput           input
  *
  * @since 1.0
  */
@@ -31,6 +32,13 @@ class Ezset
 	protected $app;
 
 	/**
+	 * Property input.
+	 *
+	 * @var  JInput
+	 */
+	protected $input;
+
+	/**
 	 * Property params.
 	 *
 	 * @var  Registry
@@ -40,9 +48,9 @@ class Ezset
 	/**
 	 * Property data.
 	 *
-	 * @var Data
+	 * @var Registry
 	 */
-	protected $data = null;
+	protected $data;
 
 	/**
 	 * Property instance.
@@ -54,13 +62,15 @@ class Ezset
 	/**
 	 * Get Easyset Instance.
 	 *
+	 * @param JApplicationCms $app
+	 *
 	 * @return Ezset
 	 */
-	public static function getInstance()
+	public static function getInstance(JApplicationCms $app = null)
 	{
 		if (!static::$instance)
 		{
-			static::$instance = new static;
+			static::$instance = new static($app);
 		}
 
 		return static::$instance;
@@ -68,14 +78,57 @@ class Ezset
 
 	/**
 	 * Ezset constructor.
+	 *
+	 * @param JApplicationCms $app
 	 */
-	protected function __construct()
+	protected function __construct(JApplicationCms $app = null)
 	{
-		$this->app = JFactory::getApplication();
-
-		$this->data = new Data;
+		$this->app   = $app ? : JFactory::getApplication();
+		$this->input = $this->app->input;
+		$this->data  = new Registry;
 
 		$this->params = static::getAddonParams();
+	}
+
+	/**
+	 * get
+	 *
+	 * @param string $name
+	 * @param mixed  $default
+	 *
+	 * @return  mixed
+	 */
+	public function get($name, $default = null)
+	{
+		return $this->params->get($name, $default);
+	}
+
+	/**
+	 * set
+	 *
+	 * @param string $name
+	 * @param mixed  $value
+	 *
+	 * @return  static
+	 */
+	public function set($name, $value)
+	{
+		$this->params->set($name, $value);
+
+		return $this;
+	}
+
+	/**
+	 * triggerEvent
+	 *
+	 * @param string $event
+	 * @param array  $args
+	 *
+	 * @return  array
+	 */
+	public function triggerEvent($event, $args = array())
+	{
+		return $this->app->triggerEvent($event, $args);
 	}
 
 	/**
@@ -89,7 +142,7 @@ class Ezset
 	 */
 	public function call($callable)
 	{
-		if (! is_array($callable))
+		if (!is_array($callable))
 		{
 			$callable = explode('::', $callable);
 		}
@@ -182,6 +235,24 @@ class Ezset
 	}
 
 	/**
+	 * Has Html <head> so we can add custom tags.
+	 *
+	 * @return  bool
+	 */
+	public static function hasHtmlHeader()
+	{
+		$doc = JFactory::getDocument();
+		$app = JFactory::getApplication();
+
+		if ($app->isAdmin() || $doc->getType() !== 'html')
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * getFrontendPath
 	 *
 	 * @param string $path
@@ -229,7 +300,7 @@ class Ezset
 	/**
 	 * Method to set property data
 	 *
-	 * @param   Data $data
+	 * @param   Registry $data
 	 *
 	 * @return  static  Return self to support chaining.
 	 */
@@ -244,16 +315,17 @@ class Ezset
 	 * __get
 	 *
 	 * @param string $name
-	 * @param array  $args
 	 *
 	 * @return  mixed
+	 * @throws \OutOfRangeException
 	 */
 	public function __get($name)
 	{
 		$allows = array(
 			'data',
 			'app',
-			'params'
+			'params',
+			'input'
 		);
 
 		if (in_array($name, $allows))

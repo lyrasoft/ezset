@@ -27,7 +27,7 @@ class LanguageOrphan
 		$es      = \Ezset::getInstance();
 
 		// Get file
-		$path = JPATH_ROOT . '/' . $es->params->get('languageOrphanPath', 'logs/language.ini');
+		$path = JPATH_ROOT . '/' . $es->get('system.development.LanguageOrphan_Path', 'logs/languages.ini');
 		$path = \JPath::clean($path);
 		$file = '';
 
@@ -60,16 +60,17 @@ class LanguageOrphan
 
 		// Get orphan keys
 		$obj = new \JObject;
+		$stripes = (int) $es->get('system.development.LanguageOrphan_StripPrefixes', 2);
 
 		foreach ($orphans as $k => $v)
 		{
 			$key = explode('_', $k);
 
-			$context = array_slice($key, 0, 2);
+			$context = array_slice($key, 0, $stripes);
 			$context = implode('_', $context);
 
-			$lang = array_slice($key, 2);
-			$lang = implode(' ', $lang);
+			$lang = array_slice($key, $stripes);
+			$lang = ucwords(strtolower(implode(' ', $lang)));
 
 			if (!$obj->get($context))
 			{

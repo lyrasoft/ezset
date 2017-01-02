@@ -26,6 +26,11 @@ $label = $fieldset->label ? : sprintf('COM_EZSET_ADDON_%s_FIELDSET_%s', strtoupp
 				<div id="control_<?php echo $field->id; ?>">
 					<?php echo $field->renderField() . "\n\n"; ?>
 				</div>
+				<?php if (JDEBUG): ?>
+				    <code>
+					    <?php echo $data->addon . '.' . $field->group . '.'  . $field->fieldname; ?>
+				    </code>
+				<?php endif; ?>
 			<?php endforeach;?>
 		</div>
 		

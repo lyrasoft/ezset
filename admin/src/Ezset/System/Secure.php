@@ -8,6 +8,8 @@
 
 namespace Ezset\System;
 
+use Ezset\Library\Exception\HttpAuthException;
+
 /**
  * Class Secure
  *
@@ -15,6 +17,10 @@ namespace Ezset\System;
  */
 class Secure
 {
+	const MODE_URL = 'url';
+	const MODE_AUTH = 'auth';
+	const MODE_AUTH_USER = 'auth_user';
+
 	/**
 	 * adminBlock
 	 *
@@ -22,19 +28,20 @@ class Secure
 	 *
 	 * @throws \RuntimeException
 	 */
-	public static function adminBlock()
+	public static function adminProtect()
 	{
 		$app     = \JFactory::getApplication();
 		$user    = \JFactory::getUser();
 		$session = \JFactory::getSession();
 		$es      = \Ezset::getInstance();
-		$mode    = $es->params->get('adminSecure');
+		$mode    = $es->get('system.security.AdminProtect');
+		$code    = $es->get('system.security.AdminProtect_Code');
 
 		if (! $app->isAdmin()
-			|| ! $mode
-			|| ! $es->params->get('adminSecureCode')
-			|| ! $user->get('guest')
-			|| $session->get('aksecure'))
+			|| !$mode
+			|| !$code
+			|| !$user->get('guest')
+			|| $session->get('ezset.admin_secure'))
 		{
 			return;
 		}
@@ -42,62 +49,63 @@ class Secure
 		$logged = false;
 
 		// Http
-		if ($mode == 'auth' || $mode == 'auth_user')
+		if ($mode === static::MODE_AUTH || $mode === static::MODE_AUTH_USER)
 		{
-			if (substr(php_sapi_name(), 0, 3) == 'cgi')
+			if (strpos(php_sapi_name(), 'cgi') === 0)
 			{
-				$app->enqueueMessage('Not Apache handler, fallback to default login method.', 'warning');
+				// Not Apache handler, fallback to default login method.
+				$app->enqueueMessage(\JText::_('COM_EZSET_ADMIN_PROTECT_MESSAGE_NO_APACHE_HANDLER'), 'warning');
 
 				return;
 			}
 
-			if (!$session->get('tried_login'))
+			if (!$session->get('ezset.tried_login'))
 			{
 				$_SERVER['PHP_AUTH_USER'] = null;
-				$session->set('tried_login', true);
+				$session->set('ezset.tried_login', true);
 			}
 
 			try
 			{
-				$username = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : null;
-				$password = isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null;
+				$username = $app->input->server->getUsername('PHP_AUTH_USER');
+				$password = $app->input->server->get('PHP_AUTH_PW', null, 'raw');
 
 				// Workaround to simulate system lang input
 				$_REQUEST['lang'] = '';
 
-				if ($mode == 'auth_user')
+				if ($mode == static::MODE_AUTH_USER)
 				{
 					if (!$app->login(array('username' => $username, 'password' => $password), array('remember' => true)))
 					{
-						throw new \Exception;
+						throw new HttpAuthException('Auth fail.');
 					}
 
 					// $session->set('user', \JFactory::getUser($username));
 				}
 				else
 				{
-					if ($password != $es->params->get('adminSecureCode'))
+					if ($password !== $code)
 					{
-						throw new \Exception;
+						throw new HttpAuthException('Auth fail.');
 					}
 				}
 
 				$logged = true;
 			}
-			catch (\Exception $e)
+			catch (HttpAuthException $e)
 			{
 				header('WWW-Authenticate: Basic realm="This operation must login."');
 				header('HTTP/1.0 401 Unauthorized');
-				die();
+				exit();
 			}
 		}
 
 		// Compat
-		elseif ($mode == 'url')
+		elseif ($mode === static::MODE_URL)
 		{
-			$logged = isset($_GET[$es->params->get('adminSecureCode')]);
+			$logged = $app->input->get->get($code);
 
-			if (!$logged)
+			if ($logged !== null)
 			{
 				$app->redirect(\JURI::root());
 
@@ -107,8 +115,8 @@ class Secure
 
 		if ($logged)
 		{
-			$session->set('aksecure', true);
-			$session->set('tried_login', false);
+			$session->set('ezset.admin_secure', true);
+			$session->set('ezset.tried_login', false);
 
 			$app->redirect(\JUri::getInstance()->toString());
 

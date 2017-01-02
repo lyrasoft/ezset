@@ -41,7 +41,7 @@ class Command
 
 		if ($cmd)
 		{
-			$cmd  = str_replace('.', '/', $cmd);
+			$cmd  = str_replace( '.', '/', $cmd);
 			$file = EZSET_FRONT . '/cmd/' . $cmd . '.php';
 
 			if (!file_exists($file))

@@ -7,6 +7,8 @@
  */
 
 // No direct access
+use Ezset\Library\Addon\AddonHelper;
+
 defined('_JEXEC') or die;
 
 $init = JPATH_LIBRARIES . '/windwalker/src/init.php';
@@ -53,5 +55,10 @@ if (is_file(EZSET_FRONT . '/src/init.php'))
 
 // Init Ezset first
 Ezset::getInstance();
+
+foreach (AddonHelper::getAddons() as $addon)
+{
+	$addon->register();
+}
 
 return true;

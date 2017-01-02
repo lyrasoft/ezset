@@ -6,9 +6,11 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Ezset\Seo;
+namespace Ezset\Article;
 
+use Ezset\Library\Html\Metadata;
 use Joomla\String\StringHelper;
+use Windwalker\Helper\UriHelper;
 
 /**
  * Class ContentSeo
@@ -30,6 +32,10 @@ class ContentSeo
 	 * @param object $article
 	 *
 	 * @return  void
+	 * @throws \Exception
+	 * @throws \UnexpectedValueException
+	 * @throws \RuntimeException
+	 * @throws \InvalidArgumentException
 	 */
 	public static function setMeta($article)
 	{
@@ -48,17 +54,19 @@ class ContentSeo
 		$config = \JFactory::getConfig();
 		$ezset  = \Ezset::getInstance();
 
+		$metaDesc = '';
+
 		// Get menu meta, if nonexists, use article meta
 		if( isset($article->params) && $article->params instanceof \JRegistry && isset($article->metadesc))
 		{
-			$ezset->data->metaDesc = $article->params->get('menu-meta_description' , $article->metadesc);
+			$metaDesc = $article->params->get('menu-meta_description' , $article->metadesc);
 		}
 
 		if (\Ezset::isHome())
 		{
-			$ezset->data->metaDesc = $config->get('MetaDesc');
+			$metaDesc = $config->get('MetaDesc');
 		}
-		elseif (! $ezset->data->metaDesc)
+		elseif (!$metaDesc)
 		{
 			// Get meta from article content
 			$metaDesc = $article->text;
@@ -91,17 +99,17 @@ class ContentSeo
 			// Rebuild paragraph
 			$metaDesc = implode(' ', $metaDesc);
 
-			$ezset->data->metaDesc = $metaDesc;
-
 			// Find category name
 			if (property_exists($article, 'catid'))
 			{
 				$category = \JTable::getInstance('Category');
 				$category->load($article->catid);
 
-				$ezset->data->catName = $category->title;
+				$ezset->data->set('article.category_name', $category->title);
 			}
 		}
+
+		Metadata::setMataDescription($metaDesc);
 
 		static::$firstArticle = false;
 	}
@@ -125,29 +133,29 @@ class ContentSeo
 		$title = explode('|', $title);
 		$title = $title[0];
 
-		$ezset->data->originTitle = $title;
+		$ezset->data->set('seo.origin_title', $title);
 
 		if (\Ezset::isHome())
 		{
-			$ezset->data->siteTitle = $config->get('sitename');
+			$ezset->data->set('seo.site_title', $config->get('sitename'));
 		}
 		else
 		{
-			$separator = trim($ezset->params->get('titleSeparator'));
+			$separator = trim($ezset->params->get('article.seo.SeoMeta_TitleFix_Separator'));
 
 			$replace['{%SITE%}']  = $siteName;
 			$replace['{%TITLE%}'] = $title;
 
-			if ('category' == $view || 'categories' == $view)
+			if ('category' === $view || 'categories' === $view)
 			{
 				$replace['{%CATEGORY%}'] = '';
 			}
 			else
 			{
-				$replace['{%CATEGORY%}'] = $ezset->data->catName;
+				$replace['{%CATEGORY%}'] = $ezset->data['article.category_name'];
 			}
 
-			$siteTitle = strtr($ezset->params->get('titleFix'), $replace);
+			$siteTitle = strtr($ezset->params->get('article.seo.SeoMeta_TitleFix'), $replace);
 			$siteTitle = explode('|', $siteTitle);
 
 			foreach ($siteTitle as $k => $v)
@@ -164,7 +172,7 @@ class ContentSeo
 
 			$siteTitle = implode(" {$separator} ", $siteTitle);
 
-			$ezset->data->siteTitle = $siteTitle;
+			$ezset->data->set('seo.site_title', $siteTitle);
 		}
 	}
 }

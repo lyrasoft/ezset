@@ -136,10 +136,15 @@
 			</field>
 			<field name="LanguageOrphan_Path"
 				type="text"
-				default="logs/language.ini"
-				size="30"
+				default="logs/languages.ini"
 				label="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_PATH"
 				description="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_PATH_DESC" />
+			<field name="LanguageOrphan_StripPrefixes"
+				type="number"
+				default="2"
+				class="input-small"
+				label="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_STRIP_PREFIXES"
+				description="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_STRIP_PREFIXES_DESC" />
 		</fieldset>
 	</fields>
 </form>
