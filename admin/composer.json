@@ -1,6 +1,7 @@
 {
     "require": {
         "asika/dom-parser": "1.0.*@stable",
-        "asika/sitemap": "1.*"
+        "asika/sitemap": "1.*",
+        "danielstjules/stringy": "^2.3"
     }
 }

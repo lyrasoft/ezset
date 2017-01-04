@@ -40,11 +40,11 @@ class ArticleListener extends AbstractEzsetListener
 	{
 		if ($this->params->get('article.social.openGraph', 0) && \Ezset::hasHtmlHeader())
 		{
-			/** @see \Ezset\Article\Opengraph::disableGzip */
-			$this->call('Article\OpenGraph::disableGzip');
+			/** @see \Ezset\Article\ArticleOpengraph::disableGzip */
+			$this->call('Article\ArticleOpengraph::disableGzip');
 		}
 
-		$this->call('Article\Opengraph::prepareGlobalOpengraph');
+		$this->call('Article\ArticleOpengraph::initialOpengraph');
 	}
 
 	/**
@@ -55,13 +55,16 @@ class ArticleListener extends AbstractEzsetListener
 	public function onAfterDispatch()
 	{
 		// SEO Title
-		/** @see \Ezset\Article\ContentSeo::setTitle */
-		$this->call('Article\ContentSeo::setTitle');
+		if ($this->app->isSite())
+		{
+			/** @see \Ezset\Article\ContentSeo::setTitle */
+			$this->call('Article\ContentSeo::setTitle');
+		}
 
 		// OpenGraph
 		if ($this->params->get('article.social.Opengraph', 0) && \Ezset::hasHtmlHeader())
 		{
-			$this->call('Article\Opengraph::overrideOpengraphMetadata');
+			$this->call('Article\ArticleOpengraph::overrideOpengraphMetadata');
 		}
 	}
 
@@ -81,10 +84,15 @@ class ArticleListener extends AbstractEzsetListener
 	 */
 	public function onContentPrepare($context, $article, $params, $page = 0)
 	{
+		if ($this->app->isAdmin())
+		{
+			return;
+		}
+
 		// OpenGraph
 		if ($this->params->get('article.social.Opengraph', 0) && \Ezset::hasHtmlHeader())
 		{
-			$this->call('Article\Opengraph::overrideOpengraphImages', $context, $article, $this);
+			$this->call('Article\ArticleOpengraph::overrideOpengraphImages', $context, $article, $this);
 		}
 
 		// Auto Thumb
@@ -100,9 +108,9 @@ class ArticleListener extends AbstractEzsetListener
 		$this->call('Article\CodeInsert::customCode', 'insertArticleTop', true, $article);
 		$this->call('Article\CodeInsert::customCode', 'insertContentTop', true, $article);
 
-		// Get Meta
-		if ($this->params->get('article.seo.SeoMeta', 0))
+		if ($this->ezset->params->get('article.seo.SeoMeta'))
 		{
+			// Get Meta
 			/** @see \Ezset\Article\ContentSeo::setMeta */
 			$this->call('Article\ContentSeo::setMeta', $article, $this);
 		}

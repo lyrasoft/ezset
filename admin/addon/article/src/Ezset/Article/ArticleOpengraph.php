@@ -18,7 +18,7 @@ use Windwalker\Registry\Registry;
  *
  * @since 1.0
  */
-class Opengraph
+class ArticleOpengraph
 {
 	/**
 	 * Property once.
@@ -32,7 +32,7 @@ class Opengraph
 	 *
 	 * @return  void
 	 */
-	public static function prepareGlobalOpengraph()
+	public static function initialOpengraph()
 	{
 		$ezset     = \Ezset::getInstance();
 		$doc       = \JFactory::getDocument();
@@ -46,12 +46,18 @@ class Opengraph
 
 		Metadata::addOpengraph('og:title', $siteName, true);
 		Metadata::addOpengraph('og:site_name', $siteName, true);
+		Metadata::addOpengraph('og:description', '', true);
 		Metadata::addOpengraph('og:url', $url, true);
 		Metadata::addOpengraph('og:image', null, true);
 
-		if (\Ezset::isHome() && $ogParams->get('Opengraph_DefaultImage'))
+		$homeOnly = $ogParams->get('Opengraph_DefaultImage_HomeOnly');
+
+		if ($ogParams->get('Opengraph_DefaultImage'))
 		{
-			Metadata::addOpengraph('og:image', UriHelper::pathAddHost($ogParams->get('Opengraph_DefaultImage')), true);
+			if (!$homeOnly || ($homeOnly && \Ezset::isHome()))
+			{
+				Metadata::addOpengraph('og:image', UriHelper::pathAddHost($ogParams->get('Opengraph_DefaultImage')), true);
+			}
 		}
 
 		// Admin, page, user ids
@@ -89,8 +95,8 @@ class Opengraph
 		{
 			return;
 		}
-
-		if (!$ezset->params->get('Opengraph_GetArticleImage', 1))
+		
+		if (!$ogParams->get('Opengraph_GetArticleImage'))
 		{
 			return;
 		}
@@ -98,42 +104,25 @@ class Opengraph
 		if ('article' === $view)
 		{
 			$images = new Registry($article->images);
-			$ignoreFirst = false;
 			$imgs = array();
 
 			// Get article image
-			$img  = $images->get('image_fulltext', $images->get('image_intro'));
+			$img = $images->get('image_fulltext') ? : $images->get('image_intro');
 
 			if ($img)
 			{
 				$imgs[] = $img;
 			}
 
-			if ($imgs)
-			{
-				$ignoreFirst = true;
-			}
-
 			$dom = new Dom;
-
-			// If first image = main image, delete this paragraph.
 			$dom->load($article->text);
-			$images = $dom->find('img');
 
-			$max = $ogParams->get('Opengraph_GetArticleImage_Max', 1);
+			/** @var Dom\Collection $images */
+			$images = $dom->find('img');
+			$images = array_slice($images->toArray(), 0, (int) $ogParams->get('Opengraph_GetArticleImage_Max', 1));
 
 			foreach ($images as $k => $image)
 			{
-				if ($ignoreFirst)
-				{
-					continue;
-				}
-
-				if (($k + 1) > $max)
-				{
-					break;
-				}
-
 				$imgs[] = $image->src;
 			}
 
@@ -149,17 +138,12 @@ class Opengraph
 				}
 			}
 
-			if (!$imgs && !$ezset->params->get('Opengraph_DefaultImage_HomeOnly', 1))
-			{
-				if ($ezset->params->get('Opengraph_DefaultImage'))
-				{
-					$imgs[] = $ezset->params->get('Opengraph_DefaultImage');
-				}
-			}
-
 			$imgs = array_map(array('Windwalker\Helper\UriHelper', 'pathAddHost'), $imgs);
 
-			Metadata::addOpengraph('og:image', $imgs, true);
+			if (count($imgs))
+			{
+				Metadata::addOpengraph('og:image', $imgs, true);
+			}
 		}
 		elseif ('category' == $view)
 		{
@@ -170,20 +154,11 @@ class Opengraph
 				$cat->params = new Registry($cat->params);
 
 				$img = $cat->params->get('image');
-				$image = '';
 
 				if ($img)
 				{
-					$image = $img;
+					Metadata::addOpengraph('og:image', UriHelper::pathAddHost($img), true);
 				}
-				elseif (!$ogParams->get('Opengraph_DefaultImage_HomeOnly', 1))
-				{
-					$image = $ogParams->get('Opengraph_DefaultImage');
-				}
-
-				$image = UriHelper::pathAddHost($image);
-
-				Metadata::addOpengraph('og:image', $image, true);
 			}
 
 			static::$once = 0;
@@ -208,6 +183,8 @@ class Opengraph
 
 			Metadata::addOpengraph('og:title', $title, true);
 		}
+
+		Metadata::addOpengraph('og:description', Metadata::getMetadata('description'));
 	}
 
 	/**
@@ -222,11 +199,6 @@ class Opengraph
 	public static function disableGzip()
 	{
 		$ezset = \Ezset::getInstance();
-
-		if ($ezset->app->isAdmin())
-		{
-			return;
-		}
 
 		$unsupported = false;
 		$userAgent = $ezset->input->server->getString('HTTP_USER_AGENT');

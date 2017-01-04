@@ -9,8 +9,7 @@
 namespace Ezset\Article;
 
 use Ezset\Library\Html\Metadata;
-use Joomla\String\StringHelper;
-use Windwalker\Helper\UriHelper;
+use Stringy\Stringy;
 
 /**
  * Class ContentSeo
@@ -39,32 +38,24 @@ class ContentSeo
 	 */
 	public static function setMeta($article)
 	{
-		$app = \JFactory::getApplication();
-
-		if ($app->isAdmin())
-		{
-			return;
-		}
-
 		if (!static::$firstArticle)
 		{
 			return;
 		}
 
-		$config = \JFactory::getConfig();
 		$ezset  = \Ezset::getInstance();
 
 		$metaDesc = '';
 
 		// Get menu meta, if nonexists, use article meta
-		if( isset($article->params) && $article->params instanceof \JRegistry && isset($article->metadesc))
+		if( isset($article->params, $article->metadesc) && $article->params instanceof \JRegistry)
 		{
 			$metaDesc = $article->params->get('menu-meta_description' , $article->metadesc);
 		}
 
 		if (\Ezset::isHome())
 		{
-			$metaDesc = $config->get('MetaDesc');
+			$metaDesc = $ezset->app->get('MetaDesc');
 		}
 		elseif (!$metaDesc)
 		{
@@ -74,30 +65,13 @@ class ContentSeo
 			// Remove script tags
 			$metaDesc = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $metaDesc);
 			$metaDesc = preg_replace('#<style(.*?)>(.*?)</style>#is', '', $metaDesc);
-
 			$metaDesc = strip_tags($metaDesc);
 
-			// Filter plugin like:{rsform 1}
-			$metaDesc = preg_replace('/\{.*\}/', '', $metaDesc);
-
-			// Remove line
-			$metaDesc = str_replace( "\r\n" , '' , $metaDesc);
-			$metaDesc = str_replace( "&nbsp;" , '' , $metaDesc);
-			$metaDesc = trim($metaDesc);
-			$metaDesc = StringHelper::substr($metaDesc, 0, $ezset->params->get('maxMetaChar', 250));
-
-			// Remove latest word
-			$metaDesc = trim($metaDesc);
-			$metaDesc = explode(' ' ,$metaDesc);
-			$latestWord = array_pop($metaDesc);
-
-			if(strlen($latestWord) > 10)
-			{
-				$metaDesc[] = $latestWord;
-			}
-
-			// Rebuild paragraph
-			$metaDesc = implode(' ', $metaDesc);
+			$metaDesc = Stringy::create($metaDesc)
+				// Remove plugin code like:{rsform 1}
+				->regexReplace('\{.*\}', '')
+				->collapseWhitespace()
+				->safeTruncate($ezset->params->get('article.seo.SeoMeta_AutoGetMeta_Length', 250), '...');
 
 			// Find category name
 			if (property_exists($article, 'catid'))
@@ -109,7 +83,7 @@ class ContentSeo
 			}
 		}
 
-		Metadata::setMataDescription($metaDesc);
+		Metadata::setMataDescription((string) $metaDesc);
 
 		static::$firstArticle = false;
 	}
@@ -121,13 +95,10 @@ class ContentSeo
 	 */
 	public static function setTitle()
 	{
-		$input    = \JFactory::getApplication()->input;
 		$ezset    = \Ezset::getInstance();
-		$doc      = \JFactory::getDocument();
-		$config   = \JFactory::getConfig();
-		$siteName = $config->get('sitename');
-		$view     = $input->get('view');
-		$title    = $doc->getTitle();
+		$siteName = $ezset->app->get('sitename');
+		$view     = $ezset->input->get('view');
+		$title    = $ezset->document->getTitle();
 
 		// Fix for YOOTheme
 		$title = explode('|', $title);
@@ -137,7 +108,7 @@ class ContentSeo
 
 		if (\Ezset::isHome())
 		{
-			$ezset->data->set('seo.site_title', $config->get('sitename'));
+			$ezset->data->set('seo.site_title', $ezset->app->get('sitename'));
 		}
 		else
 		{
@@ -171,6 +142,7 @@ class ContentSeo
 			}
 
 			$siteTitle = implode(" {$separator} ", $siteTitle);
+			$siteTitle = (string) Stringy::create($siteTitle)->collapseWhitespace();
 
 			$ezset->data->set('seo.site_title', $siteTitle);
 		}

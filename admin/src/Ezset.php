@@ -8,7 +8,6 @@
 
 use Ezset\Library\Addon\AddonHelper;
 use Joomla\String\StringHelper;
-use Windwalker\Data\Data;
 use Windwalker\Registry\Registry;
 use Windwalker\System\ExtensionHelper;
 
@@ -19,6 +18,11 @@ use Windwalker\System\ExtensionHelper;
  * @property-read  Registry         data
  * @property-read  Registry         params
  * @property-read  JInput           input
+ * @property-read  JSession         session
+ * @property-read  JDocument        document
+ * @property-read  JCache           cache
+ * @property-read  JDatabaseDriver  db
+ * @property-read  JLanguage        language
  *
  * @since 1.0
  */
@@ -317,6 +321,7 @@ class Ezset
 	 * @param string $name
 	 *
 	 * @return  mixed
+	 * @throws \InvalidArgumentException
 	 * @throws \OutOfRangeException
 	 */
 	public function __get($name)
@@ -331,6 +336,13 @@ class Ezset
 		if (in_array($name, $allows))
 		{
 			return $this->$name;
+		}
+
+		$container = \Windwalker\DI\Container::getInstance('com_ezset');
+
+		if ($container->exists($name))
+		{
+			return $container->get($name);
 		}
 
 		throw new \OutOfRangeException(sprintf('Property: %s not exists in %s', $name, get_called_class()));

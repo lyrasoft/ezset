@@ -33,7 +33,7 @@ class HtmlHeader
 			return;
 		}
 
-		$ezset->call('Core\HtmlHeader::renderMetaDescription');
+		$ezset->call('Core\HtmlHeader::renderMetadata');
 
 		$ezset->call('Core\HtmlHeader::renderTitle');
 
@@ -41,11 +41,11 @@ class HtmlHeader
 	}
 
 	/**
-	 * renderMetaDescription
+	 * renderMetadata
 	 *
 	 * @return  void
 	 */
-	public static function renderMetaDescription()
+	public static function renderMetadata()
 	{
 		$doc = \JFactory::getDocument();
 
