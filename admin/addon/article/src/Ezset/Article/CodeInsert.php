@@ -8,6 +8,8 @@
 
 namespace Ezset\Article;
 
+use Ezset\Core\CodeLoader;
+
 /**
  * Class CodeInsert
  *
@@ -15,31 +17,10 @@ namespace Ezset\Article;
  */
 class CodeInsert
 {
-	/**
-	 * insertHeader
-	 *
-	 * @return  void
-	 */
-	public static function insertHeader()
-	{
-		$doc = \JFactory::getDocument();
-		$app = \JFactory::getApplication();
-
-		if ($doc->getType() !== 'html')
-		{
-			return;
-		}
-
-		$es = \Ezset::getInstance();
-
-		$body = $app->getBody();
-
-		$body = explode('</head>', $body);
-
-		$body[0] .= "\n" . $es->params->get('insertHeader', '') . "\n";
-		$body = implode('</head>', $body);
-		$app->setBody($body);
-	}
+	const POSITION_BEFORE_TITLE = 'CustomCode_BeforeTitle';
+	const POSITION_AFTER_TITLE = 'CustomCode_AfterTitle';
+	const POSITION_BEFORE_CONTENT = 'CustomCode_BeforeContent';
+	const POSITION_AFTER_CONTENT = 'CustomCode_AfterContent';
 
 	/**
 	 * insertContent
@@ -82,7 +63,7 @@ class CodeInsert
 
 			if ($file)
 			{
-				$base = $easyset->params->get('inputCodeBase', 'ezset/code');
+				$base = $easyset->params->get('article.code_insert.CodeInsert_Root', 'ezset/code');
 				$base = str_replace('/', '.', $base);
 				$base = trim($base, '.');
 				$file = "{$base}.{$file}";
@@ -90,7 +71,7 @@ class CodeInsert
 
 				// Get file content
 				ob_start();
-				\JLoader::import($file, JPATH_ROOT, null);
+				\JLoader::import($file, JPATH_ROOT);
 
 				// Fixed joomla bug
 				$output = str_replace('$', '\$', ob_get_contents());
@@ -113,36 +94,13 @@ class CodeInsert
 	 */
 	public static function customCode($position, $prepareContent = false, $article = null)
 	{
-		$es    = \Ezset::getInstance();
+		$ezset = \Ezset::getInstance();
 		$input = \JFactory::getApplication()->input;
 
 		// Generate code output
-		$fileContent = $es->params->get($position, '');
-		$fileName    = JPATH_ROOT . '/tmp/inputcode/code/' . md5($position);
-		$fileHash    = md5($fileContent);
+		$fileContent = $ezset->params->get('article.code_insert.' . $position, '');
 
-		if (!file_exists($fileName))
-		{
-			\JFile::write($fileName, $fileContent);
-		}
-
-		$tmpName    = $fileName;
-		$tmpContent = file_get_contents($tmpName);
-		$tmpHash    = md5($tmpContent);
-
-		if ($tmpHash !== $fileHash)
-		{
-			\JFile::write($tmpName, $fileContent);
-		}
-
-		ob_start();
-
-		include $tmpName;
-
-		// Fixed joomla bug
-		$output = str_replace('$', '\$', ob_get_contents());
-
-		ob_end_clean();
+		$output = CodeLoader::import(md5($position), $fileContent);
 
 		// Inset the code to article
 		if ($prepareContent)
@@ -154,25 +112,21 @@ class CodeInsert
 
 			switch ($position)
 			{
-				case 'insertArticleTop' :
-					if ($input->get('view', 'article') == 'article')
+				case static::POSITION_BEFORE_TITLE:
+					if ($input->get('view', 'article') === 'article')
 					{
 						echo $output;
 					}
 					break;
 
-				case 'insertContentTop' :
+				case static::POSITION_BEFORE_CONTENT:
 					$article->text = $output . $article->text;
 					break;
-
-				default:
-					return '';
-					break;
 			}
+
+			return '';
 		}
-		else
-		{
-			return $output;
-		}
+
+		return $output;
 	}
 }

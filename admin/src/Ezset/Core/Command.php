@@ -6,7 +6,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Ezset\System;
+namespace Ezset\Core;
+
+use Ezset\Library\Addon\AddonHelper;
 
 /**
  * Class Command
@@ -41,12 +43,22 @@ class Command
 
 		if ($cmd)
 		{
-			$cmd  = str_replace( '.', '/', $cmd);
+			$cmd  = str_replace('.', '/', $cmd);
 			$file = EZSET_FRONT . '/cmd/' . $cmd . '.php';
 
 			if (!file_exists($file))
 			{
-				$file = EZSET_ADMIN . '/cmd/' . $cmd . '.php';
+				$addons = AddonHelper::getAddons();
+
+				foreach ($addons as $addon)
+				{
+					$file = $addon::getDir('cmd/' . $cmd . '.php');
+
+					if (file_exists($file))
+					{
+						break;
+					}
+				}
 			}
 
 			if (file_exists($file))

@@ -31,10 +31,19 @@ class Language
 	 */
 	public static function orphan()
 	{
-		if (! static::$orphan)
+		$ezset = \Ezset::getInstance();
+
+		if (!$ezset->params->get('system.development.LanguageOrphan'))
 		{
+			return;
+		}
+
+		if (!static::$orphan)
+		{
+			$path = JPATH_ROOT . '/' . $ezset->params->get('system.development.LanguageOrphan_Path', 'logs/languages.ini');
+
 			// Execute this object when system close.
-			static::$orphan = new LanguageOrphan;
+			static::$orphan = new LanguageOrphan($path);
 		}
 	}
 }

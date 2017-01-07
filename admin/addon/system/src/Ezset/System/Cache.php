@@ -8,7 +8,6 @@
 
 namespace Ezset\System;
 
-use Windwalker\Data\Data;
 use Windwalker\Registry\Registry;
 
 /**
@@ -18,6 +17,9 @@ use Windwalker\Registry\Registry;
  */
 class Cache
 {
+	const CONTROL_TYPE_EXCLUDE = 'exclude';
+	const CONTROL_TYPE_INCLUDE = 'include';
+
 	/**
 	 * Detach whole page cache plugin in specific page.
 	 *
@@ -25,27 +27,26 @@ class Cache
 	 */
 	public static function manage()
 	{
-		$es            = \Ezset::getInstance();
-		$input         = \JFactory::getApplication()->input;
-		$control_type  = $es->params->get('cacheControlType', 'exclude');
-		$cache_menus   = $es->params->get('CacheMenus', array());
-		$cache_queries = $es->params->get('CacheQueries', array());
-		$config        = \JFactory::getConfig();
-		$cache         = null;
+		$ezset        = \Ezset::getInstance();
+		$controlType  = $ezset->params->get('CacheControl_Type', static::CONTROL_TYPE_EXCLUDE);
+		$cacheMenus   = $ezset->params->get('CacheControl_Menus', array());
+		$cacheQueries = $ezset->params->get('CacheControl_Queries', '');
+		$config       = \JFactory::getConfig();
+		$cache        = null;
 
 		$bool  = array();
 
-		$itemid = $input->get('Itemid');
+		$itemid = $ezset->input->get('Itemid');
 
-		if (in_array($itemid, $cache_menus))
+		if (in_array($itemid, $cacheMenus))
 		{
 			$bool[] = true;
 		}
 
 		// Queries control
-		$cache_queries = explode("\n", $cache_queries);
+		$cacheQueries = explode("\n", $cacheQueries);
 
-		foreach ($cache_queries as $q)
+		foreach ($cacheQueries as $q)
 		{
 			$q = explode('&', $q);
 			$r = false;
@@ -54,12 +55,17 @@ class Cache
 			{
 				$r = false;
 
+				if (!$v)
+				{
+					continue;
+				}
+
 				// Equals
 				if (strpos($v, '!='))
 				{
 					$v = explode('!=', $v);
 
-					if ($input->get(trim($v[0])) == trim($v[1]))
+					if ($ezset->input->get(trim($v[0])) == trim($v[1]))
 					{
 						break;
 					}
@@ -70,7 +76,7 @@ class Cache
 				{
 					$v = explode('=', $v);
 
-					if ($input->get(trim($v[0])) != trim($v[1]))
+					if ($ezset->input->get(trim($v[0])) != trim($v[1]))
 					{
 						break;
 					}
@@ -101,14 +107,14 @@ class Cache
 
 		foreach ($observers as $observer)
 		{
-			if (get_class($observer) == 'PlgSystemCache')
+			if (is_object($observer) && get_class($observer) === 'PlgSystemCache')
 			{
 				$cache = $observer;
 			}
 		}
 
 		// Let's detach cache plugin
-		if ($control_type == 'include')
+		if ($controlType === static::CONTROL_TYPE_INCLUDE)
 		{
 			if ($bool == true)
 			{

@@ -19,7 +19,7 @@ use Windwalker\System\ExtensionHelper;
  * @property-read  Registry         params
  * @property-read  JInput           input
  * @property-read  JSession         session
- * @property-read  JDocument        document
+ * @property-read  JDocument|JDocumentHtml document
  * @property-read  JCache           cache
  * @property-read  JDatabaseDriver  db
  * @property-read  JLanguage        language
@@ -28,6 +28,10 @@ use Windwalker\System\ExtensionHelper;
  */
 class Ezset
 {
+	const CLIENT_SITE = 'site';
+	const CLIENT_ADMIN = 'administrator';
+	const CLIENT_BOTH = 'both';
+
 	/**
 	 * Property app.
 	 *
@@ -243,12 +247,26 @@ class Ezset
 	 *
 	 * @return  bool
 	 */
-	public static function hasHtmlHeader()
+	public static function hasHtmlHeader($client = self::CLIENT_SITE)
 	{
 		$doc = JFactory::getDocument();
 		$app = JFactory::getApplication();
 
-		if ($app->isAdmin() || $doc->getType() !== 'html')
+		switch ($client)
+		{
+			case static::CLIENT_SITE:
+				$client = $app->isSite();
+				break;
+
+			case static::CLIENT_ADMIN:
+				$client = $app->isAdmin();
+				break;
+
+			default:
+				$client = true;
+		}
+
+		if ($client || $doc->getType() !== 'html')
 		{
 			return false;
 		}

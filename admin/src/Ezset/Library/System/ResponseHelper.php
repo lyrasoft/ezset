@@ -9,6 +9,7 @@
 namespace Ezset\Library\System;
 
 use Joomla\Utilities\ArrayHelper;
+use Windwalker\Api\Buffer\JsonBuffer;
 
 /**
  * The ResponseHelper class.
@@ -28,6 +29,45 @@ class ResponseHelper
 	{
 		header('Content-Type: text/html; charset=utf-8');
 		header('Cache-Control: no-cache');
+	}
+
+	/**
+	 * ajaxResponse
+	 *
+	 * @param callable $callable
+	 * @param bool     $checkToken
+	 *
+	 * @return  void
+	 */
+	public static function ajaxResponse($callable, $checkToken = true)
+	{
+		header('Content-Type: application/json; charset=utf-8');
+
+		try
+		{
+			if ($checkToken && !\JFactory::getSession()->getFormToken())
+			{
+				throw new \InvalidArgumentException('Invalid Token');
+			}
+
+			$json = new JsonBuffer;
+
+			$result = call_user_func($callable, $json);
+
+			if (!$result instanceof JsonBuffer)
+			{
+				$result = $json;
+			}
+
+			echo $result;
+		}
+		catch (\Exception $e)
+		{
+			$messages = \JFactory::getApplication()->getMessageQueue();
+			$messages = trim(implode(' ', \Windwalker\Utilities\ArrayHelper::flatten($messages)));
+
+			echo new JsonBuffer(null, $messages ? : $e->getMessage(), true, true);
+		}
 	}
 
 	/**

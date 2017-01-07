@@ -34,19 +34,7 @@ abstract class EzsetHelper
 		$view = $app->input->get('view', 'addons');
 
 		JHtmlSidebar::addEntry(
-			JText::_('COM_EZSET_VIEW_ADDONS'),
-			'index.php?option=com_ezset&view=addons',
-			$view === 'addons'
-		);
-
-		JHtmlSidebar::addEntry(
-			JText::_('COM_EZSET_VIEW_DISCOVER'),
-			'index.php?option=com_ezset&view=discover',
-			$view === 'discover'
-		);
-
-		JHtmlSidebar::addEntry(
-			'<li class="nav-header">Addons</li>',
+			'<li class="nav-header">' . JText::_('COM_EZSET_SETTINGS') . '</li>',
 			'',
 			false
 		);
@@ -59,6 +47,24 @@ abstract class EzsetHelper
 		{
 			$addon->addMenuItem($currentAddon);
 		}
+
+		JHtmlSidebar::addEntry(
+			'<li class="nav-header">' . JText::_('COM_EZSET_ADDONS') . '</li>',
+			'',
+			false
+		);
+
+		JHtmlSidebar::addEntry(
+			JText::_('COM_EZSET_VIEW_ADDONS'),
+			'index.php?option=com_ezset&view=addons',
+			$view === 'addons'
+		);
+
+		JHtmlSidebar::addEntry(
+			JText::_('COM_EZSET_VIEW_DISCOVER'),
+			'index.php?option=com_ezset&view=discover',
+			$view === 'discover'
+		);
 
 		$dispatcher = \JEventDispatcher::getInstance();
 		$dispatcher->trigger('onAfterAddSubmenu', array('com_ezset', $vName));

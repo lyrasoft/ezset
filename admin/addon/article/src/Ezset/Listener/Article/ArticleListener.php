@@ -8,6 +8,7 @@
 
 namespace Ezset\Listener\Article;
 
+use Ezset\Article\CodeInsert;
 use Ezset\Listener\AbstractEzsetListener;
 
 /**
@@ -64,7 +65,14 @@ class ArticleListener extends AbstractEzsetListener
 		// OpenGraph
 		if ($this->params->get('article.social.Opengraph', 0) && \Ezset::hasHtmlHeader())
 		{
+			/** @see \Ezset\Article\ArticleOpengraph::overrideOpengraphMetadata */
 			$this->call('Article\ArticleOpengraph::overrideOpengraphMetadata');
+		}
+
+		if ($this->app->isAdmin() && $this->params->get('article.edit.ConfirmLeave'))
+		{
+			/** @see \Ezset\Article\Content::confirmLeave */
+			$this->call('Article\Content::confirmLeave');
 		}
 	}
 
@@ -105,8 +113,8 @@ class ArticleListener extends AbstractEzsetListener
 		$this->call('Article\CodeInsert::insertContent', $article, $this);
 
 		// Custom Code
-		$this->call('Article\CodeInsert::customCode', 'insertArticleTop', true, $article);
-		$this->call('Article\CodeInsert::customCode', 'insertContentTop', true, $article);
+		$this->call('Article\CodeInsert::customCode', CodeInsert::POSITION_BEFORE_TITLE, true, $article);
+		$this->call('Article\CodeInsert::customCode', CodeInsert::POSITION_BEFORE_CONTENT, true, $article);
 
 		if ($this->ezset->params->get('article.seo.SeoMeta'))
 		{
@@ -131,7 +139,7 @@ class ArticleListener extends AbstractEzsetListener
 	{
 		$result = null;
 
-		$result = $this->call('Article\CodeInsert::customCode', 'insertTitleBottom');
+		$result = $this->call('Article\CodeInsert::customCode', CodeInsert::POSITION_AFTER_TITLE);
 
 		return $result;
 	}
@@ -175,12 +183,12 @@ class ArticleListener extends AbstractEzsetListener
 	{
 		$result = null;
 
-		$input = \JFactory::getApplication();
+		$input = \JFactory::getApplication()->input;
 
 		// Custom Code
 		if ($input->get('view') === 'article')
 		{
-			$result = $this->call('Article\CodeInsert::customCode', 'insertContentBottom');
+			$result = $this->call('Article\CodeInsert::customCode', CodeInsert::POSITION_AFTER_CONTENT);
 		}
 
 		// FB Like

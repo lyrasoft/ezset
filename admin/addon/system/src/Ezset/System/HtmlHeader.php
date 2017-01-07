@@ -8,6 +8,8 @@
 
 namespace Ezset\System;
 
+use Ezset\Core\CodeLoader;
+
 /**
  * The HtmlHeader class.
  *
@@ -16,37 +18,62 @@ namespace Ezset\System;
 class HtmlHeader
 {
 	/**
+	 * insertHeader
+	 *
+	 * @return  void
+	 */
+	public static function insertHeader()
+	{
+		$ezset = \Ezset::getInstance();
+
+		$header = $ezset->params->get('system.basic.InsertHeader', '');
+		$header = trim($header);
+
+		if (!\Ezset::hasHtmlHeader() || !$header)
+		{
+			return;
+		}
+
+		$body = $ezset->app->getBody();
+
+		$body = explode('</head>', $body);
+
+		$body[0] .= "\n" . CodeLoader::import(md5($ezset->app->get('secret') . 'header'), $header) . "\n";
+		$body = implode('</head>', $body);
+		
+		$ezset->app->setBody($body);
+	}
+
+	/**
 	 * setGenerator
 	 *
 	 * @return  void
 	 */
 	public static function setGenerator()
 	{
-		if (!\Ezset::hasHtmlHeader())
+		$generator = \Ezset::getInstance()->params->get('system.basic.Generator');
+
+		if (!$generator || !\Ezset::hasHtmlHeader())
 		{
 			return;
 		}
 
-		$params = \Ezset::getParams();
 		$doc = \JFactory::getDocument();
 
 		// Set Generator
-		if ($generator = $params->get('system.basic.Generator'))
-		{
-			$doc->setGenerator($generator);
-		}
+		$doc->setGenerator($generator);
 	}
 
 	/**
 	 * analytics
 	 *
-	 * @param   string $id
-	 *
 	 * @return  void
 	 */
-	public static function analytics($id)
+	public static function analytics()
 	{
-		if (!\Ezset::hasHtmlHeader())
+		$id = \Ezset::getInstance()->params->get('system.basic.GoogleAnalytics');
+
+		if (!$id || !\Ezset::hasHtmlHeader())
 		{
 			return;
 		}

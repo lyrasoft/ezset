@@ -24,8 +24,8 @@ class TemplatingListener extends AbstractEzsetListener
 	 */
 	public function onAfterDispatch()
 	{
-		/** @see \Ezset\Asset\Script::register */
-		$this->call('Asset\Script::register');
+		/** @see \Ezset\Asset\Asset::registerScripts */
+		$this->call('Asset\Asset::registerScripts');
 	}
 
 	/**
@@ -35,7 +35,8 @@ class TemplatingListener extends AbstractEzsetListener
 	 */
 	public function onAfterRender()
 	{
-		$this->call(array('Asset\\Style', 'register'));
+		/** @see \Ezset\Asset\Asset::registerStyles */
+		$this->call(array('Asset\Asset', 'registerStyles'));
 	}
 
 	/**
@@ -45,6 +46,7 @@ class TemplatingListener extends AbstractEzsetListener
 	 */
 	public function onBeforeCompileHead()
 	{
-		$this->call(array('Seo\\Document', 'favicon'));
+		/** @see \Ezset\Asset\Asset::favicon */
+		$this->call(array('Asset\Asset', 'favicon'));
 	}
 }

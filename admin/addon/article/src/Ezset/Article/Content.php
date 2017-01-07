@@ -8,6 +8,7 @@
 
 namespace Ezset\Article;
 
+use Ezset\Library\Uri\UriChecker;
 use PHPHtmlParser\Dom;
 use Windwalker\Helper\HtmlHelper;
 
@@ -27,9 +28,9 @@ class Content
 	 */
 	public static function tidyRepair($article)
 	{
-		$input = \JFactory::getApplication()->input;
+		$ezset = \Ezset::getInstance();
 
-		if ('com_content' != $input->get('option'))
+		if ('com_content' !== $ezset->input->get('option'))
 		{
 			return;
 		}
@@ -53,7 +54,7 @@ class Content
 	 */
 	public static function saveFirstImage($context, $article)
 	{
-		if (!property_exists($article, 'images') && $context != 'com_content.article')
+		if (!property_exists($article, 'images') && $context !== 'com_content.article')
 		{
 			return;
 		}
@@ -74,5 +75,29 @@ class Content
 		$image->set('image_intro', $imageSrc);
 
 		$article->images = $image->toString();
+	}
+
+	/**
+	 * confirmLeave
+	 *
+	 * @return  void
+	 */
+	public static function confirmLeave()
+	{
+		if (!UriChecker::isArticleEdit() || !\Ezset::hasHtmlHeader())
+		{
+			return;
+		}
+
+		\JHtmlBehavior::core();
+
+		$js = <<<JS
+jQuery(document).ready(function ($)
+{
+    Ezset.confirmLeave();
+});
+JS;
+
+		\Ezset::getInstance()->document->addScriptDeclaration($js);
 	}
 }

@@ -4,13 +4,13 @@
 		<fieldset name="setting">
 			<field name="Generator"
 				type="text"
-				label="PLG_SYSTEM_EZSET_GENERATOR"
-				description="PLG_SYSTEM_EZSET_GENERATOR_DESC" />
+				label="COM_EZSET_GENERATOR"
+				description="COM_EZSET_GENERATOR_DESC" />
 			<field
 				name="GoogleAnalytics"
 				type="text"
-				label="PLG_SYSTEM_EZSET_GOOGLE_ANALYTICS"
-				description="PLG_SYSTEM_EZSET_GOOGLE_ANALYTICS_DESC"
+				label="COM_EZSET_GOOGLE_ANALYTICS"
+				description="COM_EZSET_GOOGLE_ANALYTICS_DESC"
 				class=""
 				default=""
 			/>
@@ -21,8 +21,8 @@
 				type="codemirror"
 				filter="raw"
 				default=""
-				label="PLG_SYSTEM_EZSET_INCLUDE_HEADER"
-				description="PLG_SYSTEM_EZSET_INCLUDE_HEADER_DESC" />
+				label="COM_EZSET_INSERT_HEADER"
+				description="COM_EZSET_INSERT_HEADER_DESC" />
 		</fieldset>
 	</fields>
 
@@ -31,13 +31,13 @@
 			<field
 				name="AdminProtect"
 				type="list"
-				label="PLG_SYSTEM_EZSET_ADMIN_PROTECT"
-				description="PLG_SYSTEM_EZSET_ADMIN_PROTECT_DESC"
+				label="COM_EZSET_ADMIN_PROTECT"
+				description="COM_EZSET_ADMIN_PROTECT_DESC"
 			>
-				<option value="">JNO</option>
-				<option value="url">PLG_SYSTEM_EZSET_ADMIN_PROTECT_BY_URL</option>
-				<option value="auth">PLG_SYSTEM_EZSET_ADMIN_PROTECT_BY_HTTP_AUTH</option>
-				<option value="auth_user">PLG_SYSTEM_EZSET_ADMIN_PROTECT_BY_HTTP_AUTH_AND_USER</option>
+				<option value="">JDISABLED</option>
+				<option value="url">COM_EZSET_ADMIN_PROTECT_BY_URL</option>
+				<option value="auth">COM_EZSET_ADMIN_PROTECT_BY_HTTP_AUTH</option>
+				<option value="auth_user">COM_EZSET_ADMIN_PROTECT_BY_HTTP_AUTH_AND_USER</option>
 			</field>
 
 			<field
@@ -45,31 +45,29 @@
 				type="text"
 				default="ezset"
 				size="30"
-				label="PLG_SYSTEM_EZSET_ADMIN_PROTECT_CODE"
-				description="PLG_SYSTEM_EZSET_ADMIN_PROTECT_CODE_DESC"
+				label="COM_EZSET_ADMIN_PROTECT_CODE"
+				description="COM_EZSET_ADMIN_PROTECT_CODE_DESC"
 			/>
-
-			<field type="spacer" hr="true"/>
 		</fieldset>
 		<fieldset name="ip_block">
 			<field
 				name="IpBlock"
 				type="radio"
-				label="PLG_SYSTEM_EZSET_IP_BLOCK"
-				description="PLG_SYSTEM_EZSET_IP_BLOCK_DESC"
+				label="COM_EZSET_IP_BLOCK"
+				description="COM_EZSET_IP_BLOCK_DESC"
 				class="btn-group"
 				default="0"
 			>
 				<option value="0">JDISABLED</option>
-				<option value="allow">PLG_SYSTEM_EZSET_IP_BLOCK_ALLOW</option>
-				<option value="deny">PLG_SYSTEM_EZSET_IP_BLOCK_DENY</option>
+				<option value="allow">COM_EZSET_IP_BLOCK_ALLOW</option>
+				<option value="deny">COM_EZSET_IP_BLOCK_DENY</option>
 			</field>
 
 			<field
 				name="IpBlock_Client"
 				type="checkboxes"
-				label="PLG_SYSTEM_EZSET_IP_BLOCK_CLIENT"
-				description="PLG_SYSTEM_EZSET_IP_BLOCK_CLIENT_DESC"
+				label="COM_EZSET_IP_BLOCK_CLIENT"
+				description="COM_EZSET_IP_BLOCK_CLIENT_DESC"
 				class=""
 				default="0"
 			>
@@ -80,8 +78,8 @@
 			<field
 				name="IpBlock_Ips"
 				type="textarea"
-				label="PLG_SYSTEM_EZSET_IP_BLOCK_IPS"
-				description="PLG_SYSTEM_EZSET_IP_BLOCK_IPS_DESC"
+				label="COM_EZSET_IP_BLOCK_IPS"
+				description="COM_EZSET_IP_BLOCK_IPS_DESC"
 				class="span8"
 				rows="7"
 				default="localhost"
@@ -95,32 +93,32 @@
 				type="radio"
 				class="btn-group"
 				default="0"
-				label="PLG_SYSTEM_EZSET_CACHE_CONTROL_ENABLED"
-				description="PLG_SYSTEM_EZSET_CACHE_CONTROL_ENABLED_DESC">
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				label="COM_EZSET_CACHE_CONTROL_ENABLED"
+				description="COM_EZSET_CACHE_CONTROL_ENABLED_DESC">
+				<option value="1">JENABLED</option>
+				<option value="0">JDISABLED</option>
 			</field>
 			<field name="CacheControl_Type"
 				type="radio"
 				class="btn-group"
 				default="exclude"
-				label="PLG_SYSTEM_EZSET_CACHE_CONTROL_TYPE"
-				description="PLG_SYSTEM_EZSET_CACHE_CONTROL_TYPE_DESC">
-				<option value="exclude">PLG_SYSTEM_EZSET_CACHE_EXCLUDE</option>
-				<option value="include">PLG_SYSTEM_EZSET_CACHE_INCLUDE</option>
+				label="COM_EZSET_CACHE_CONTROL_TYPE"
+				description="COM_EZSET_CACHE_CONTROL_TYPE_DESC">
+				<option value="exclude">COM_EZSET_CACHE_EXCLUDE</option>
+				<option value="include">COM_EZSET_CACHE_INCLUDE</option>
 			</field>
 			<field name="CacheControl_Menus"
 				type="menuitem"
 				multiple="true"
 				size="15"
-				label="PLG_SYSTEM_EZSET_CACHE_CONTROL_MENUS"
-				description="PLG_SYSTEM_EZSET_CACHE_CONTROL_MENUS_DESC" />
+				label="COM_EZSET_CACHE_CONTROL_MENUS"
+				description="COM_EZSET_CACHE_CONTROL_MENUS_DESC" />
 			<field name="CacheControl_Queries"
 				type="textarea"
 				cols="45"
 				rows="8"
-				label="PLG_SYSTEM_EZSET_CACHE_CONTROL_QUERIES"
-				description="PLG_SYSTEM_EZSET_CACHE_CONTROL_QUERIES_DESC" />
+				label="COM_EZSET_CACHE_CONTROL_QUERIES"
+				description="COM_EZSET_CACHE_CONTROL_QUERIES_DESC" />
 		</fieldset>
 	</fields>
 	<fields name="development">
@@ -129,22 +127,94 @@
 				type="radio"
 				class="btn-group"
 				default="0"
-				label="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN"
-				description="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_DESC">
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				label="COM_EZSET_LANGUAGE_ORPHAN"
+				description="COM_EZSET_LANGUAGE_ORPHAN_DESC">
+				<option value="1">JENABLED</option>
+				<option value="0">JDISABLED</option>
 			</field>
 			<field name="LanguageOrphan_Path"
 				type="text"
 				default="logs/languages.ini"
-				label="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_PATH"
-				description="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_PATH_DESC" />
+				label="COM_EZSET_LANGUAGE_ORPHAN_PATH"
+				description="COM_EZSET_LANGUAGE_ORPHAN_PATH_DESC" />
 			<field name="LanguageOrphan_StripPrefixes"
 				type="number"
 				default="2"
 				class="input-small"
-				label="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_STRIP_PREFIXES"
-				description="PLG_SYSTEM_EZSET_LANGUAGE_ORPHAN_STRIP_PREFIXES_DESC" />
+				label="COM_EZSET_LANGUAGE_ORPHAN_STRIP_PREFIXES"
+				description="COM_EZSET_LANGUAGE_ORPHAN_STRIP_PREFIXES_DESC" />
+		</fieldset>
+	</fields>
+
+	<fields name="seo">
+		<fieldset name="robots">
+			<field
+				name="Robots"
+				cmd="seo.robots"
+				type="ajaxbutton"
+				label="COM_EZSET_SYSTEM_SEO_ROBOTS"
+				description="COM_EZSET_SYSTEM_ROBOTS_DESC"
+				class=""
+				default=""
+			/>
+		</fieldset>
+	</fields>
+
+	<fields name="config">
+		<fieldset name="configuration">
+			<field
+				name="Sef"
+				cmd="config.sef"
+				type="ajaxbutton"
+				label="COM_EZSET_SYSTEM_CONFIG_SEF"
+				description="COM_EZSET_SYSTEM_CONFIG_SEF_DESC"
+				class=""
+				default=""
+				/>
+
+			<field
+				name="ListLimit"
+				cmd="config.listlimit"
+				type="ajaxbutton"
+				label="COM_EZSET_SYSTEM_CONFIG_LIST_LIMIT"
+				description="COM_EZSET_SYSTEM_CONFIG_LIST_LIMIT_DESC"
+				class=""
+				default=""
+			/>
+
+			<field
+				name="LogTemp"
+				cmd="config.logtemp"
+				type="ajaxbutton"
+				label="COM_EZSET_SYSTEM_CONFIG_LOG_TEMP"
+				description="COM_EZSET_SYSTEM_CONFIG_LOG_TEMP_DESC"
+				class=""
+				default=""
+			/>
+
+			<field
+				name="SessionTime"
+				cmd="config.sessiontime"
+				type="ajaxbutton"
+				label="COM_EZSET_SYSTEM_CONFIG_SESSION_TIME"
+				description="COM_EZSET_SYSTEM_CONFIG_SESSION_TIME_DESC"
+				class=""
+				default=""
+			/>
+
+			<field
+				name="Timezone"
+				cmd="config.timezone"
+				type="ajaxtimezone"
+				target_selector="#jform_config_Timezone"
+				label="COM_EZSET_SYSTEM_CONFIG_TIMEZONE"
+				description="COM_EZSET_SYSTEM_CONFIG_TIMEZONE_DESC"
+				class=""
+				default=""
+			>
+				<option value="UTC">JLIB_FORM_VALUE_TIMEZONE_UTC</option>
+			</field>
+
 		</fieldset>
 	</fields>
 </form>

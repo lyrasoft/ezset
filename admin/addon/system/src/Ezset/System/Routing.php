@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later;
  */
 
-namespace Ezset\Route;
+namespace Ezset\System;
 
 use Windwalker\Utilities\ArrayHelper;
 
@@ -75,10 +75,15 @@ class Routing
 		}
 	}
 
+	/**
+	 * ipBlock
+	 *
+	 * @return  void
+	 */
 	public static function ipBlock()
 	{
 		$ezset = \Ezset::getInstance();
-		
+
 		$blockType = $ezset->params->get('ipBlock', 0);
 		
 		if (!$blockType)

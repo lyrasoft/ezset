@@ -53,6 +53,18 @@ abstract class AbstractEzsetListener extends \JEvent
 		$this->app    = \JFactory::getApplication();
 		$this->ezset  = \Ezset::getInstance();
 		$this->params = $this->ezset->params;
+
+		$this->init();
+	}
+
+	/**
+	 * init
+	 *
+	 * @return  void
+	 */
+	protected function init()
+	{
+		// Override it.
 	}
 
 	/**

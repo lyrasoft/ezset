@@ -1,0 +1,21 @@
+/* ASIKART EasySet Custom CSS System */
+
+/* GLOBAL */
+
+/* FRAMEWORK */
+
+/* BLOG LAYOUT */
+.ak_blog_img_wrap {
+    padding:0 15px 15px 0;
+    text-align:center;
+    float: left;
+}
+
+.ak_blog_intro {
+    padding:0 15px;
+    overflow: auto;
+}
+
+.asikart-fb-like {
+    padding:15px 0;
+}

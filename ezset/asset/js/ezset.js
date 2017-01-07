@@ -5,34 +5,10 @@ var Ezset = {
 
 	/**
 	 * Constructor
-	 *
-	 * @param {object} opt
-	 * @param {object} config
 	 */
-	init: function(opt, config)
+	init: function(config)
 	{
-		var self = this;
-
 		this.config = config;
-		this.options = opt;
-
-		if (this.options['smoothScroll'])
-		{
-			this.smoothScroll();
-		}
-
-		if (this.options['logoLink'])
-		{
-			this.logoLink();
-		}
-
-		if (this.options['confirmLeave'])
-		{
-			jQuery(document).ready(function()
-			{
-				self.confirmLeave();
-			});
-		}
 	},
 
 	/**
@@ -56,7 +32,7 @@ var Ezset = {
 
 		jQuery(window).on('beforeunload', function(e)
 		{
-			if (allowTasks.contains(task.val()))
+			if (allowTasks.indexOf(task.val()) != -1)
 			{
 				return;
 			}
@@ -64,7 +40,7 @@ var Ezset = {
 			// If we haven't been passed the event get the window.event
 			e = e || window.event;
 
-			var message = '文章編輯中...';
+			var message = Joomla.JText._('COM_EZSET_ARTICLE_EDIT_CONFIRM_LEAVE_MESSAGE');
 
 			// For IE6-8 and Firefox prior to version 4
 			if (e)

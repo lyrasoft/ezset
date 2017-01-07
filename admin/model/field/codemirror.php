@@ -35,15 +35,13 @@ class JFormFieldCodemirror extends JFormField
 		$editor = \JEditor::getInstance('codemirror');
 
 		$params['linenumbers'] = 1;
-		$params['tabmode']     = 'shift';
-		$params['width']     = 400;
-		$params['height']     = 300;
+		$params['tabmode'] = 'shift';
+		$params['width']   = 400;
+		$params['height']  = 300;
 
 		$doc = \JFactory::getDocument();
 		$doc->addStyleDeclaration(<<<CSS
-.CodeMirror
-{
-	w/idth: 700px;
+.CodeMirror {
 	height: 400px;
 }
 CSS

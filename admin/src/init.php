@@ -7,9 +7,10 @@
  */
 
 // No direct access
-use Ezset\Library\Addon\AddonHelper;
-
 defined('_JEXEC') or die;
+
+use Ezset\Library\Addon\AddonHelper;
+use Windwalker\Asset\AssetManager;
 
 $init = JPATH_LIBRARIES . '/windwalker/src/init.php';
 
@@ -56,9 +57,15 @@ if (is_file(EZSET_FRONT . '/src/init.php'))
 // Init Ezset first
 Ezset::getInstance();
 
+// Init addons
 foreach (AddonHelper::getAddons() as $addon)
 {
 	$addon->register();
 }
+
+// Register asset path
+AssetManager::getInstance('com_ezset')
+	->getPaths()
+	->insert('ezset/{type}', 900);
 
 return true;

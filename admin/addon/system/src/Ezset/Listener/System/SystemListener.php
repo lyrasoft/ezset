@@ -18,26 +18,30 @@ use Ezset\Listener\AbstractEzsetListener;
 class SystemListener extends AbstractEzsetListener
 {
 	/**
+	 * init
+	 *
+	 * @return  void
+	 */
+	protected function init()
+	{
+		/** @see \Ezset\System\Routing::ipBlock */
+		$this->call('System\Routing::ipBlock');
+
+		$this->call('System\Cache::prepareEzsetData', $this->ezset);
+	}
+
+	/**
 	 * onAfterInitialise
 	 *
 	 * @return  void
 	 */
 	public function onAfterInitialise()
 	{
-		/** @see \Ezset\Route\Routing::ipBlock */
-		$this->call('Route\Routing::ipBlock');
+		/** @see \Ezset\System\Routing::quickRouting */
+		$this->call('System\Routing::quickRouting');
 
-		/** @see \Ezset\Route\Routing::quickRouting */
-		$this->call('Route\Routing::quickRouting');
-
-		/** @see \Ezset\System\Command::execute */
-		$this->call('System\Command::execute');
-
-		if ($this->params->get('system.development.LanguageOrphan', 0))
-		{
-			/** @see \Ezset\System\Language::orphan */
-			$this->call('System\Language::orphan');
-		}
+		/** @see \Ezset\System\Language::orphan */
+		$this->call('System\Language::orphan');
 	}
 
 	/**
@@ -47,16 +51,14 @@ class SystemListener extends AbstractEzsetListener
 	 */
 	public function onAfterDispatch()
 	{
-		if ($this->params->get('system.security.AdminProtect'))
-		{
-			/** @see \Ezset\System\Secure::adminProtect */
-			$this->call('System\Secure::AdminProtect');
-		}
+		/** @see \Ezset\System\Secure::adminProtect */
+		$this->call('System\Secure::adminProtect');
 
-		if ($gaId = $this->params->get('GoogleAnalytics'))
-		{
-			$this->call(array('Seo\Document', 'analytics'), $gaId);
-		}
+		/** @see \Ezset\System\HtmlHeader::analytics */
+		$this->call('System\HtmlHeader::analytics');
+
+		/** @see \Ezset\System\HtmlHeader::setGenerator */
+		$this->call('System\HtmlHeader::setGenerator');
 	}
 
 	/**
@@ -68,12 +70,15 @@ class SystemListener extends AbstractEzsetListener
 	{
 		if ($this->app->get('caching', 0))
 		{
-			$this->call(array('System\\Cache', 'cacheEzsetData'), $this);
+			$this->call(array('System\Cache', 'cacheEzsetData'), $this);
 		}
 
 		if ($this->params->get('system.cache.CacheControl', 0) && $this->app->isSite())
 		{
-			$this->call(array('System\\Cache', 'manage'));
+			$this->call(array('System\Cache', 'manage'));
 		}
+
+		/** @see \Ezset\System\HtmlHeader::insertHeader */
+		$this->call('System\HtmlHeader::insertHeader');
 	}
 }

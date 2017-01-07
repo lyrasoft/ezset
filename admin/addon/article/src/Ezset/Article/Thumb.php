@@ -8,7 +8,6 @@
 
 namespace Ezset\Article;
 
-use Joomla\Registry\Registry;
 use PHPHtmlParser\Dom;
 use Windwalker\Helper\UriHelper;
 
@@ -30,7 +29,7 @@ class Thumb
 	 */
 	public static function autoThumb($context, $article, $params = null)
 	{
-		\JHtmlBehavior::modal();
+		\JHtmlBehavior::modal('a.ezset-modal');
 
 		$minimal = 30;
 
@@ -52,7 +51,7 @@ class Thumb
 			}
 
 			// If is anchor already, skip to next.
-			if ($img->parent->tag == 'a')
+			if (isset($img->parent->tag) && $img->parent->tag == 'a')
 			{
 				continue;
 			}
@@ -64,7 +63,7 @@ class Thumb
 			}
 
 			// If not localhost image, skip.
-			if (!strpos('-' . $imgUrl, \JURI::root()) && $es->params->get('onlyLocalhostThumb', 1))
+			if (!strpos('-' . $imgUrl, \JURI::root()) && $es->params->get('article.edit.AutoThumbnail_LocalOnly', 1))
 			{
 				continue;
 			}
@@ -97,10 +96,10 @@ class Thumb
 			$thumb    = new \Windwalker\Image\Thumb;
 			$img->src = $thumb->resize($imgUrl, $imgW, $imgH);
 
-			$imgtext = $img->outertext;
-			$imgtext = \JHtml::link($imgUrl, $imgtext, array('class' => 'modal'));
+			$imgtext = $img->outerHtml;
+			$imgtext = \JHtml::link($imgUrl, $imgtext, array('class' => 'ezset-modal'));
 
-			$img->outertext = $imgtext;
+			$img->setOuterHtml($imgtext);
 
 			$classes = null;
 		}

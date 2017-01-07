@@ -26,7 +26,7 @@ if (!is_file($file->getPath()))
 
 file_put_contents($file->getPathname(), $content);
 
-$response = new \Windwalker\View\Json\JsonBuffer(array('file' => $file->getPathname()), JText::_('PLG_SYSTEM_EZSET_SAVE_SUCCESS'));
+$response = new \Windwalker\View\Json\JsonBuffer(array('file' => $file->getPathname()), JText::_('COM_EZSET_SAVE_SUCCESS'));
 
 header('Content-Type: text/json');
 

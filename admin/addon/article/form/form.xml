@@ -6,28 +6,28 @@
 				default="0"
 				type="radio"
 				class="btn-group"
-				label="PLG_SYSTEM_EZSET_TIDY_REPAIR"
-				description="PLG_SYSTEM_EZSET_TIDY_REPAIR_DESC">
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				label="COM_EZSET_ARTICLE_TIDY_REPAIR"
+				description="COM_EZSET_ARTICLE_TIDY_REPAIR_DESC">
+				<option value="1">JENABLED</option>
+				<option value="0">JDISABLED</option>
 			</field>
 			<field name="ConfirmLeave"
 				default="0"
 				type="radio"
 				class="btn-group"
-				label="PLG_SYSTEM_EZSET_CONFIRM_LEAVE"
-				description="PLG_SYSTEM_EZSET_CONFIRM_LEAVE_DESC">
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				label="COM_EZSET_ARTICLE_CONFIRM_LEAVE"
+				description="COM_EZSET_ARTICLE_CONFIRM_LEAVE_DESC">
+				<option value="1">JENABLED</option>
+				<option value="0">JDISABLED</option>
 			</field>
 			<field name="SaveFirstImage"
 				default="0"
 				type="radio"
 				class="btn-group"
-				label="PLG_SYSTEM_EZSET_SAVE_FIRST_ARTICLE_IMAGE"
-				description="PLG_SYSTEM_EZSET_SAVE_FIRST_ARTICLE_IMAGE_DESC">
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				label="COM_EZSET_ARTICLE_SAVE_FIRST_IMAGE"
+				description="COM_EZSET_ARTICLE_SAVE_FIRST_IMAGE_DESC">
+				<option value="1">JENABLED</option>
+				<option value="0">JDISABLED</option>
 			</field>
 		</fieldset>
 
@@ -36,17 +36,17 @@
 				default="0"
 				type="radio"
 				class="btn-group"
-				label="PLG_SYSTEM_EZSET_AUTO_THUMB"
-				description="PLG_SYSTEM_EZSET_AUTO_THUMB_DESC">
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				label="COM_EZSET_ARTICLE_AUTO_THUMB"
+				description="COM_EZSET_ARTICLE_AUTO_THUMB_DESC">
+				<option value="1">JENABLED</option>
+				<option value="0">JDISABLED</option>
 			</field>
 			<field name="AutoThumbnail_LocalOnly"
 				default="1"
 				type="radio"
 				class="btn-group"
-				label="PLG_SYSTEM_EZSET_ONLY_LOCAL_THUMB"
-				description="PLG_SYSTEM_EZSET_ONLY_LOCAL_THUMB_DESC">
+				label="COM_EZSET_ARTICLE_AUTO_THUMB_LOCAL_ONLY"
+				description="COM_EZSET_ARTICLE_AUTO_THUMB_LOCAL_ONLY_DESC">
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
@@ -59,22 +59,22 @@
 				default="0"
 				type="radio"
 				class="btn-group"
-				label="PLG_SYSTEM_EZSET_BLOG_SIMPLE_LAYOUT"
-				description="PLG_SYSTEM_EZSET_BLOG_SIMPLE_LAYOUT_DESC">
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				label="COM_EZSET_BLOG_SIMPLE_LAYOUT"
+				description="COM_EZSET_BLOG_SIMPLE_LAYOUT_DESC">
+				<option value="1">JENABLED</option>
+				<option value="0">JDISABLED</option>
 			</field>
 			<field name="SimpleLayout_ImageWidth"
 				default="150"
 				type="text"
-				label="PLG_SYSTEM_EZSET_BLOG_VIEW_IMG_WIDTH"
-				description="PLG_SYSTEM_EZSET_BLOG_VIEW_IMG_WIDTH_DESC" />
-			<field name="blogViewImgCrop"
+				label="COM_EZSET_BLOG_SIMPLE_LAYOUT_IMAGE_WIDTH"
+				description="COM_EZSET_BLOG_SIMPLE_LAYOUT_IMAGE_WIDTH_DESC" />
+			<field name="SimpleLayout_ImageCrop"
 				default="0"
 				type="radio"
 				class="btn-group"
-				label="PLG_SYSTEM_EZSET_BLOG_VIEW_IMG_CROP"
-				description="PLG_SYSTEM_EZSET_BLOG_VIEW_IMG_CROP_DESC">
+				label="COM_EZSET_BLOG_SIMPLE_LAYOUT_IMAGE_CROP"
+				description="COM_EZSET_BLOG_SIMPLE_LAYOUT_IMAGE_CROP_DESC">
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
@@ -82,28 +82,28 @@
 				default=""
 				type="media"
 				class="btn-group"
-				label="PLG_SYSTEM_EZSET_BLOG_VIEW_IMG_DEFAULT"
-				description="PLG_SYSTEM_EZSET_BLOG_VIEW_IMG_DEFAULT_DESC"
+				label="COM_EZSET_BLOG_SIMPLE_LAYOUT_DEFAULT_IMAGE"
+				description="COM_EZSET_BLOG_SIMPLE_LAYOUT_DEFAULT_IMAGE_DESC"
 			/>
 			<field name="SimpleLayout_Summery_StripeHtml"
 				default="0"
 				type="radio"
 				class="btn-group"
-				label="PLG_SYSTEM_EZSET_BLOG_VIEW_CLEAN_TAGS"
-				description="PLG_SYSTEM_EZSET_BLOG_VIEW_CLEAN_TAGS_DESC">
+				label="COM_EZSET_BLOG_SIMPLE_LAYOUT_SUMMERY_STRIP_HTML"
+				description="COM_EZSET_BLOG_SIMPLE_LAYOUT_SUMMERY_STRIP_HTML_DESC">
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
 			<field name="SimpleLayout_Summery_AllowHtmlTags"
 				type="text"
 				filter="raw"
-				label="PLG_SYSTEM_EZSET_BLOG_VIEW_TAGS_ALLOW"
-				description="PLG_SYSTEM_EZSET_BLOG_VIEW_TAGS_ALLOW_DESC" />
+				label="COM_EZSET_BLOG_SIMPLE_LAYOUT_SUMMERY_STRIP_HTML_TAGS"
+				description="COM_EZSET_BLOG_SIMPLE_LAYOUT_SUMMERY_STRIP_HTML_TAGS_DESC" />
 			<field name="SimpleLayout_Summery_MaxLength"
 				default="250"
 				type="text"
-				label="PLG_SYSTEM_EZSET_BLOG_VIEW_MAX_CHAR"
-				description="PLG_SYSTEM_EZSET_BLOG_VIEW_MAX_CHAR" />
+				label="COM_EZSET_BLOG_SIMPLE_LAYOUT_SUMMERY_MAX_LENGTH"
+				description="COM_EZSET_BLOG_SIMPLE_LAYOUT_SUMMERY_MAX_LENGTH_DESC" />
 		</fieldset>
 	</fields>
 
@@ -113,27 +113,27 @@
 				default="0"
 				type="radio"
 				class="btn-group"
-				label="PLG_SYSTEM_EZSET_TRAN_ALIAS"
-				description="PLG_SYSTEM_EZSET_TRAN_ALIAS_DESC">
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				label="COM_EZSET_ARTICLE_TRAN_ALIAS"
+				description="COM_EZSET_ARTICLE_TRAN_ALIAS_DESC">
+				<option value="1">JENABLED</option>
+				<option value="0">JDISABLED</option>
 			</field>
 			<field name="AliasTranslate_OriginLang"
 				default=""
 				type="text"
-				label="PLG_SYSTEM_EZSET_ORIGIN_LAN"
-				description="PLG_SYSTEM_EZSET_ORIGIN_LAN_DESC" />
+				label="COM_EZSET_ARTICLE_TRAN_ALIAS_ORIGIN_LANG"
+				description="COM_EZSET_ARTICLE_TRAN_ALIAS_ORIGIN_LANG_DESC" />
 			<field name="AliasTranslate_TargetLang"
 				default=""
 				type="text"
-				label="PLG_SYSTEM_EZSET_TRAN_LAN"
-				description="PLG_SYSTEM_EZSET_TRAN_LAN_DESC" />
+				label="COM_EZSET_ARTICLE_TRAN_ALIAS_TARGET_LANG"
+				description="COM_EZSET_ARTICLE_TRAN_ALIAS_TARGET_LANG_DESC" />
 			<field name="AliasTranslate_GoogleApiKey"
 				default=""
 				type="text"
 				class="input-xlarge"
-				label="PLG_SYSTEM_EZSET_ALIAS_TRANSLATE_GOOGLE_API_KEY"
-				description="PLG_SYSTEM_EZSET_ALIAS_TRANSLATE_GOOGLE_API_KEY_DESC" />
+				label="COM_EZSET_ARTICLE_TRAN_ALIAS_GOOGLE_API_KEY"
+				description="COM_EZSET_ARTICLE_TRAN_ALIAS_GOOGLE_API_KEY_DESC" />
 		</fieldset>
 
 		<fieldset name="seo_meta">
@@ -141,36 +141,36 @@
 				default="0"
 				type="radio"
 				class="btn-group"
-				label="PLG_SYSTEM_EZSET_SEO"
-				description="PLG_SYSTEM_EZSET_SEO_DESC">
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				label="COM_EZSET_ARTICLE_SEO"
+				description="COM_EZSET_ARTICLE_SEO_DESC">
+				<option value="1">JENABLED</option>
+				<option value="0">JDISABLED</option>
 			</field>
 			<field name="SeoMeta_TitleFix"
 				default="{%TITLE%} | {%SITE%}"
 				type="text"
 				size="50"
-				label="PLG_SYSTEM_EZSET_TITLE_FIX"
-				description="PLG_SYSTEM_EZSET_TITLE_FIX_DESC" />
+				label="COM_EZSET_ARTICLE_SEO_TITLE_FIX"
+				description="COM_EZSET_ARTICLE_SEO_TITLE_FIX_DESC" />
 			<field name="SeoMeta_TitleFix_Separator"
 				default="|"
 				type="text"
-				label="PLG_SYSTEM_EZSET_TITLE_SEPARATOR"
-				description="PLG_SYSTEM_EZSET_TITLE_SEPARATOR_DESC" />
+				label="COM_EZSET_ARTICLE_SEO_TITLE_SEPARATOR"
+				description="COM_EZSET_ARTICLE_SEO_TITLE_SEPARATOR_DESC" />
 			<field name="SeoMeta_AutoGetMeta"
 				default="0"
 				type="radio"
 				class="btn-group"
-				label="PLG_SYSTEM_EZSET_GET_META"
-				description="PLG_SYSTEM_EZSET_GET_META_DESC">
+				label="COM_EZSET_ARTICLE_SEO_GET_META"
+				description="COM_EZSET_ARTICLE_SEO_GET_META_DESC">
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
 			<field name="SeoMeta_AutoGetMeta_Length"
 				default="250"
 				type="text"
-				label="PLG_SYSTEM_EZSET_MAX_META_CHAR"
-				description="PLG_SYSTEM_EZSET_MAX_META_CHAR_DESC" />
+				label="COM_EZSET_ARTICLE_SEO_GET_META_LENGTH"
+				description="COM_EZSET_ARTICLE_SEO_GET_META_LENGTH_DESC" />
 		</fieldset>
 	</fields>
 
@@ -180,23 +180,23 @@
 				type="radio"
 				class="btn-group"
 				default="0"
-				label="PLG_SYSTEM_EZSET_OG"
-				description="PLG_SYSTEM_EZSET_OG_DESC">
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				label="COM_EZSET_OPENGRAPH"
+				description="COM_EZSET_OPENGRAPH_DESC">
+				<option value="1">JENABLED</option>
+				<option value="0">JDISABLED</option>
 			</field>
 			<field name="Opengraph_DefaultImage"
 				type="media"
 				directory="images"
 				default=""
-				label="PLG_SYSTEM_EZSET_OG_DEFAULT_IMAGE"
-				description="PLG_SYSTEM_EZSET_OG_DEFAULT_IMAGE_DESC" />
+				label="COM_EZSET_OPENGRAPH_DEFAULT_IMAGE"
+				description="COM_EZSET_OPENGRAPH_DEFAULT_IMAGE_DESC" />
 			<field name="Opengraph_DefaultImage_HomeOnly"
 				type="radio"
 				class="btn-group"
 				default="1"
-				label="PLG_SYSTEM_EZSET_OG_DEFAULT_IMAGE_ONLY_FRONTPAGE"
-				description="PLG_SYSTEM_EZSET_OG_DEFAULT_IMAGE_ONLY_FRONTPAGE_DESC">
+				label="COM_EZSET_OPENGRAPH_DEFAULT_IMAGE_HOME_ONLY"
+				description="COM_EZSET_OPENGRAPH_DEFAULT_IMAGE_HOME_ONLY_DESC">
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
@@ -204,8 +204,8 @@
 				type="radio"
 				class="btn-group"
 				default="1"
-				label="PLG_SYSTEM_EZSET_OG_GET_INNERPAGE_IMAGE"
-				description="PLG_SYSTEM_EZSET_OG_GET_INNERPAGE_IMAGE_DESC">
+				label="COM_EZSET_OPENGRAPH_GET_ARTICLE_IMAGE"
+				description="COM_EZSET_OPENGRAPH_GET_ARTICLE_IMAGE_DESC">
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
@@ -213,15 +213,15 @@
 				type="number"
 				default="1"
 				class="input-small"
-				label="PLG_SYSTEM_EZSET_OG_GET_INNERPAGE_IMAGE_COUNT"
-				description="PLG_SYSTEM_EZSET_OG_GET_INNERPAGE_IMAGE_COUNT_DESC"
+				label="COM_EZSET_OPENGRAPH_GET_ARTICLE_IMAGE_MAX"
+				description="COM_EZSET_OPENGRAPH_GET_ARTICLE_IMAGE_MAX_DESC"
 			/>
 			<field name="Opengraph_OnlyTitle"
 				type="radio"
 				class="btn-group"
 				default="1"
-				label="PLG_SYSTEM_EZSET_OG_ONLY_TITLE"
-				description="PLG_SYSTEM_EZSET_OG_ONLY_TITLE_DESC">
+				label="COM_EZSET_OPENGRAPH_ONLY_TITLE"
+				description="COM_EZSET_OPENGRAPH_ONLY_TITLE_DESC">
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
@@ -229,23 +229,20 @@
 				default=""
 				type="text"
 				size="30"
-				label="PLG_SYSTEM_EZSET_OG_ADMIN"
-				description="PLG_SYSTEM_EZSET_OG_ADMIN_DESC" />
+				label="COM_EZSET_OPENGRAPH_ADMIN_ID"
+				description="COM_EZSET_OPENGRAPH_ADMIN_ID_DESC" />
 			<field name="Opengraph_PageID"
 				default=""
 				type="text"
 				size="30"
-				label="PLG_SYSTEM_EZSET_OG_PAGE"
-				description="PLG_SYSTEM_EZSET_OG_PAGE_DESC" />
+				label="COM_EZSET_OPENGRAPH_PAGE_ID"
+				description="COM_EZSET_OPENGRAPH_PAGE_ID_DESC" />
 			<field name="Opengraph_AppID"
 				default=""
 				type="text"
 				size="30"
-				label="PLG_SYSTEM_EZSET_OG_APP"
-				description="PLG_SYSTEM_EZSET_OG_APP_DESC" />
-			<field type="spacer"
-				hr="true"
-				description="PLG_SYSTEM_EZSET_" />
+				label="COM_EZSET_OPENGRAPH_APP_ID"
+				description="COM_EZSET_OPENGRAPH_APP_ID_DESC" />
 		</fieldset>
 
 		<fieldset name="like_button">
@@ -253,17 +250,17 @@
 				type="radio"
 				class="btn-group"
 				default="0"
-				label="PLG_SYSTEM_EZSET_FB_LIKE"
-				description="PLG_SYSTEM_EZSET_FB_LIKE">
-				<option value="1">JYES</option>
-				<option value="0">JNO</option>
+				label="COM_EZSET_FB_LIKE_BUTTON"
+				description="COM_EZSET_FB_LIKE_BUTTON_DESC">
+				<option value="1">JENABLED</option>
+				<option value="0">JDISABLED</option>
 			</field>
 			<field name="Fb_LikeButton_OnBlogLayout"
 				type="radio"
 				class="btn-group"
 				default="0"
-				label="PLG_SYSTEM_EZSET_FB_LIKE_ON_BLOG"
-				description="PLG_SYSTEM_EZSET_FB_LIKE_ON_BLOG_DESC">
+				label="COM_EZSET_FB_LIKE_BUTTON_ON_BLOG"
+				description="COM_EZSET_FB_LIKE_BUTTON_ON_BLOG_DESC">
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
@@ -271,11 +268,11 @@
 				type="radio"
 				class="btn-group"
 				default="3"
-				label="PLG_SYSTEM_EZSET_FB_LIKE_POSITION"
-				description="PLG_SYSTEM_EZSET_FB_LIKE_POSITION_DESC">
-				<option value="1">PLG_SYSTEM_EZSET_AFTER_TITLE</option>
-				<option value="2">PLG_SYSTEM_EZSET_AFTER_CONTENT</option>
-				<option value="3">PLG_SYSTEM_EZSET_BOTH</option>
+				label="COM_EZSET_FB_LIKE_BUTTON_POSITION"
+				description="COM_EZSET_FB_LIKE_BUTTON_POSITION_DESC">
+				<option value="1">COM_EZSET_FB_LIKE_BUTTON_POSITION_AFTER_TITLE</option>
+				<option value="2">COM_EZSET_FB_LIKE_BUTTON_POSITION_AFTER_CONTENT</option>
+				<option value="3">COM_EZSET_FB_LIKE_BUTTON_POSITION_BOTH</option>
 			</field>
 		</fieldset>
 	</fields>
@@ -285,8 +282,8 @@
 			<field name="CodeInsert_Root"
 				type="text"
 				default="ezset/code"
-				label="PLG_SYSTEM_EZSET_INPUT_CODE_BASE"
-				description="PLG_SYSTEM_EZSET_INPUT_CODE_BASE_DESC" />
+				label="COM_EZSET_CODE_INSERT_ROOT"
+				description="COM_EZSET_CODE_INSERT_ROOT_DESC" />
 		</fieldset>
 
 		<fieldset name="custom_code">
@@ -294,43 +291,75 @@
 				type="codemirror"
 				filter="raw"
 				default=""
-				label="PLG_SYSTEM_EZSET_INCLUDE_ARTICLE_TOP"
-				description="PLG_SYSTEM_EZSET_INCLUDE_ARTICLE_TOP_DESC" />
+				label="COM_EZSET_CUSTOM_CODE_BEFORE_TITLE"
+				description="COM_EZSET_CUSTOM_CODE_BEFORE_TITLE_DESC" />
 			<field name="CustomCode_AfterTitle"
 				type="codemirror"
 				filter="raw"
 				default=""
-				label="PLG_SYSTEM_EZSET_INCLUDE_TITLE_BOTTOM"
-				description="PLG_SYSTEM_EZSET_INCLUDE_TITLE_BOTTOM_DESC" />
+				label="COM_EZSET_CUSTOM_CODE_AFTER_TITLE"
+				description="COM_EZSET_CUSTOM_CODE_AFTER_TITLE_DESC" />
 			<field name="CustomCode_BeforeContent"
 				type="codemirror"
 				filter="raw"
 				default=""
-				label="PLG_SYSTEM_EZSET_INCLUDE_CONTENT_TOP"
-				description="PLG_SYSTEM_EZSET_INCLUDE_CONTENT_TOP_DESC" />
+				label="COM_EZSET_CUSTOM_CODE_BEFORE_CONTENT"
+				description="COM_EZSET_CUSTOM_CODE_BEFORE_CONTENT_DESC" />
 			<field name="CustomCode_AfterContent"
 				type="codemirror"
 				filter="raw"
 				default=""
-				label="PLG_SYSTEM_EZSET_INCLUDE_CONTENT_BOTTOM"
-				description="PLG_SYSTEM_EZSET_INCLUDE_CONTENT_BOTTOM_DESC" />
-			<field type="spacer"
-				hr="true"
-				description="" />
+				label="COM_EZSET_CUSTOM_CODE_AFTER_CONTENT"
+				description="COM_EZSET_CUSTOM_CODE_AFTER_CONTENT_DESC" />
+			<field type="spacer" hr="true" />
 			<field name="CustomCode_OnBlogLayout"
 				type="radio"
 				class="btn-group"
 				default="1"
-				label="PLG_SYSTEM_EZSET_SHOW_ON_BLOG"
-				description="PLG_SYSTEM_EZSET_SHOW_ON_BLOG_DESC">
+				label="COM_EZSET_CUSTOM_CODE_ON_BLOG"
+				description="COM_EZSET_CUSTOM_CODE_ON_BLOG_DESC">
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			</field>
 			<field name="CustomCode_OnBlogLayout_Max"
 				type="text"
 				default="3"
-				label="PLG_SYSTEM_EZSET_SHOW_NUMBER"
-				description="PLG_SYSTEM_EZSET_SHOW_NUMBER_DESC" />
+				label="COM_EZSET_CUSTOM_CODE_ON_BLOG_MAX"
+				description="COM_EZSET_CUSTOM_CODE_ON_BLOG_MAX_DESC" />
+		</fieldset>
+	</fields>
+
+	<fields name="layout">
+		<fieldset name="config">
+			<field
+				name="Preset_Blog"
+				type="ajaxbutton"
+				cmd="layout.preset_blog"
+				label="COM_EZSET_ARTICLE_LAYOUT_PRESET_BLOG"
+				description="COM_EZSET_ARTICLE_LAYOUT_PRESET_BLOG_DESC"
+				class=""
+				default=""
+				/>
+
+			<field
+				name="Preset_Simple"
+				type="ajaxbutton"
+				cmd="layout.preset_simple"
+				label="COM_EZSET_ARTICLE_LAYOUT_PRESET_SIMPLE"
+				description="COM_EZSET_ARTICLE_LAYOUT_PRESET_SIMPLE_DESC"
+				class=""
+				default=""
+			/>
+
+			<field
+				name="Preset_Default"
+				type="ajaxbutton"
+				cmd="layout.preset_blog"
+				label="COM_EZSET_ARTICLE_LAYOUT_PRESET_DEFAULT"
+				description="COM_EZSET_ARTICLE_LAYOUT_PRESET_DEFAULT_DESC"
+				class=""
+				default=""
+			/>
 		</fieldset>
 	</fields>
 </form>

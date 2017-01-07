@@ -1,1 +1,1 @@
-DROP TABLE  `#__ezset_configs`;
+DROP TABLE  `#__ezset_addons`;

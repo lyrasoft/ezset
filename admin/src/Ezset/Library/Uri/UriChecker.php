@@ -28,7 +28,7 @@ abstract class UriChecker
 	 */
 	public static function check($queries)
 	{
-		if ($queries instanceof \ArrayAccess)
+		if ($queries instanceof \Traversable)
 		{
 			$queries = iterator_to_array($queries);
 		}

@@ -99,4 +99,24 @@ class HtmlHeader
 			}
 		}
 	}
+
+	/**
+	 * addBeforeHeadEnd
+	 *
+	 * @param  string $content
+	 *
+	 * @return  void
+	 */
+	public static function appendHead($content)
+	{
+		$app = \JFactory::getApplication();
+		$body  = $app->getBody();
+		$body  = explode('</head>', $body, 2);
+
+		$body[0] .= $content . "\n";
+
+		$body = implode('</head>', $body);
+
+		$app->setBody($body);
+	}
 }

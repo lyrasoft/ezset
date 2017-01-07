@@ -1,19 +1,19 @@
 
-CREATE TABLE IF NOT EXISTS `#__ezset_configs` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
-  `title` varchar(255) NOT NULL COMMENT 'Record title',
-  `alias` varchar(255) NOT NULL COMMENT 'URL Alias',
-  `introtext` mediumtext NOT NULL COMMENT 'Intro',
-  `fulltext` mediumtext NOT NULL COMMENT 'Full content',
-  `images` text NOT NULL COMMENT 'Images',
-  `created` datetime NOT NULL COMMENT 'Created time',
-  `created_by` int(11) NOT NULL COMMENT 'Author',
-  `modified` datetime NOT NULL COMMENT 'Modified time',
-  `modified_by` int(11) NOT NULL COMMENT 'Modified user',
-  `state` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'Record state',
-  `params` text NOT NULL COMMENT 'Params',
-  PRIMARY KEY (`id`),
-  KEY `idx_access` (`access`),
-  KEY `idx_alias` (`alias`),
-  KEY `idx_created_by` (`created_by`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+CREATE TABLE IF NOT EXISTS `#__ezset_addons` (
+  `id` int(11) NOT NULL,
+  `name` char(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `state` tinyint(1) NOT NULL,
+  `ordering` int(11) NOT NULL,
+  `manifest` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `params` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `protect` tinyint(1) NOT NULL,
+  `path` varchar(255) NOT NULL,
+  `client` char(20) NOT NULL,
+  `access` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `#__ezset_addons`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `state` (`state`),
+  ADD KEY `element` (`name`),
+  ADD KEY `access` (`access`);

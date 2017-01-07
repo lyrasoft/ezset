@@ -9,6 +9,7 @@
 namespace Ezset\Library\Provider;
 
 use Joomla\DI\Container;
+use Windwalker\Asset\AssetManager;
 use Windwalker\DI\ServiceProvider;
 
 // No direct access
@@ -27,6 +28,8 @@ class EzsetProvider extends ServiceProvider
 	 * @param   Container $container The DI container.
 	 *
 	 * @return  Container  Returns itself to support chaining.
+	 *
+	 * @throws \InvalidArgumentException
 	 */
 	public function register(Container $container)
 	{

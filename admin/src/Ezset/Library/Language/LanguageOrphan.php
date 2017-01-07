@@ -16,6 +16,23 @@ namespace Ezset\Library\Language;
 class LanguageOrphan
 {
 	/**
+	 * Property path.
+	 *
+	 * @var  string
+	 */
+	protected $path;
+
+	/**
+	 * LanguageOrphan constructor.
+	 *
+	 * @param string $path
+	 */
+	public function __construct($path)
+	{
+		$this->path = $path;
+	}
+
+	/**
 	 * Class destructor.
 	 */
 	public function __destruct()
@@ -27,8 +44,7 @@ class LanguageOrphan
 		$es      = \Ezset::getInstance();
 
 		// Get file
-		$path = JPATH_ROOT . '/' . $es->get('system.development.LanguageOrphan_Path', 'logs/languages.ini');
-		$path = \JPath::clean($path);
+		$path = \JPath::clean($this->path);
 		$file = '';
 
 		if (\JFile::exists($path))
@@ -38,7 +54,7 @@ class LanguageOrphan
 
 		// Set ini into registry, then convert to object
 		$old = new \JRegistry;
-		$old->loadString($file, 'INI', array('processSections' => 'true'));
+		$old->loadString($file, 'ini', array('processSections' => 'true'));
 		$old = $old->toObject();
 
 		// Remove translated key
@@ -59,7 +75,7 @@ class LanguageOrphan
 		}
 
 		// Get orphan keys
-		$obj = new \JObject;
+		$obj = new \stdClass;
 		$stripes = (int) $es->get('system.development.LanguageOrphan_StripPrefixes', 2);
 
 		foreach ($orphans as $k => $v)
@@ -72,12 +88,12 @@ class LanguageOrphan
 			$lang = array_slice($key, $stripes);
 			$lang = ucwords(strtolower(implode(' ', $lang)));
 
-			if (!$obj->get($context))
+			if (!isset($obj->$context))
 			{
-				$obj->set($context, new \JObject);
+				$obj->$context = new \stdClass;
 			}
 
-			$obj->$context->set($k, $lang);
+			$obj->$context->$k = $lang;
 		}
 
 		// Merge ini and orphans

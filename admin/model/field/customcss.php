@@ -5,6 +5,9 @@
  * @license        GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+use Windwalker\Asset\AssetManager;
+use Windwalker\Helper\XmlHelper;
+
 defined('JPATH_BASE') or die;
 
 jimport('joomla.form.formfield');
@@ -39,17 +42,15 @@ class JFormFieldCustomcss extends JFormField
 	 */
 	protected function getInput()
 	{
-		$plugin = JPluginHelper::isEnabled('system', 'ezset');
-
-		if (!$plugin)
+		if (!JPluginHelper::isEnabled('system', 'ezset'))
 		{
-			return print_r($plugin, 1) . '需要先啟動外掛！';
+			return JText::_('COM_EZSET_MESSAGE_MUST_ENABLE_PLUGIN_FIRST');
 		}
 
 		$this->loadScript();
 
 		$editor = \JEditor::getInstance('codemirror');
-		$client = \Windwalker\Helper\XmlHelper::get($this->element, 'client', 'site');
+		$client = XmlHelper::get($this->element, 'client', 'site');
 
 		$content = $this->getContent($client);
 
@@ -69,14 +70,16 @@ class JFormFieldCustomcss extends JFormField
 CSS
 );
 
-		$save = JText::_('PLG_SYSTEM_EZSET_SAVE');
+		$save = JText::_('PLG_EZSET_BUTTON_SAVE');
 
 		$output = $editor->display($this->name, $content, '400px', '400px', 400, 400, false, null, null, null, $params);
 		$output = <<<HTML
 <fieldset class="adminform custom-css-field">
 	<div style="margin-bottom: 25px;" class="custom-css-toolbar">
 		<button class="btn btn-default" type="button" data-client="{$client}"
-			onclick="EzsetCustomCSS.save('#{$this->id}', '{$this->name}', this, event);"><i class="icon-save"></i> {$save}</button>
+			onclick="EzsetCustomCSS.save('#{$this->id}', '{$this->name}', this, event);">
+			<i class="icon-save"></i> {$save}
+		</button>
 	</div>
 	<div style="height: 400px; margin-bottom: 30px;">{$output}</div>
 </fieldset>
@@ -123,18 +126,18 @@ HTML;
 			return;
 		}
 
+		JText::script('COM_EZSET_SAVE_SUCCESS');
+
 		$session = JFactory::getSession();
 		$token = $session->getFormToken();
 
-		$doc = JFactory::getDocument();
-		$doc->addScript(JUri::root(true) . '/plugins/system/ezset/asset/js/customcss.js');
-		$doc->addScriptDeclaration(<<<SC
+		$asset = AssetManager::getInstance('com_ezset');
+		$asset->addJS('customcss.js');
+		$asset->internalJS(<<<SC
 ;EzsetCustomCSS.init('{$token}');
 SC
 );
 
 		static::$scriptInited = true;
-
-		return;
 	}
 }

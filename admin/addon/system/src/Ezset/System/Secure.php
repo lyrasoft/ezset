@@ -37,6 +37,11 @@ class Secure
 		$mode    = $es->get('system.security.AdminProtect');
 		$code    = $es->get('system.security.AdminProtect_Code');
 
+		if (!$es)
+		{
+			return;
+		}
+
 		if (! $app->isAdmin()
 			|| !$mode
 			|| !$code
